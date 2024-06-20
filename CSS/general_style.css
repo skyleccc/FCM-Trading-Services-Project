@@ -1,8 +1,8 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
     -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
@@ -25,6 +25,20 @@ a {
     text-decoration: underline;
     font-weight: 500;
 }
+
+.h100-w50 {height: 100%; width: 50%;}
+.h50-w100 {height: 50%; width: 100%;}
+.h100-w25 {height: 100%; width: 25%;}
+.h50-w50 {height: 50%; width: 50%;}
+
+.flex-rightmiddle{display: flex; justify-content: flex-end;  align-items: center;}
+.flex-leftmiddle{display: flex; justify-content: flex-start;  align-items: center;}
+
+.text-middlecenter{vertical-align: middle; text-align: center;}
+.text-middleleft{vertical-align: middle; text-align: left;}
+.bold{font-weight: 550;}
+
+
 
 
 /* BORDERS */

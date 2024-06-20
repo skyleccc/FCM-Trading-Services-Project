@@ -1,3 +1,8 @@
+.page{
+   width: 100%;
+   height: 100%; 
+}
+
 #navigationBar {
     height: 80px;
     width: 100%;
@@ -76,12 +81,10 @@
 
 #homePage .header{
     font-size: 64px;
-    font-weight: normal;
+    font-weight: 700;
 }
 
 #homePage_intro {
-    height: 100%;
-    width: 100%;
     border: 1px solid white;
 
     background-image: url("https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png");
@@ -113,26 +116,53 @@
 }
 
 #homePage_statistics{
-    width: 100%;
-    height: 100%;
     padding: 5%;
 }
 
 #statistics_text{
     height: 50%;
     width: 100%;
+    display: flex
 }
 
 #statistics_header{
     color: rgb(83, 183, 111);
-    font-weight: normal;
-    width: 50%;
 }
-
 
 #statistics_content{
     margin-top: 10px;
-    width: 50%;
+}
+
+#statistics_number {
+    text-align: right;
+    padding: 10px;
+}
+
+#statistics_number .circle_pictureframe{
+    width: 100px;
+    height: 100px;
+    background-color: rgb(42, 54, 63);
+    border-radius: 50%;
+    padding: 10px;
+    
+}
+
+#statistics_number .circle_pictureframe img{
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+#statistics_number .large{
+    font-size: xx-large;
+}
+
+#statistics_number .margin{
+    margin: 5px;
+}
+
+#statistics_number .container{
+    width: 275px;
 }
 
 #statistics_trusted_clients{
@@ -150,18 +180,10 @@
 
 #trusted_clients .box{
     height: 125px;
-    width: 25%;
     margin: 10px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
     align-content: center;
     border:1px solid #343536;
-}
-
-
-.statistics {
-    padding: 10px;
-    height: 50%;
-    width: 50%;
 }
