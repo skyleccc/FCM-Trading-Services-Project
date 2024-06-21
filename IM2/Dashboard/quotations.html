@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FCM Trading Services</title>
+    <link rel="stylesheet" href="CSS/general_style.css">
+    <link rel="stylesheet" href="CSS/index_style.css">
+    <link rel="stylesheet" href="CSS/forms.css">
+    <script src="./JS/index_script.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="navigationBar">
+        <div id="navigationBar_logo">
+        
+        </div>
+        <div id="navigationBar_features">
+            <a src="" class="hoverable">Home</a>
+            <a src="" class="hoverable">Portfolio</a>
+            <a src="" class="hoverable">Quotation Form</a>
+            <a src="" class="hoverable">About</a>
+            <a src="" class="hoverable">Admin</a>
+        </div>
+        <div id="navigationBar_button">
+            <button class="square-button">Get Quotation</button>
+        </div>
+    </div>
+    <div id="homePage">
+        <h1 class="quotations">Quotation<br>Request Form</h1>
+        <p>We designed 100+ commercial & residential projects in Cebu & across the Philippines. Providing Construction & Renovation services to everyone.</p>
+        <div class="quotationscontainer">
+            <form action="" method="post">
+                <div class="form-group">
+                    <label for="requested">Requested By:</label>
+                    <input type="text" id="requester" name="requestername" placeholder="Enter Name / Business Here">
+                </div>
+                <div class="form-group_two">
+                    <div class="input-group">
+                    <label for="location">Location:</label>
+                    <input type="text" id="loc" name="location" placeholder="Enter Location Here">
+                    </div>
+                    <div class="space"></div>
+                    <div class="input-group">
+                    <label for="siteinfo" class="siteinfo">Site Information:</label>
+                    <input type="text" id="site" name="site_info" placeholder="Type Here...">
+                    </div>
+                </div>
+                <div class="form-group_three">
+                    <div class="input-group">
+                    <label for="servicetype">Service Type:</label>
+                    <div>
+                    <select>
+                        <option>Construction/Renovation</option>
+                        <option value="cons">Construction</option>
+                        <option value="renov">Renovation</option>
+                      </select>
+                    </div>
+                    </div>
+                    <div class="space"></div>
+                    <div class="input-group">
+                    <label for="start_date" class="siteinfo">Start Date:</label>
+                    <input type="date" id="startdate" name="startdate">
+                    </div>
+                    <div class="space"></div>
+                    <div class="input-group">
+                        <label for="date_of_completion" class="siteinfo">Date of Completion:</label>
+                        <input type="date" id="site" name="site_info" placeholder="Type Here...">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button>Check for Availability</button>
+                        <p class="availability">Availability Checker</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="details">Proect Details:</label>
+                        <input type="textarea" id="details" name="projdetails" placeholder="Type Here...">
+                        <p>Input detailed Information regarding your project to give you a more accurate quote.</p>
+                    </div>
+                    <div class="form-group_two">
+                        <div class="input-group">
+                            <label class="toggle">
+                                <input class="toggle-checkbox" type="checkbox">
+                                <div class="toggle-switch"></div>
+                                <span class="toggle-label">With Blueprint/Floor Plan</span>
+                            </label>
+                        </div>
+                        <div class="space"></div>
+                        <div class="input-group">
+                        <input type="file" id="blueprint" name="blueprint" placeholder="Type Here...">
+                        <label for="uploadBtn" class="labelforupload"><i class="fa-solid fa-upload">Attach Files Here</label>
+                        </div>
+                    </div>
+                    <div class="form-group_two">
+                        <div class="input-group">
+                        <label for="areaofwork">Area of Work:</label>
+                        <input type="text" id="areaofwork" name="areaofwork" placeholder="Enter area (sqm.)here...">
+                        </div>
+                        <div class="space"></div>
+                        <div class="input-group">
+                        <label for="constraints" class="siteinfo">Budget Constraints:</label>
+                        <input type="text" id="constraints" name="budget_constraints" placeholder="Type Here...">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="details">Special Requests:</label>
+                        <input type="textarea" id="specialrequests" name="specialrequests" placeholder="Type Here...">
+                        <p>Input detailed Information regarding your special requests to give you a more accurate quote.</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact">Email / Contact Number:</label>
+                        <input type="text" id="contact" name="contact" placeholder="Enter Name / Contact Number here...">
+                    </div>
+                    <button>Request for Quotation</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
