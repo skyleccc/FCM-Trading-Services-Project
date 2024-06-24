@@ -41,6 +41,7 @@ section {
 #navigationBar_features {
     padding: 0.75%;
     display: flex;
+    font-size: 1vw;
 }
 
 #navigationBar_button {
@@ -70,7 +71,7 @@ section {
     height: 75%;
     background-color: rgb(17, 183, 106);
     color: white;
-    font-size: 16px;
+    font-size: 1vw;
     font-weight: bold;
     border: none;
     cursor: pointer;
@@ -92,7 +93,7 @@ section {
 }
 
 #homePage .header{
-    font-size: 78px;
+    font-size: 4vw;
     font-weight: 700;
 }
 
@@ -105,7 +106,7 @@ section {
 
 #intro_text {
     height: 80%;
-    width: 750px;
+    width: 45%;
     margin: 5%;
 }
 
@@ -113,7 +114,7 @@ section {
     width: 90%;
     margin-top: 50px;
     white-space: normal;
-    font-size: 20px;
+    font-size: 1.25vw;
     
 }
 
@@ -138,7 +139,7 @@ section {
 
 #statistics_content{
     margin-top: 10px;
-    font-size: 20px;
+    font-size: 1.25vw;
 }
 
 #statistics_number {
@@ -164,7 +165,7 @@ section {
 }
 
 #statistics_number .large{
-    font-size: xx-large;
+    font-size: 2vw;
 }
 
 #statistics_number .margin{
@@ -189,7 +190,7 @@ section {
 #statistics_trusted_clients .small-header {
     color: rgb(83, 183, 111); 
     font-weight: 700; 
-    font-size: 28px; 
+    font-size: 1.75vw; 
     margin: 5px;
 }
 
@@ -251,12 +252,12 @@ section {
 }
 
 #homePage_projects .text-box-title {
-    font-size: 36px;
+    font-size: 2.25vw;
     font-weight: 700;
 }
 
 #homePage_projects .text-box-normal {
-    font-size: 20px;
+    font-size: 1.25vw;
     font-weight: 500;
 }
 
