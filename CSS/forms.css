@@ -8,12 +8,27 @@ body {
     height: calc(100% - 80px);
 }
 
+.header-box {
+    min-height: 330px;
+    width: 100%
+}
+
+.content-text {
+    font-size: 1.2vw;
+    margin-top: 1%;
+    font-weight: 400;
+    line-height: 28px;
+    text-align: center;
+    color: #7591A3;
+}
+
 .quotationscontainer, .logincontainer {
     width: 50%; 
     margin: auto; 
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
+    border: 1px solid rgb(42, 54, 63, 0.50);
 }
 
 
@@ -60,10 +75,11 @@ input[type="text"],input[type="password"],input[type="date"]{
     border-radius: 4px;
     box-sizing: border-box;
 }
-input[type="textarea"]{
+textarea {
     width: 100%;
     height: 150px;
     padding: 10px;
+    resize: none;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
@@ -76,6 +92,11 @@ select{
     border-radius: 4px;
     box-sizing: border-box;
 }
+
+label {
+    font-weight: 500;
+}
+
 .form-group label {
     align-self: flex-start;
 }
@@ -108,30 +129,22 @@ button:hover {
 }
 .login{
     font-weight: 600;
-    font-size: 7.1875em;
+    font-size: 7.1875vw;
     color:#11B76A;
     text-align: center;
     padding-top:2%;
 }
 .quotations{
     font-weight: 600;
-    font-size: 5.9375em;
+    font-size: 5.5vw;
     color:#11B76A;
     text-align: center;
     padding-top:2%;
     line-height: 110px;
 }
-p{
-    margin-top: 1%;
-    font-size: 1em;
-    font-weight: 400;
-    line-height: 28px;
-    text-align: center;
-    color: #7591A3;
-}
 .availability{
     margin-top: 1%;
-    font-size: 1em;
+    font-size: 1vw;
     font-weight: 400;
     line-height: 28px;
     text-align: right;
@@ -139,7 +152,7 @@ p{
 }
 .form-group p{
     margin-top: 1%;
-    font-size: 1em;
+    font-size: 1vw;
     font-weight: 400;
     line-height: 28px;
     color: #263640;
@@ -207,7 +220,7 @@ input[type="file"]{
     border: 1px solid rgb(17, 183, 106);
     text-align: center;
     padding:18px 40px;
-    font-size: 1.125px;
+    font-size: 1.125vw;
     user-select: none;
     cursor: pointer;
     border-radius: 10px;

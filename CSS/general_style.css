@@ -1,3 +1,9 @@
+/* BORDERS */
+/* div {
+    border: 1px solid red;
+} */
+
+
 * {
     margin: 0;
     padding: 0;
@@ -136,11 +142,3 @@ img {
 .text-center{text-align: center;}
 .text-left{text-align: left;}
 .bold{font-weight: 550;}
-
-
-
-
-/* BORDERS */
-div {
-    border: 1px solid red;
-}
