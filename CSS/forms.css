@@ -1,3 +1,13 @@
+body {
+    height: 100%;
+}
+
+#homePage {
+    margin-top: 80px;
+    width: 100%;
+    height: calc(100% - 80px);
+}
+
 .quotationscontainer, .logincontainer {
     width: 50%; 
     margin: auto; 
@@ -183,7 +193,7 @@ p{
   }
   
   .toggle-label {
-    margin-left: 75px;
+    margin-left: 1%;
     position: relative;
     top: 2px;
   }
@@ -191,7 +201,6 @@ input[type="file"]{
     display:none;
 }
 .labelforupload{
-    margin-left: 45.2%;
     display: inline-block;
     text-transform: uppercase;
     color:rgb(17, 183, 106);

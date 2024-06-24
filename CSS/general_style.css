@@ -33,6 +33,80 @@ img {
     font-weight: 500;
 }
 
+#navigationBar {
+    height: 80px;
+    width: 100%;
+
+    position: fixed;
+    background-color: rgb(32, 37, 32);
+
+    align-content: center;
+    padding: 5px;
+
+    color: rgb(255,255,255);
+
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+#navigationBar_logo {
+    width: 25%;
+    height: 100%;
+}
+
+#navigationBar_features {
+    padding: 0.75%;
+    display: flex;
+    font-size: 1vw;
+}
+
+#navigationBar_button {
+    height: 100%;
+    width: 25%;
+    padding: 5px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+#navigationBar_features a.hoverable{
+    border-radius: 5px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+#navigationBar_features a:hover{
+    background-color: #343536;
+    transform: scale(1.05);
+}
+
+.square-button {
+    display: inline-block;
+    width: 50%;
+    height: 75%;
+    background-color: rgb(17, 183, 106);
+    color: white;
+    font-size: 1vw;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px; 
+    text-decoration: none;
+}
+
+.square-button:hover {
+    background-color: darkgreen;
+    transform: scale(1.05);
+}
+
+
+
+
+
 .h100-w50 {height: 100%; width: 50%;}
 .h50-w100 {height: 50%; width: 100%;}
 .h100-w25 {height: 100%; width: 25%;}
