@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FCM Trading Services</title>
-    <link rel="icon" href="/./WebsitePictures/fcmlogo.png">
+    <link rel="icon" href="/./WebsitePictures/fcmlogowhite.png">
     <link rel="stylesheet" href="/./CSS/general_style.css">
     <link rel="stylesheet" href="/./CSS/forms.css">
-    <script src="/./JS/index_script.js"></script>
+    <script src="/./JS/forms_script.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
 <body>
     <div id="navigationBar">
@@ -38,7 +39,7 @@
             </div>
         </div>
         <div class="quotationscontainer">
-            <form action="" method="post">
+            <form action="" method="get">
                 <div class="form-group">
                     <label for="requested">Requested By:</label>
                     <input type="text" id="requester" name="requestername" placeholder="Enter Name / Business Here" required>
@@ -56,70 +57,82 @@
                 </div>
                 <div class="form-group_three">
                     <div class="input-group">
-                    <label for="servicetype">Service Type:</label>
-                    <div>
-                    <select title="Service Type" name="servicetype" required>
-                        <option selected value="" disabled>-</option>
-                        <option value="cons">Construction</option>
-                        <option value="renov">Renovation</option>
-                      </select>
-                    </div>
+                        <label for="servicetype">Service Type:</label>
+                        <div>
+                            <select title="Service Type" name="servicetype" required>
+                                <option selected value="" disabled>-</option>
+                                <option value="cons">Construction</option>
+                                <option value="renov">Renovation</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="space"></div>
                     <div class="input-group">
-                    <label for="start_date" class="siteinfo">Start Date:</label>
-                    <input type="date" id="startdate" name="startdate" required>
+                        <label for="start_date" class="siteinfo">Start Date:</label>
+                        <input type="date" id="startdate" name="startdate" required>
                     </div>
                     <div class="space"></div>
                     <div class="input-group">
                         <label for="date_of_completion" class="siteinfo">Date of Completion:</label>
                         <input type="date" id="datecomplete" name="datecomplete" placeholder="Type Here..." required>
-                        </div>
                     </div>
-                    <div class="form-group">
-                        <button>Check for Availability</button>
-                        <p class="availability">Availability Checker</p>
-                    </div>
-                    <div class="form-group">
-                        <label for="details">Project Details:</label>
-                        <textarea type="textarea" id="details" name="projdetails" placeholder="Type Here..." required></textarea>
-                        <p>Input detailed Information regarding your project to give you a more accurate quote.</p>
-                    </div>
-                    <div class="form-group_two">
-                        <div class="input-group">
-                            <label class="toggle">
-                                <input id="blueprint-add" class="toggle-checkbox" type="checkbox" name="blueprint-add">
-                                <div class="toggle-switch"></div>
-                                <span class="toggle-label">With Blueprint/Floor Plan</span>
-                            </label>
-                        </div>
-                        <div class="space"></div>
-                        <div class="input-group">
-                        <input type="file" id="blueprint" name="blueprint" placeholder="Type Here...">
-                        <label for="uploadBtn" class="labelforupload"><i class="fa-solid fa-upload">Attach Files Here</label>
-                        </div>
-                    </div>
-                    <div class="form-group_two">
-                        <div class="input-group">
+                </div>
+                <div class="form-group">
+                    <button>Check for Availability</button>
+                    <p class="availability">Availability Checker</p>
+                </div>
+                <div class="form-group">
+                    <label for="details">Project Details:</label>
+                    <textarea type="textarea" id="details" name="projdetails" placeholder="Type Here..." required></textarea>
+                    <p>Input detailed Information regarding your project to give you a more accurate quote.</p>
+                </div>
+                <div class="form-group_two">
+                    <div class="input-group">
                         <label for="areaofwork">Area of Work:</label>
                         <input type="text" id="areaofwork" name="areaofwork" placeholder="Enter area (sqm.) here..." required>
-                        </div>
-                        <div class="space"></div>
-                        <div class="input-group">
+                    </div>
+                    <div class="space"></div>
+                    <div class="input-group">
                         <label for="constraints" class="siteinfo">Budget Constraints:</label>
                         <input type="text" id="constraints" name="budget_constraints" placeholder="Type Here..." required>
-                        </div>
                     </div>
-                    <div class="form-group">
+                </div>
+                <div class="form-group">
                         <label for="specialrequests">Special Requests:</label>
                         <textarea type="textarea" id="specialrequests" name="specialrequests" placeholder="Type Here..."></textarea>
                         <p>Input detailed Information regarding your special requests to give you a more accurate quote.</p>
+                </div>
+                <div class="form-group">
+                    <label for="contact">Email / Contact Number:</label>
+                    <input type="text" id="contact" name="contact" placeholder="Enter contact information here..." required>
+                </div>
+                <div class="form-group_two">
+                    <div class="input-group">
+                        <label for="blueprint-add" class="toggle">
+                            <input id="blueprint-add" class="toggle-checkbox" type="checkbox" name="blueprint-add" onclick="displayAttach();">
+                            <div class="toggle-switch"></div>
+                            <span class="toggle-label">With Blueprint/Floor Plan</span>
+                        </label>
                     </div>
-                    <div class="form-group">
-                        <label for="contact">Email / Contact Number:</label>
-                        <input type="text" id="contact" name="contact" placeholder="Enter Name / Contact Number here..." required>
+                    <div class="space"></div>
+                </div>
+                <div id="attach-blueprint" class="form-group">
+                    <div class="input-group">
+                        <label for="blueprint" class="labelforupload"><i class="fa-solid fa-upload"> ADD BLUEPRINT</i></label>
+                        <input type="file" id="blueprint" name="blueprint" onchange="displayFileList();" multiple>
                     </div>
-                    <button>Request for Quotation</button>
+                </div>
+                <div id="attachment" class="w100">
+                    <div class="bold">
+                        Attached Files:
+                    </div>
+                    <div id="attached-filelist">
+                        <ul id="list">
+                            <li>213123</li>
+                        </ul>
+                    </div>
+                </div>
+                <button>Request for Quotation</button>
             </form>
         </div>
     </div>
