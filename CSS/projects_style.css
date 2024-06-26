@@ -1,4 +1,6 @@
-body{
+
+
+body {
     background-color: rgb(235, 242, 246);
 }
 .row, .col{
@@ -81,6 +83,17 @@ background-color: rgba(255, 255, 255);
 border-radius: 10px;
 }
 
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    height: 90%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%; /* Adjust the width as needed */
+    }
+
 
 .form-group {
 margin-bottom: 20px;
@@ -125,6 +138,7 @@ border: 1px solid #ccc;
 border-radius: 4px;
 box-sizing: border-box;
 }
+
 textarea {
 width: 100%;
 height: 150px;
@@ -223,20 +237,11 @@ position: relative;
 vertical-align: middle;
 transition: background 0.25s;
 }
+
 .toggle-switch:before, .toggle-switch:after {
 content: "";
 }
 
-.modal {
-display: none;
-position: fixed;
-z-index: 1000;
-height: 90%;
-left: 50%;
-top: 50%;
-transform: translate(-50%, -50%);
-width: 50%; /* Adjust the width as needed */
-}
 
 
 .toggle-switch:before {
@@ -297,9 +302,10 @@ color:#fff;
 }
 
 .modalblock{
-    width: 50%;
+    width: 100%;
 
 }
+
 .close{
 cursor: pointer;
 float: right;
