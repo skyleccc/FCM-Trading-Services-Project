@@ -1,16 +1,5 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = ""; // Replace with your actual password
-$dbname = "cjakosalem";
-
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+require '../Controllers/accessDatabase.php';
 
 // Check if form data is set
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
