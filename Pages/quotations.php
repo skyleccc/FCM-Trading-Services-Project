@@ -64,6 +64,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($stmt->execute()) {
         echo "New records created successfully";
+        // Redirect to success page after form submission
+        header("Location: index.html");
+        exit(); // Ensure script stops execution after redirection
     } else {
         echo "Error: " . $stmt->error;
     }
