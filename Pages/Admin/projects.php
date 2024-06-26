@@ -33,60 +33,18 @@
                             <div class="row p-3 border bg light rounded" style="font-size: 20px; font-weight: bold;">
                                 <div class="col" style="margin: 10px; font-size: 2vw;">Projects List</div>
                                 <div class="col-sm-3" style="margin: 10px;">
-                                   <button class="button-style" id="myBtn" style="background-color: rgb(19, 171, 19);width: 190px; height: 50px;    font-weight: lighter; margin-left:37%;"><div class="col" style="background-color: rgb(19, 171, 19); font-size: 1.4vw; color: white;">
+                                   <button class="button-style" id="myBtn" style="background-color: rgb(19, 171, 19);width: 200px; height: 50px;    font-weight: lighter; margin-left:37%;"><div class="col" style="background-color: rgb(19, 171, 19); font-size: 1.4vw; color: white;">
                                     <span class="material-symbols-outlined" style="font-size: 30px; color: white;">note_add</span> Add A Project
                                     </div></button> 
                                     </div><br><br>
-
-                                <div class="ex1">
-                                    
-                                    <div class="row projrow">
-                                        
-                                        <!-- 
-                                        <div class="col-sm-4 border bg light proj_cont" style="margin-top: 1%;">
-                                              <div class="row">
-                                                <div class="col-sm-10">
-                                                    <a href="projectpage.html" class="row p-2" style="margin: auto; text-decoration: none;">
-                                                        <div class="row" style="margin: auto; margin-top: 3%;">
-                                                            <div class="col p-1">
-                                                                <div style="font-weight: bold;text-align: center;font-size: 1.6vw; color: black;">Mendero Medical Center</div>
-                                                                <div style="font-weight: lighter; text-align: center; font-size: 1vw; color: black;" >Consolacion City</div>
-                                                                <div style="font-weight: lighter; text-align: center; font-size: 1.2vw; color:#40ce55" >Roof Repair</div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col" style="margin-top: 10px;">
-                                                            <div class="col-sm-4 rounded" style="background-color:rgb(41, 157, 41); width: 100%;color: rgb(255, 255, 255);"> Progress</div>
-                                                            <div class="col-sm-4 rounded" style="background-color:rgb(227, 38, 38); width: 100%; color: rgb(255, 251, 251); margin-top: 5px;"> Deadline</div>
-                                                        </div>
-                                                    </a>
-                                                    </div>
-                                                    
-                                                    <div class="col-sm-2 border bg-light">
-                                                        <button class="button-style" style="margin-top: 8px;">
-                                                            <div class="row border bg-light rounded icon-container" style="height: 7vw; display: flex; align-items: center; justify-content: center;">
-                                                                <span class="material-symbols-outlined" style="font-size: 1.5vw;">edit</span>
-                                                            </div>
-                                                        </button>
-                                                        <button class="button-style" id="removebtn" style="margin-top: 8px; margin-bottom: 10px;">
-                                                            <div class="row border bg-light rounded icon-container" style="height: 7vw; display: flex; align-items: center; justify-content: center;">
-                                                                <span class="material-symbols-outlined" style="font-size: 1.5vw;">delete</span>
-                                                            </div>
-                                                        </button>
-                                                    </div>
-                                                    
-                                              </div>
-                                        -->
-                                           
-                                    </div>
-                                
-                                </div>
-                        <br><br><br></div>
+                                    <div class="ex1"><div class="row projrow"></div></div>
+                                    <br><br><br>
+                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            
             <div class="col modalblock">
                 <div id="myModal" class="popup">
                     <div class="quotationscontainer">
@@ -96,7 +54,9 @@
                                     Enter a new Project<span class="close">&times;</span>
                                 </div><br>
                                 <div class="row g-2 calendar" id="calendarcolor" style="text-align: center;">
-                                    <div class="col-sm ex2" style="border: solid; border-color: green; border-radius: 8px; height: 680px; color: green;">
+                                    <div class="col-sm ex2" style="border: solid; border-color: green; border-radius: 8px; height: 670px; color: green;">
+                                       
+                                        
                                         <form action="" method="get">
                                             <div id="scrollform">
                                                 <div class="form-group">
@@ -157,19 +117,19 @@
                                                     </div>
                                                 </div>
                                             </div><br>
-                                       
-                                        
                                     </div>
                                 </div>
                                 <button id="addfinal">Add Project</button>
                             </form>
+
+                            
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
     </div>
-    <script src="../../JS/projectsscript.js"></script>
+    <script src="../../JS/projects_script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
 </html>

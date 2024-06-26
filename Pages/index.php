@@ -28,7 +28,7 @@
             <a href="../Pages/login.html" class="h100-w20 hoverable flex-centermiddle">Admin</a>
         </div>
         <div id="navigationBar_button">
-            <button class="square-button" onclick="location.href='quotations.html'">Request Quotation</button>
+            <button class="square-button" onclick="location.href='quotations.php'">Request Quotation</button>
         </div>
     </div>
     <div id="homePage" class="section-wrapper">
