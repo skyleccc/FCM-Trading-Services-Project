@@ -14,6 +14,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div id="navigationBar">
         <div id="navigationBar_logo">
@@ -33,17 +34,17 @@
     <div id="homePage">
         <h1 class="login">Login</h1>
         <div class="logincontainer">
-            <form action="" method="post">
+            <form action="../Controllers/adminLogin.php" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text" id="username" name="user_name" placeholder="Enter Username Here...">
+                    <input type="text" id="username" name="username" placeholder="Enter Username Here...">
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" placeholder="Enter Password Here...">
                 </div>
                 <div class="form-group">
-                    <button id="login-button">Login</button>
+                    <button type="submit" name="submit" id="login-button">Login</button>
                 </div>
             </form>
         </div>
