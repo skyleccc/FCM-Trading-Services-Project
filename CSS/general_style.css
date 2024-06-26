@@ -19,6 +19,7 @@ body {
     font-family: "Poppins", sans-serif;
     font-weight: 400;
     font-style: normal;
+    font-size: calc(16px);
     white-space: nowrap;
     text-overflow: ellipsis;
 
@@ -66,7 +67,7 @@ img {
 #navigationBar_features {
     padding: 0.75%;
     display: flex;
-    font-size: 1vw;
+    font-size: calc(12px + 0.25vw);
 }
 
 #navigationBar_button {
