@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $specialrequests = isset($_POST['specialrequests']) ? $_POST['specialrequests'] : '';
     $contact = isset($_POST['contact']) ? $_POST['contact'] : '';
     $withBlueprint = isset($_POST['blueprint-add']) ? 1 : 0;
-    $numberOfFiles = count($_FILES['blueprint']['name']); // Get number of files uploaded
+    $numberOfFiles = ($withBlueprint == 1) ? count($_FILES['blueprint']['name']) : 0; // Get number of files uploaded
 
     // Handle file upload
     if (isset($_FILES['blueprint'])) {
