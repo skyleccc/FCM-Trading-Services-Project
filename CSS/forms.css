@@ -118,7 +118,7 @@ label {
 }
 
 
-button {
+#homePage button {
     background-color: rgb(17, 183, 106);
     color: white;
     padding: 14px 20px;
@@ -131,10 +131,10 @@ button {
     font-size: 1vw;
     transform: scale(0.995);
 }
-.logincontainer button {
-    width: 50%;
+#login-button{
+    width: 50% !important;
 }
-button:hover {
+#homePage button:hover {
     background-color: darkgreen;
     transform: scale(1);
 }
