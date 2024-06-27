@@ -262,3 +262,28 @@ input[type="file"]{
 #padding {
     padding: 5px 10px 5px 10px;
 }
+.disabled-button {
+    background-color: #f0f0f0; /* Light gray background */
+    color: #666; /* Darker gray text */
+    cursor: not-allowed; /* Change cursor to indicate not clickable */
+    opacity: 0.6; /* Reduce opacity to visually indicate disabled state */
+}
+button[disabled] {
+    opacity: 0.5; /* Reduce opacity to visually indicate disabled state */
+    cursor: not-allowed; /* Change cursor to not-allowed to indicate non-interactivity */
+}
+
+/* Additional styling for the attached files list */
+#list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#list li {
+    margin-bottom: 5px;
+}
+button.disabled-button {
+    opacity: 0.5; /* Dim the button to indicate it's disabled */
+    cursor: default; /* Prevent cursor change on hover */
+    pointer-events: none; /* Disable pointer events on the button */
+}

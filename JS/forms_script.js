@@ -30,3 +30,14 @@ function displayFileList(){
 
     div.style.display = "block";
 }
+function toggleSubmitButton() {
+    const filesAttached = blueprintInput.files.length > 0;
+    if (blueprintCheckbox.checked && !filesAttached) {
+        submitButton.disabled = true;
+        submitButton.style.opacity = '0.5'; // Example: Adjust opacity for visual indication
+    } else {
+        submitButton.disabled = false;
+        submitButton.style.opacity = '1'; // Restore normal opacity if button is enabled
+    }
+    displayFileList();
+}
