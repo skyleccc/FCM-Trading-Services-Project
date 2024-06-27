@@ -5,7 +5,7 @@ function displayAttach(){
 
     attachments.value = "";
 
-    if(div.style.display == "block"){
+    if(div.value == "off"){
         div.style.display = "none";
         div2.style.display = "none";
     }else{
