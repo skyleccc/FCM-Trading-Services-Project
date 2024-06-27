@@ -176,21 +176,10 @@ function displayFileList(){
     </script>
 </head>
 <body>
-    <div id="navigationBar">
-        <div id="navigationBar_logo">
-            <img src="../WebsitePictures/fcmlogowhite.png" alt="FCM Logo">
-        </div>
-        <div id="navigationBar_features" class="h100-w50">
-            <a href="../Pages/index.php#homePage_intro" class="h100-w20 hoverable flex-centermiddle">Home</a>
-            <a href="../Pages/index.php#homePage_statistics" class="h100-w20 hoverable flex-centermiddle">Trusted Clients</a>
-            <a href="../Pages/index.php#homePage_projects" class="h100-w20 hoverable flex-centermiddle">Our Works</a>
-            <a href="../Pages/index.php#homePage_quotations" class="h100-w20 hoverable flex-centermiddle">Quotation Form</a>
-            <a href="../Pages/login.php" class="h100-w20 hoverable flex-centermiddle">Admin</a>
-        </div>
-        <div id="navigationBar_button">
-            <button class="square-button" onclick="location.href='quotations.php'">Request Quotation</button>
-        </div>
-    </div>
+    <?php 
+    // NAVIGATION BAR
+    include '../Models/navigationBar.php'
+    ?>
     <div id="homePage">
         <div class="header-box">
             <div class="header-text h75-w100">
