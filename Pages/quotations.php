@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($stmt->execute()) {
         echo "New records created successfully";
         // Redirect to success page after form submission
-        header("Location: index.html");
+        header("Location: landingpage.php");
         exit(); // Ensure script stops execution after redirection
     } else {
         echo "Error: " . $stmt->error;
@@ -75,37 +75,84 @@ $conn->close();
     <link rel="stylesheet" href="../CSS/general_style.css">
     <link rel="stylesheet" href="../CSS/forms.css">
     <script src="../JS/forms_script.js"></script>
+    <script src="../JS/button_for_quotationThing.js"></script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $('#quotationForm').on('submit', function(e) {
-                e.preventDefault(); // Prevent default form submission
+     document.addEventListener("DOMContentLoaded", function() {
+    const blueprintCheckbox = document.getElementById('blueprint-add');
+    const blueprintInput = document.getElementById('blueprint');
+    const submitButton = document.querySelector('button[type="submit"]');
 
-                // Perform AJAX submission
-                $.ajax({
-                    type: 'POST',
-                    url: $(this).attr('action'),
-                    data: new FormData(this),
-                    processData: false,
-                    contentType: false,
-                    success: function(response) {
-                        // Handle success response
-                        console.log(response); // Log the response
-                        alert('Form submitted successfully'); // Example: Show an alert
-                        window.location.href = 'index.html'; // Redirect to another page
-                    },
-                    error: function(xhr, status, error) {
-                        // Handle error response
-                        console.error(xhr.responseText); // Log the error response
-                        alert('Error submitting form. Please try again.'); // Example: Show an alert
-                    }
-                });
-            });
-        });
+    blueprintCheckbox.addEventListener('change', toggleSubmitButton);
+    blueprintInput.addEventListener('change', toggleSubmitButton);
+
+    function toggleSubmitButton() {
+        const filesAttached = blueprintInput.files.length > 0;
+        if (blueprintCheckbox.checked && !filesAttached) {
+            submitButton.disabled = true;
+            submitButton.style.opacity = '0.5'; // Example: Adjust opacity for visual indication
+            submitButton.style.cursor:not-allowed
+        } else {
+            submitButton.disabled = false;
+            submitButton.style.opacity = '1'; // Restore normal opacity if button is enabled
+        }
+        displayFileList();
+    }
+
+    function displayFileList() {
+        const fileList = blueprintInput.files;
+        const list = document.getElementById('list');
+        list.innerHTML = ''; // Clear the list first
+
+        for (let i = 0; i < fileList.length; i++) {
+            const listItem = document.createElement('li');
+            listItem.textContent = fileList[i].name;
+            list.appendChild(listItem);
+        }
+    }
+
+    // Initial check
+    toggleSubmitButton();
+});
+
+function displayAttach(){
+    var div = document.getElementById('attach-blueprint');
+    var div2 = document.getElementById('attachment');
+    var attachments = document.getElementById('blueprint');
+
+    attachments.value = "";
+
+    if(div.style.display == "block"){
+        div.style.display = "none";
+        div2.style.display = "none";
+    }else{
+        div.style.display = "block";
+    }
+}
+
+function displayFileList(){
+    var div = document.getElementById('attachment');
+    var files = document.getElementById('blueprint').files;
+    var list = document.getElementById('list');
+
+    while(list.firstChild){
+        list.removeChild(list.firstChild);
+    }
+
+    for(let i = 0; i<files.length; i++){
+        let li = document.createElement("li");
+        li.appendChild(document.createTextNode(files[i].name));
+        list.appendChild(li);
+    }
+
+    div.style.display = "block";
+}
+
     </script>
 </head>
 <body>
@@ -123,7 +170,7 @@ $conn->close();
             </div>
         </div>
         <div class="quotationscontainer">
-            <form action="quotations.php" method="post" enctype="multipart/form-data">
+            <form id="quotationForm"action="quotations.php" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="requester">Requested By:</label>
                     <input type="text" id="requester" name="requestername" placeholder="Enter Name / Business Here" required>
@@ -160,10 +207,6 @@ $conn->close();
                         <label for="datecomplete" class="siteinfo">Date of Completion:</label>
                         <input type="date" id="datecomplete" name="datecomplete" placeholder="Type Here..." required>
                     </div>
-                </div>
-                <div class="form-group">
-                    <button type="button">Check for Availability</button>
-                    <p class="availability">Availability Checker</p>
                 </div>
                 <div class="form-group">
                     <label for="details">Project Details:</label>
@@ -216,7 +259,7 @@ $conn->close();
                         </ul>
                     </div>
                 </div>
-                <button type="submit" name="submit">Request for Quotation</button>
+                <button type="submit" name="submit" class="disabled-button" disabled>Request for Quotation</button>
             </form>
         </div>
     </div>
