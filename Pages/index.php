@@ -13,24 +13,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 </head>
 <?php
-    require '../Controllers/loginCheck.php';
+    // CONTROLLERS HERE
+    // require '../Controllers/loginCheck.php';
 ?>
 <body>
-    <div id="navigationBar">
-        <div id="navigationBar_logo">
-            <img src="../WebsitePictures/fcmlogowhite.png" alt="FCM Logo">
-        </div>
-        <div id="navigationBar_features" class="h100-w50">
-            <a href="../Pages/index.html#homePage_intro" class="h100-w20 hoverable flex-centermiddle">Home</a>
-            <a href="../Pages/index.html#homePage_statistics" class="h100-w20 hoverable flex-centermiddle">Trusted Clients</a>
-            <a href="../Pages/index.html#homePage_projects" class="h100-w20 hoverable flex-centermiddle">Our Works</a>
-            <a href="../Pages/index.html#homePage_quotations" class="h100-w20 hoverable flex-centermiddle">Quotation Form</a>
-            <a href="../Pages/login.html" class="h100-w20 hoverable flex-centermiddle">Admin</a>
-        </div>
-        <div id="navigationBar_button">
-            <button class="square-button" onclick="location.href='quotations.php'">Request Quotation</button>
-        </div>
-    </div>
+    <?php 
+    // NAVIGATION BAR
+    include '../Models/navigationBar.php'
+    ?>
     <div id="homePage" class="section-wrapper">
         <section id="homePage_intro" class="page">
             <div id="intro_text">
