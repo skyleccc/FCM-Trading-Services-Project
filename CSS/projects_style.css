@@ -73,6 +73,8 @@ color: #7591A3;
 
 .quotationscontainer {
 border: 1px solid rgb(42, 54, 63, 0.50);
+height: 100%;
+
 }
 
 .quotationscontainer, .logincontainer {
@@ -83,7 +85,17 @@ background-color: rgba(255, 255, 255);
 border-radius: 10px;
 }
 
-.popup {
+#scrollform{
+    overflow: auto;
+    height: 50vw;
+}
+
+#changebtn{
+    position: fixed;
+    width: 100%;
+}
+
+.popup{
     display: none;
     z-index: 1000;
     height: 90%;
@@ -313,3 +325,4 @@ float: right;
 .bprintfile{
 width: 100%;
 }
+

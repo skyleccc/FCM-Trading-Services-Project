@@ -79,6 +79,14 @@ img {
     align-items: center;
     justify-content: center;
 }
+#landingpage_button {
+    height: 100%;
+    width: 25%;
+    padding: 5px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
 
 #navigationBar_features a.hoverable{
     border-radius: 5px;
