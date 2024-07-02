@@ -10,7 +10,111 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT project.projectid, project.projectname, project.buildingaddress, project.clientid, client.clientname FROM project, client WHERE client.clientid=project.clientid"; // Adjust table name as needed
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+    $projectId = intval($_GET['id']);
+    $project = getProjectById($projectId);
+    if (!$project) {
+        echo "Order ID does not exist.";
+        exit();
+    }
+} else {
+    echo "Invalid order ID.";
+    exit();
+}
+
+function getProjectById($id) {
+    global $conn;
+    $save = $conn->prepare("SELECT project.projectname,project.projectscope ,project.projecttype ,project.projectdetails, project.specialrequests, client.clientname,client.clientcontact, building.buildingaddress, building.workarea, building.blueprint, project.startdate, project.deadlinedate, project.completiondate FROM project, client, building WHERE client.clientid = project.clientid AND building.buildingid = project.buildingid AND project.projectid = ?");
+    $save->bind_param("i", $id);
+    $save->execute();
+    $result = $save->get_result();
+
+    if ($result->num_rows > 0) {
+        return $result->fetch_assoc();
+    } else {
+        return null;
+    }
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['projectname'])) {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $projectname = $_POST['projectname'];
+        $clientname = $_POST['clientname'];
+        $clientContact = $_POST['clientContact'];
+        $projectScope = $_POST['projectScope'];
+        $projecttype = $_POST['projecttype'];
+        $buildingaddress = $_POST['buildingaddress'];
+        $workarea = $_POST['workarea'];
+        $blueprint = $_POST['blueprint'];
+        $projectDetails = $_POST['projectDetails'];
+        $specialRequests = $_POST['specialRequests'];
+        $deadlineDate = $_POST['deadlineDate'];
+        $startdate = $_POST['startdate'];
+        $completiondate = $_POST['completiondate'];
+    
+        $save = $conn->prepare("SELECT clientID FROM client WHERE clientname = ?");
+        $save->bind_param("s", $clientname);
+        $save->execute();
+        $result = $save->get_result();
+    
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $clientID = $row['clientID'];
+    
+            $save = $conn->prepare("UPDATE client SET clientcontact = ? WHERE clientID = ?");
+            $save->bind_param("si", $clientContact, $clientID);
+            $save->execute();
+        } else {
+            $save = $conn->prepare("INSERT INTO client (clientname, clientcontact) VALUES (?, ?)");
+            $save->bind_param("ss", $clientname, $clientContact);
+            $save->execute();
+            $clientID = $save->insert_id;
+        }
+
+        $save = $conn->prepare("SELECT buildingid FROM building WHERE buildingaddress = ?");
+        $save->bind_param("s", $buildingaddress);
+        $save->execute();
+        $save->store_result();
+    
+        if ($save->num_rows > 0) {
+            $save->bind_result($existing_buildingid);
+            $save->fetch();
+            $buildingid = $existing_buildingid;
+        } else {
+            $save->close();
+            $save = $conn->prepare("INSERT INTO building (buildingaddress, workarea, blueprint) VALUES (?, ?, ?)");
+            $save->bind_param("sss", $buildingaddress, $workarea, $blueprint);
+            if ($save->execute()) {
+                $buildingid = $save->insert_id;
+            } else {
+                echo "Error inserting building: " . $conn->error;
+            }
+        }
+    
+        $save = $conn->prepare("UPDATE project SET clientid = ?, buildingid = ?, projectname = ?, projecttype = ?, specialRequests = ?, deadlineDate = ?, startdate = ?, completiondate = ? WHERE projectid = ?");
+        $save->bind_param("iissssssi", $clientID, $buildingid, $projectname, $projecttype, $specialRequests, $deadlineDate, $startdate, $completiondate, $projectId);
+        if ($save->execute()) {
+            header("Location: projects.php");
+            exit();
+        } else {
+            echo "Error updating project: " . $conn->error;
+        }
+    }
+}
+
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+    $projectId = intval($_GET['id']);
+    $project = getProjectById($projectId);
+    if (!$project) {
+        echo "Order ID does not exist.";
+        exit();
+    }
+} else {
+    echo "Invalid projcet ID.";
+    exit();
+}
+
+$sql = "SELECT project.projectid, project.projectname, building.buildingaddress, project.clientid, client.clientname FROM project, client, building WHERE client.clientid = project.clientid AND building.buildingid = project.buildingid";
 $result = $conn->query($sql);
 ?>
 
@@ -37,7 +141,6 @@ $result = $conn->query($sql);
             </div>
             <div class="col-sm-10 p-3 border bg-light">
                 <div style="font-size: 23px;">
-                    <!-- Content here -->
                 </div>
                 <div class="row p-3 border bg-light">   
                     <div class="col-sm-12">
@@ -107,7 +210,7 @@ $result = $conn->query($sql);
             </div>
 
             <div class="col modalblock">
-                <div id="myModal" class="popup">
+                <div id="myModal" class="popup" style="display: block">
                     <div class="quotationscontainer">
                         <div class="row" style="height: 100%;">
                             <div class="container p-3 border bg-light rounded">
@@ -115,49 +218,50 @@ $result = $conn->query($sql);
                                         </div><br>
                                             <div class="row g-2 calendar" id="calendarcolor" style="text-align: center;">
                                                 <div class="col-sm ex2" style="border: solid; border-color: green; border-radius: 8px; height: 670px; color: green;">
-                                                <form class="form" action="projects_save.php" method="POST" id="addProjectForm">
-                                                        <div id="scrollform">
+                                                <form class="form" action="projectedit.php?id=<?php echo $projectId; ?>" method="POST" id="addProjectForm">
+                                                <input type="hidden" name="id" value="<?php echo $projectId; ?>">        
+                                                <div id="scrollform">
                                                             <div class="form-group">
                                                                 <label for="project">Project Name:</label>
-                                                                <input type="text" id="projectname" name="projectname" placeholder="Enter Name of Project Here" required>
+                                                                <input type="text" id="projectname" name="projectname" value="<?php echo htmlspecialchars($project['projectname'] ?? ''); ?>" required>
                                                             </div>
                                                             <div class="form-group_two">
                                                                 <div class="input-group">
                                                                     <label for="client">Client:</label>
-                                                                    <input type="text" id="clientname" name="clientname" placeholder="Enter Name of Client Here" required>
+                                                                    <input type="text" id="clientname" name="clientname" value="<?php echo htmlspecialchars($project['clientname'] ?? ''); ?>" required>
                                                                 </div>
                                                                 <div class="space"></div>
                                                                 <div class="input-group">
                                                                     <label for="assignedContractor">Client's Contact Number:</label>
-                                                                    <input type="text" id="clientContact" name="clientContact" placeholder="Enter Name of Contractor Here" required>
+                                                                    <input type="text" id="clientContact" name="clientContact" value="<?php echo htmlspecialchars($project['clientcontact'] ?? ''); ?>" required>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group_two">
                                                             <div class="form-group">
                                                                 <label for="projectScope">Project Scope:</label>
-                                                                <input type="text" id="projectScope" name="projectScope" placeholder="Enter the Scope of the Project" required>
+                                                                <input type="text" id="projectScope" name="projectScope" value="<?php echo htmlspecialchars($project['projectscope'] ?? ''); ?>" required>
                                                             </div>
                                                                 <div class="space"></div>
                                                                 <div class="input-group">
                                                                     <label for="type">Type of Work:</label>
-                                                                    <input type="text" id="projecttype" name="projecttype" placeholder="Enter Type of Work Here" required>
+                                                                    <input type="text" id="projecttype" name="projecttype" value="<?php echo htmlspecialchars($project['projecttype'] ?? ''); ?>" required>
                                                                 </div>
                                                             </div>
 
                                                             <div class="form-group_two">
                                                             <div class="form-group">
                                                                 <label for="building">Location:</label>
-                                                                <input type="text" id="buildingaddress" name="buildingaddress" placeholder="Enter Name of Building" required>
+                                                                <input type="text" id="buildingaddress" name="buildingaddress" value="<?php echo htmlspecialchars($project['buildingaddress'] ?? ''); ?>" required>
                                                                 </div>
                                                                 
                                                                 <div class="space"></div>
                                                                 <div class="input-group">
                                                                     <label for="building">Work Area:</label>
-                                                                    <input type="text" id="workarea" name="workarea" placeholder="Enter Name of Building" required>
+                                                                    <input type="text" id="workarea" name="workarea" value="<?php echo htmlspecialchars($project['workarea'] ?? ''); ?>" required>
                                                                     
 
                                                                     <label for="blueprint">Blueprints</label>
-                                                                    <input type="file" id="blueprint" name="blueprint" placeholder="Type Here...">
+                                                                    <input type="file" id="blueprint" name="blueprint" value="<?php echo htmlspecialchars($project['blueprint'] ?? ''); ?>"> 
                                                                     <label for="blueprint" class="labelforupload">
                                                                         <i class="fa-solid fa-upload"></i> Attach Files Here
                                                                     </label>
@@ -166,26 +270,26 @@ $result = $conn->query($sql);
                                                             
                                                             <div class="form-group">
                                                                 <label for="description">Project Description:</label>
-                                                                <textarea id="projectDetails" name="projectDetails" placeholder="Type Here..." required></textarea>
+                                                                <textarea id="projectDetails" name="projectDetails" required><?php echo htmlspecialchars($project['projectdetails'] ?? ''); ?></textarea>
                                                             </div>
                                                             <div class="form-group" style="height: 100px;">
                                                                 <label for="description">Special Requests:</label>
-                                                                <textarea id="specialRequests" name="specialRequests" placeholder="Type Here..."></textarea>
+                                                                <textarea id="specialRequests" name="specialRequests"><?php echo htmlspecialchars($project['specialrequests'] ?? ''); ?></textarea>
                                                             </div>
                                                             <div class="form-group_three">
                                                                 <div class="input-group">
                                                                     <label for="projectDeadline" class="siteinfo">Project Deadline:</label>
-                                                                    <input type="date" id="deadlineDate" name="deadlineDate">
+                                                                    <input type="date" id="deadlineDate" name="deadlineDate" value="<?php echo htmlspecialchars($project['deadlinedate'] ?? ''); ?>">
                                                                 </div>
                                                                 <div class="space"></div>
                                                                 <div class="input-group">
                                                                     <label for="startdate" class="siteinfo">Start Date of Project:</label>
-                                                                    <input type="date" id="startdate" name="startdate">
+                                                                    <input type="date" id="startdate" name="startdate" value="<?php echo htmlspecialchars($project['startdate'] ?? ''); ?>">
                                                                 </div>
                                                                 <div class="space"></div>
                                                                 <div class="input-group">
                                                                     <label for="datecomplete" class="siteinfo">Completion Date of Project:</label>
-                                                                    <input type="date" id="completiondate" name="completiondate" placeholder="Type Here...">
+                                                                    <input type="date" id="completiondate" name="completiondate" value="<?php echo htmlspecialchars($project['completiondate'] ?? ''); ?>" >
                                                                 </div>
                                                             </div>
                                                         </div><br>
@@ -202,57 +306,18 @@ $result = $conn->query($sql);
             </div>
         </div>
     </div>
+    <script>
+
+        var span = document.getElementsByClassName("close")[0];
+
+        span.onclick = function() {
+        window.location.href = `projects.php`;
+        }
+
+    </script>    
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-HG1PqQtkbfhTXCpFjtnx3vpkTrkFQe+KvhG5MTpH2wPRpEacC4zJxyEilKF8kGmS" crossorigin="anonymous"></script>
     <script>
-        var modal = document.getElementById("myModal");
-        var btn = document.getElementById("myBtn");
-        var span = document.getElementsByClassName("close")[0];
-
-        btn.onclick = function() {
-            modal.style.display = "block";
-        }
-
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-
-        $('.edit-btn').click(function() {
-            var id = $(this).data('id');
-            window.location.href = 'projectedit.php?id=' + id;
-        });
-
-        $('.delete-btn').click(function() {
-            var id = $(this).data('id');
-            if (confirm('Are you sure you want to delete this project?')) {
-                fetch('delete_project.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: 'projectid=' + id,
-                })
-                .then(response => response.text())
-                .then(data => {
-                    if (data === 'success') {
-                        alert('Project deleted successfully!');
-                        location.reload();
-                    } else {
-                        alert('Failed to delete the project.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Failed to delete the project.');
-                });
-            }
-        });
     </script>
 </body>
 </html>

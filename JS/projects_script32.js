@@ -1,6 +1,7 @@
 var modal = document.getElementById("myModal");
 var btn = document.getElementById("myBtn");
 var span = document.getElementsByClassName("close")[0];
+var test = document.getElementsByClassName("closeupdate")[0];
 
 btn.onclick = function() {
   modal.style.display = "block";
@@ -8,6 +9,10 @@ btn.onclick = function() {
 
 span.onclick = function() {
   modal.style.display = "none";
+}
+
+span.onclick = function() {
+  window.location.href = `projectedit.php`;
 }
 
 window.onclick = function(event) {
@@ -21,7 +26,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   document.querySelectorAll('.edit-btn').forEach(button => {
       button.addEventListener('click', () => {
           const projectId = button.getAttribute('data-id');
-          window.location.href = `edit_project.php?id=${projectId}`;
+          window.location.href = `projectedit.php?id=${projectId}`;
       });
   });
 
