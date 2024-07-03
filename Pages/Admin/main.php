@@ -10,8 +10,9 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT project.projectid, project.projectname, project.buildingaddress, project.clientid, client.clientname FROM project, client, building WHERE client.clientid=project.clientid AND project.buildingid=building.buildingid"; // Adjust table name as needed
+$sql = "SELECT project.projectid, project.projectname, building.buildingaddress, project.clientid, client.clientname FROM project, client, building WHERE client.clientid=project.clientid AND project.buildingid=building.buildingid"; // Adjust table name as needed
 $result = $conn->query($sql);
+$result2 = $conn->query($sql);
 ?>
 
 <!doctype html>
@@ -136,9 +137,9 @@ $result = $conn->query($sql);
                                 </div><br>
                                 <div class="ex2">
                                 <div class="div" style="width: 90%; margin: auto;">    
-                                    <?php   
-                                        if ($result->num_rows > 0) {
-                                            while ($row = $result->fetch_assoc()) {
+                                    //<?php   
+                                        if ($result2->num_rows > 0) {
+                                            while ($row = $result2->fetch_assoc()) {
                                                 echo '
                                                 <a href="projectpage.php?id=' . htmlspecialchars($row["projectid"]) . '"  class="row p-1 border bg light" style="margin-top: 25px;">
                                                 <div class="col-sm-4 rounded" style="background-color:rgb(212, 43, 34); width: 35px; height: 80px; color: rgb(212, 43, 34);">.</div>
@@ -147,16 +148,12 @@ $result = $conn->query($sql);
                                                         <div id="buildingaddress" style="font-weight: lighter; text-align: center; font-size: 13px; color: black;">' . htmlspecialchars($row["buildingaddress"]  ?? '') . '</div>
                                                         <div id="projectname" style="font-weight: lighter; text-align: center; font-size: 16px; color:#40ce55">' . htmlspecialchars($row["projectname"] ?? '') . '</div>
                                                     </div>
-                                                </div>';
+                                                </a>';
                                             }
                                         } else {
                                             echo '<p>No projects found</p>';
                                         }
-                                        ?>                                        
-
-                                        
-                            
-                                    
+                                        ?>                                                                
                                     </div>
                                     </div>
                             </div>
