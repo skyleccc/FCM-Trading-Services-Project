@@ -12,7 +12,8 @@ if ($conn->connect_error) {
 
 $sql = "SELECT project.projectid, project.projectname, building.buildingaddress, project.clientid, client.clientname FROM project, client, building WHERE client.clientid=project.clientid AND project.buildingid=building.buildingid"; // Adjust table name as needed
 $result = $conn->query($sql);
-$result2 = $conn->query($sql);
+$result2 = $conn->query($sql); // edit nga ang query kay mu check ra if close na ang deadline (para nis calendar reminders)
+$result3 = $conn->query($sql); // edit nga ang query kay para sa mga quotation requests rani (atm projects ni siya)
 ?>
 
 <!doctype html>
@@ -137,7 +138,7 @@ $result2 = $conn->query($sql);
                                 </div><br>
                                 <div class="ex2">
                                 <div class="div" style="width: 90%; margin: auto;">    
-                                    //<?php   
+                                    <?php   
                                         if ($result2->num_rows > 0) {
                                             while ($row = $result2->fetch_assoc()) {
                                                 echo '
@@ -165,39 +166,25 @@ $result2 = $conn->query($sql);
                                 <div class="col"></div>
                                 <div class="ex3">
                                     <div class="div" style="width: 90%; margin: auto;">
+                                        
+                                    <?php   
+                                        if ($result3->num_rows > 0) {
+                                            while ($row = $result3->fetch_assoc()) {
+                                                echo '
+                                                <a href="projectpage.php?id=' . htmlspecialchars($row["projectid"]) . '"  class="row p-1 border bg light" style="margin-top: 25px;">
+                                                <div class="col-sm-4 rounded" style="background-color:rgb(41, 157, 41); width: 35px; height: 80px; color: rgb(41, 157, 41);">.</div>
+                                                    <div class="col p-1 ">
+                                                        <div id="clientname" style="font-weight: bold;text-align: center; color: black;">' . htmlspecialchars($row["clientname"]  ?? '') . '</div>
+                                                        <div id="buildingaddress" style="font-weight: lighter; text-align: center; font-size: 13px; color: black;">' . htmlspecialchars($row["buildingaddress"]  ?? '') . '</div>
+                                                        <div id="projectname" style="font-weight: lighter; text-align: center; font-size: 16px; color:#40ce55">' . htmlspecialchars($row["projectname"] ?? '') . '</div>
+                                                    </div>
+                                                </a>';
+                                            }
+                                        } else {
+                                            echo '<p>No projects found</p>';
+                                        }
+                                    ?> 
                                 
-                                <div class="row p-1 border bg light" style="margin-top: 25px;">
-                                    <div class="col-sm-4 rounded" style="background-color:rgb(41, 157, 41); width: 35px; height: 80px; color: rgb(41, 157, 41);">.</div>
-                                    <div class="col p-1 ">
-                                        <div style="font-weight: bold;text-align: center;">Mendero Medical Center</div>
-                                        <div style="font-weight: lighter; text-align: center; font-size: 13px;" >Consolacion City</div>
-                                        <div style="font-weight: lighter; text-align: center; font-size: 16px; color:#40ce55" >Roof Repair</div>
-                                    </div>
-                                </div>
-                                <div class="row p-1 border bg light" style="margin-top: 15px;">
-                                    <div class="col-sm-4 rounded" style="background-color:rgb(41, 157, 41); width: 35px; height: 80px; color: rgb(41, 157, 41);">.</div>
-                                    <div class="col p-1 ">
-                                        <div style="font-weight: bold;text-align: center;">Mendero Medical Center</div>
-                                        <div style="font-weight: lighter; text-align: center; font-size: 13px;" >Consolacion City</div>
-                                        <div style="font-weight: lighter; text-align: center; font-size: 16px; color:#40ce55" >Roof Repair</div>
-                                    </div>
-                                </div>
-                                <div class="row p-1 border bg light" style="margin-top: 15px;">
-                                    <div class="col-sm-4 rounded" style="background-color:rgb(41, 157, 41); width: 35px; height: 80px; color: rgb(41, 157, 41);">.</div>
-                                    <div class="col p-1 ">
-                                        <div style="font-weight: bold;text-align: center;">Mendero Medical Center</div>
-                                        <div style="font-weight: lighter; text-align: center; font-size: 13px;" >Consolacion City</div>
-                                        <div style="font-weight: lighter; text-align: center; font-size: 16px; color:#40ce55" >Roof Repair</div>
-                                    </div>
-                                </div>
-                                <div class="row p-1 border bg light" style="margin-top: 15px;">
-                                    <div class="col-sm-4 rounded" style="background-color:rgb(41, 157, 41); width: 35px; height: 80px; color: rgb(41, 157, 41);">.</div>
-                                    <div class="col p-1 ">
-                                        <div style="font-weight: bold;text-align: center;">Mendero Medical Center</div>
-                                        <div style="font-weight: lighter; text-align: center; font-size: 13px;" >Consolacion City</div>
-                                        <div style="font-weight: lighter; text-align: center; font-size: 16px; color:#40ce55" >Roof Repair</div>
-                                    </div>
-                                </div>
                             </div>
                             </div>
                         </div>
