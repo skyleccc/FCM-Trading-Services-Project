@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 $servername = "127.0.0.1";
 $username = "root";
 $password = "";
@@ -11,7 +14,7 @@ if ($conn->connect_error) {
 }
 
 $sql = "SELECT project.projectid, project.projectname, project.buildingaddress, project.clientid, client.clientname FROM project, client WHERE client.clientid=project.clientid"; // Adjust table name as needed
-$sql2 = "SELECT * FROM phase"; 
+$sql2 = "SELECT *, phaseid FROM phase"; 
 $result = $conn->query($sql2);
 $result2 = $conn->query($sql); // edit nga ang query kay mu check ra if close na ang deadline (para nis calendar reminders)
 $result3 = $conn->query($sql); // edit nga ang query kay para sa mga quotation requests rani (atm projects ni siya)
@@ -165,11 +168,11 @@ $result3 = $conn->query($sql); // edit nga ang query kay para sa mga quotation r
                                                                     <span class="material-symbols-outlined" style="font-size: 2vw;">edit</span>
                                                                 </div>
                                                             </button>
-                                                            <button class="button-style" style="margin-top: 10px">
-                                                                <div class="row border bg-light rounded icon-container">
-                                                                    <span class="material-symbols-outlined" style="font-size: 2vw;">delete</span>
-                                                                </div>
-                                                            </button>
+                                                            <button class="button-style delete-btn" data-id="' . htmlspecialchars($row["phaseid"] ?? '') . '" style="margin-top: 10px">
+                                                            <div class="row border bg-light rounded icon-container">
+                                                                <span class="material-symbols-outlined" style="font-size: 2vw;">delete</span>
+                                                            </div>
+                                                        </button>
                                                         </div>
                                                 </div>';
                                                 }
@@ -288,29 +291,24 @@ $result3 = $conn->query($sql); // edit nga ang query kay para sa mga quotation r
                                                 <form class="form" action="phase_save.php" method="POST" id="addProjectForm">
                                                         <div id="scrollform">
                                                             <div class="form-group">
-                                                                <label for="project">Project Name:</label>
-                                                                <input type="text" id="projectname" name="projectname" placeholder="Enter Name of Project Here" required>
+                                                                <label for="project">Phase Title:</label>
+                                                                <input type="text" id="phasetitle" name="phasetitle" placeholder="Enter Name of Project Here" required>
                                                             </div>
                                                             
                                                             <div class="form-group">
-                                                                <label for="description">Project Description:</label>
-                                                                <textarea id="projectDetails" name="projectDetails" placeholder="Type Here..." required></textarea>
+                                                                <label for="description">Phase Description:</label>
+                                                                <textarea id="phasedescription" name="phasedescription" placeholder="Type Here..." required></textarea>
                                                             </div>
-                                                          \
+                                                          
                                                             <div class="form-group_three">
                                                                 <div class="input-group">
-                                                                    <label for="projectDeadline" class="siteinfo">Project Deadline:</label>
-                                                                    <input type="date" id="deadlineDate" name="deadlineDate">
+                                                                    <label for="projectDeadline" class="siteinfo">Expected Finish Date:</label>
+                                                                    <input type="date" id="expectedfinishdate" name="expectedfinishdate">
                                                                 </div>
                                                                 <div class="space"></div>
                                                                 <div class="input-group">
-                                                                    <label for="startdate" class="siteinfo">Start Date of Project:</label>
-                                                                    <input type="date" id="startdate" name="startdate">
-                                                                </div>
-                                                                <div class="space"></div>
-                                                                <div class="input-group">
-                                                                    <label for="datecomplete" class="siteinfo">Completion Date of Project:</label>
-                                                                    <input type="date" id="completiondate" name="completiondate" placeholder="Type Here...">
+                                                                    <label for="startdate" class="siteinfo">Actual Finish Date:</label>
+                                                                    <input type="date" id="actualfinishdate" name="actualfinishdate">
                                                                 </div>
                                                             </div>
                                                         </div><br>
@@ -331,6 +329,7 @@ $result3 = $conn->query($sql); // edit nga ang query kay para sa mga quotation r
         </div>
         
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script>
         var modal = document.getElementById("myModal");
@@ -350,6 +349,36 @@ $result3 = $conn->query($sql); // edit nga ang query kay para sa mga quotation r
                 modal.style.display = "none";
             }
         }
+
+        $('.delete-btn').click(function() {
+    var id = $(this).data('id');
+    console.log('Phase ID:', id); // Log the phase ID being sent
+
+    if (confirm('Are you sure you want to delete this Phase?')) {
+        fetch('delete_phase.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'phaseid=' + id,
+        })
+        .then(response => response.text())
+        .then(data => {
+            console.log('Response:', data); // Log the response from the server
+            if (data === 'success') {
+                alert('Phase deleted successfully!');
+                location.reload();
+            } else {
+                alert('Failed to delete the Phase.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Failed to delete the Phase.');
+        });
+    }
+});
+
     </script>
 </body>
 </html>
