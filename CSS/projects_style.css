@@ -200,7 +200,6 @@ font-weight: bold;
 width: 50%;
 }
 button:hover {
-background-color: darkgreen;
 transform: scale(1.05);
 }
 .login{

@@ -295,7 +295,7 @@ $result = $conn->query($sql);
                                                         </div><br>
                                                 </div>
                                             </div>
-                                            <button id="addfinal">Add Project</button>
+                                            <button id="addfinal">Save Changes</button>
                                         </form>
                                     </div>
                                 </div>
