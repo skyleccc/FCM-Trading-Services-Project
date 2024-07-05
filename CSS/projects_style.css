@@ -85,8 +85,7 @@ background-color: rgba(255, 255, 255);
 border-radius: 10px;
 }
 
-#scrollform{
-    overflow: auto;
+#scrollform{    
     height: 50vw;
 }
 
@@ -201,7 +200,6 @@ font-weight: bold;
 width: 50%;
 }
 button:hover {
-background-color: darkgreen;
 transform: scale(1.05);
 }
 .login{
@@ -300,11 +298,11 @@ text-transform: uppercase;
 color:rgb(17, 183, 106);
 border: 1px solid rgb(17, 183, 106);
 text-align: center;
-padding:18px 40px;
-font-size: 1.125vw;
+width: 100%;
+padding:6px;
+font-size: 1.1vw;
 user-select: none;
 cursor: pointer;
-border-radius: 10px;
 
 }
 .labelforupload:hover {

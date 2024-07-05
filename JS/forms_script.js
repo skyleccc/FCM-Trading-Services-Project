@@ -2,10 +2,10 @@ function displayAttach(){
     var div = document.getElementById('attach-blueprint');
     var div2 = document.getElementById('attachment');
     var attachments = document.getElementById('blueprint');
-
+    var checkbox = document.getElementById('blueprint-add');
     attachments.value = "";
 
-    if(div.style.display == "block"){
+    if(checkbox.value == "off"){
         div.style.display = "none";
         div2.style.display = "none";
     }else{

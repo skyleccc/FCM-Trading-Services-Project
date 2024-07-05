@@ -1,3 +1,21 @@
+<?php
+$servername = "127.0.0.1";
+$username = "root";
+$password = "";
+$dbname = "fcmDB";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$sql = "SELECT project.projectid, project.projectname, building.buildingaddress, project.clientid, client.clientname FROM project, client, building WHERE client.clientid=project.clientid AND project.buildingid=building.buildingid"; // Adjust table name as needed
+$result = $conn->query($sql);
+$result2 = $conn->query($sql); // edit nga ang query kay mu check ra if close na ang deadline (para nis calendar reminders)
+$result3 = $conn->query($sql); // edit nga ang query kay para sa mga quotation requests rani (atm projects ni siya)
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -15,10 +33,10 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-2 p-4 border bg light"><img src="../../WebsitePictures/fcmlogo.png" alt="fcm logo" style="width: 180px;"><br><br>
-                <a href="main.html" style="text-decoration: none; color: black;"><div><span class="material-symbols-outlined">home</span> Home</div><br></a>
+                <a href="main.php" style="text-decoration: none; color: black;"><div><span class="material-symbols-outlined">home</span> Home</div><br></a>
                 <div><span class="material-symbols-outlined">calendar_month</span> Calendar</div><br>
-                <a href="projects.html" style="text-decoration: none; color: black;"><div><span class="material-symbols-outlined">inbox</span> Projects</div><br></a>
-                <a href="quotationreqs.html" style="text-decoration: none; color: black;"><div><span class="material-symbols-outlined">request_quote</span>Quotation Requests</div><br></a>
+                <a href="projects.php" style="text-decoration: none; color: black;"><div><span class="material-symbols-outlined">inbox</span> Projects</div><br></a>
+                <a href="quotationreqs.php" style="text-decoration: none; color: black;"><div><span class="material-symbols-outlined">request_quote</span>Quotation Requests</div><br></a>
                 </div> 
             <div class="col-sm-10 p-3 border bg light">
                 <div style="font-size: 23px;">
@@ -48,33 +66,42 @@
                                 </div><br><br>
 
                                 <div class="ex1">
-                                    
-                                   <div class="row">
-                                    <div class="col-sm-11">
-                                        <a href="projectpage.html" class="row p-2 border bg light" style="margin: auto; text-decoration: none;">
-                                            <div class="col-sm-4 rounded" style="background-color:rgb(41, 157, 41); width: 65px; height: 80px; color: rgb(41, 157, 41);">.</div>
-                                            <div class="col p-1 ">
-                                                <div style="font-weight: bold;text-align: center; color: black;">Mendero Medical Center</div>
-                                                <div style="font-weight: lighter; text-align: center; font-size: 13px; color: black;" >Consolacion City</div>
-                                                <div style="font-weight: lighter; text-align: center; font-size: 16px; color:#40ce55" >Roof Repair</div>
-                                            </div>
-                                            <div class="col-sm-4 rounded" style="background-color:rgb(227, 38, 38); width: 65px; height: 80px; padding-top: 23px ; color: rgb(255, 251, 251);">May</div>
-                                        </a> 
-                                        
-                                    </div>
-                                    <div class="col-sm-1">
-                                        <button class="button-style" style="margin-top: 7px">
-                                            <div class="row border bg-light rounded icon-container">
-                                                <span class="material-symbols-outlined" style="font-size: 2vw;">edit</span>
-                                            </div>
-                                        </button>
-                                        <button class="button-style" style="margin-top: 10px">
-                                            <div class="row border bg-light rounded icon-container">
-                                                <span class="material-symbols-outlined" style="font-size: 2vw;">delete</span>
-                                            </div>
-                                        </button>
-                                    </div>
-                                   </div>
+                                <div class="container">
+                                <?php
+                                        if ($result->num_rows > 0) {
+                                            while ($row = $result->fetch_assoc()) {
+                                                echo '<div class="row">
+                                                    <div class="col-sm-11">
+                                                        <a href="projectpage.php?id=' . htmlspecialchars($row["projectid"]) . '" class="row p-2 border bg-light" style="margin: auto; text-decoration: none;">
+                                                            <div class="col-sm-4 rounded" style="background-color:rgb(41, 157, 41); width: 65px; height: 80px; color: rgb(41, 157, 41);">.</div>
+                                                            <div class="col p-1 ">
+                                                                <div id="clientname" style="font-weight: bold;text-align: center; color: black;">' . htmlspecialchars($row["clientname"]  ?? '') . '</div>
+                                                                <div id="buildingaddress" style="font-weight: lighter; text-align: center; font-size: 13px; color: black;">' . htmlspecialchars($row["buildingaddress"]  ?? '') . '</div>
+                                                                <div id="projectname" style="font-weight: lighter; text-align: center; font-size: 16px; color:#40ce55">' . htmlspecialchars($row["projectname"] ?? '') . '</div>
+                                                            </div>
+                                                            <div class="col-sm-4 rounded" style="background-color:rgb(227, 38, 38); width: 65px; height: 80px; padding-top: 23px ; color: rgb(255, 251, 251);">May</div>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-sm-1">
+                                                        <button class="button-style edit-btn" data-id="' . htmlspecialchars($row["projectid"] ?? '') . '" style="margin-top: 7px">
+                                                            <div class="row border bg-light rounded icon-container">
+                                                                <span class="material-symbols-outlined" style="font-size: 2vw;">edit</span>
+                                                            </div>
+                                                        </button>
+                                                        <button class="button-style delete-btn" data-id="' . htmlspecialchars($row["projectid"] ?? '') . '" style="margin-top: 10px">
+                                                            <div class="row border bg-light rounded icon-container">
+                                                                <span class="material-symbols-outlined" style="font-size: 2vw;">delete</span>
+                                                            </div>
+                                                        </button>
+                                                    </div>
+                                                </div>';
+                                            }
+                                        } else {
+                                            echo '<p>No projects found</p>';
+                                        }
+                                        ?>
+
+                                </div>
 
                                 </div>
 
@@ -111,38 +138,23 @@
                                 </div><br>
                                 <div class="ex2">
                                 <div class="div" style="width: 90%; margin: auto;">    
-                                    <div class="row p-1 border bg light" style="margin-top: 25px;">
-                                        <div class="col-sm-4 rounded" style="background-color:rgb(212, 43, 34); width: 35px; height: 80px; color: rgb(212, 43, 34);">.</div>
-                                        <div class="col p-1 ">
-                                            <div style="font-weight: bold;text-align: center; color: black;">Mendero Medical Center</div>
-                                            <div style="font-weight: lighter; text-align: center; font-size: 13px; color: black;" >Consolacion City</div>
-                                            <div style="font-weight: lighter; text-align: center; font-size: 16px; color:#40ce55" >Roof Repair</div>
-                                        </div>
-                                    </div>
-                                    <div class="row p-1 border bg light" style="margin-top: 15px;">
-                                        <div class="col-sm-4 rounded" style="background-color:rgb(212, 43, 34); width: 35px; height: 80px; color: rgb(212, 43, 34);">.</div>
-                                        <div class="col p-1 ">
-                                            <div style="font-weight: bold;text-align: center; color: black;">Mendero Medical Center</div>
-                                            <div style="font-weight: lighter; text-align: center; font-size: 13px; color: black;" >Consolacion City</div>
-                                            <div style="font-weight: lighter; text-align: center; font-size: 16px; color:#40ce55" >Roof Repair</div>
-                                        </div>
-                                    </div>
-                                    <div class="row p-1 border bg light" style="margin-top: 15px;">
-                                        <div class="col-sm-4 rounded" style="background-color:rgb(212, 43, 34); width: 35px; height: 80px; color: rgb(212, 43, 34);">.</div>
-                                        <div class="col p-1 ">
-                                            <div style="font-weight: bold;text-align: center; color: black;">Mendero Medical Center</div>
-                                            <div style="font-weight: lighter; text-align: center; font-size: 13px; color: black;" >Consolacion City</div>
-                                            <div style="font-weight: lighter; text-align: center; font-size: 16px; color:#40ce55" >Roof Repair</div>
-                                        </div>
-                                    </div>
-                                    <div class="row p-1 border bg light" style="margin-top: 15px;">
-                                        <div class="col-sm-4 rounded" style="background-color:rgb(212, 43, 34); width: 35px; height: 80px; color: rgb(212, 43, 34);">.</div>
-                                        <div class="col p-1 ">
-                                            <div style="font-weight: bold;text-align: center; color: black;">Mendero Medical Center</div>
-                                            <div style="font-weight: lighter; text-align: center; font-size: 13px; color: black;" >Consolacion City</div>
-                                            <div style="font-weight: lighter; text-align: center; font-size: 16px; color:#40ce55" >Roof Repair</div>
-                                        </div>
-                                    </div>
+                                    <?php   
+                                        if ($result2->num_rows > 0) {
+                                            while ($row = $result2->fetch_assoc()) {
+                                                echo '
+                                                <a href="projectpage.php?id=' . htmlspecialchars($row["projectid"]) . '"  class="row p-1 border bg light" style="margin-top: 25px;">
+                                                <div class="col-sm-4 rounded" style="background-color:rgb(212, 43, 34); width: 35px; height: 80px; color: rgb(212, 43, 34);">.</div>
+                                                    <div class="col p-1 ">
+                                                        <div id="clientname" style="font-weight: bold;text-align: center; color: black;">' . htmlspecialchars($row["clientname"]  ?? '') . '</div>
+                                                        <div id="buildingaddress" style="font-weight: lighter; text-align: center; font-size: 13px; color: black;">' . htmlspecialchars($row["buildingaddress"]  ?? '') . '</div>
+                                                        <div id="projectname" style="font-weight: lighter; text-align: center; font-size: 16px; color:#40ce55">' . htmlspecialchars($row["projectname"] ?? '') . '</div>
+                                                    </div>
+                                                </a>';
+                                            }
+                                        } else {
+                                            echo '<p>No projects found</p>';
+                                        }
+                                        ?>                                                                
                                     </div>
                                     </div>
                             </div>
@@ -154,39 +166,25 @@
                                 <div class="col"></div>
                                 <div class="ex3">
                                     <div class="div" style="width: 90%; margin: auto;">
+                                        
+                                    <?php   
+                                        if ($result3->num_rows > 0) {
+                                            while ($row = $result3->fetch_assoc()) {
+                                                echo '
+                                                <a href="projectpage.php?id=' . htmlspecialchars($row["projectid"]) . '"  class="row p-1 border bg light" style="margin-top: 25px;">
+                                                <div class="col-sm-4 rounded" style="background-color:rgb(41, 157, 41); width: 35px; height: 80px; color: rgb(41, 157, 41);">.</div>
+                                                    <div class="col p-1 ">
+                                                        <div id="clientname" style="font-weight: bold;text-align: center; color: black;">' . htmlspecialchars($row["clientname"]  ?? '') . '</div>
+                                                        <div id="buildingaddress" style="font-weight: lighter; text-align: center; font-size: 13px; color: black;">' . htmlspecialchars($row["buildingaddress"]  ?? '') . '</div>
+                                                        <div id="projectname" style="font-weight: lighter; text-align: center; font-size: 16px; color:#40ce55">' . htmlspecialchars($row["projectname"] ?? '') . '</div>
+                                                    </div>
+                                                </a>';
+                                            }
+                                        } else {
+                                            echo '<p>No projects found</p>';
+                                        }
+                                    ?> 
                                 
-                                <div class="row p-1 border bg light" style="margin-top: 25px;">
-                                    <div class="col-sm-4 rounded" style="background-color:rgb(41, 157, 41); width: 35px; height: 80px; color: rgb(41, 157, 41);">.</div>
-                                    <div class="col p-1 ">
-                                        <div style="font-weight: bold;text-align: center;">Mendero Medical Center</div>
-                                        <div style="font-weight: lighter; text-align: center; font-size: 13px;" >Consolacion City</div>
-                                        <div style="font-weight: lighter; text-align: center; font-size: 16px; color:#40ce55" >Roof Repair</div>
-                                    </div>
-                                </div>
-                                <div class="row p-1 border bg light" style="margin-top: 15px;">
-                                    <div class="col-sm-4 rounded" style="background-color:rgb(41, 157, 41); width: 35px; height: 80px; color: rgb(41, 157, 41);">.</div>
-                                    <div class="col p-1 ">
-                                        <div style="font-weight: bold;text-align: center;">Mendero Medical Center</div>
-                                        <div style="font-weight: lighter; text-align: center; font-size: 13px;" >Consolacion City</div>
-                                        <div style="font-weight: lighter; text-align: center; font-size: 16px; color:#40ce55" >Roof Repair</div>
-                                    </div>
-                                </div>
-                                <div class="row p-1 border bg light" style="margin-top: 15px;">
-                                    <div class="col-sm-4 rounded" style="background-color:rgb(41, 157, 41); width: 35px; height: 80px; color: rgb(41, 157, 41);">.</div>
-                                    <div class="col p-1 ">
-                                        <div style="font-weight: bold;text-align: center;">Mendero Medical Center</div>
-                                        <div style="font-weight: lighter; text-align: center; font-size: 13px;" >Consolacion City</div>
-                                        <div style="font-weight: lighter; text-align: center; font-size: 16px; color:#40ce55" >Roof Repair</div>
-                                    </div>
-                                </div>
-                                <div class="row p-1 border bg light" style="margin-top: 15px;">
-                                    <div class="col-sm-4 rounded" style="background-color:rgb(41, 157, 41); width: 35px; height: 80px; color: rgb(41, 157, 41);">.</div>
-                                    <div class="col p-1 ">
-                                        <div style="font-weight: bold;text-align: center;">Mendero Medical Center</div>
-                                        <div style="font-weight: lighter; text-align: center; font-size: 13px;" >Consolacion City</div>
-                                        <div style="font-weight: lighter; text-align: center; font-size: 16px; color:#40ce55" >Roof Repair</div>
-                                    </div>
-                                </div>
                             </div>
                             </div>
                         </div>
@@ -197,6 +195,40 @@
             </div>
         </div>
     </div>
-    
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-HG1PqQtkbfhTXCpFjtnx3vpkTrkFQe+KvhG5MTpH2wPRpEacC4zJxyEilKF8kGmS" crossorigin="anonymous"></script>
+    <script>
+        $('.edit-btn').click(function() {
+            var id = $(this).data('id');
+            window.location.href = 'projectedit.php?id=' + id;
+        });
+
+        $('.delete-btn').click(function() {
+            var id = $(this).data('id');
+            if (confirm('Are you sure you want to delete this project?')) {
+                fetch('delete_project.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'projectid=' + id,
+                })
+                .then(response => response.text())
+                .then(data => {
+                    if (data === 'success') {
+                        alert('Project deleted successfully!');
+                        location.reload();
+                    } else {
+                        alert('Failed to delete the project.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Failed to delete the project.');
+                });
+            }
+        });
+    </script>
+
   </body>
 </html>
