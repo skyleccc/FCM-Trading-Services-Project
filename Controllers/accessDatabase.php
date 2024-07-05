@@ -2,7 +2,7 @@
     $dbhost = "localhost";
     $dbuser = "root";
     $dbpassword = "";
-    $dbname = "fcm_trading_services";
+    $dbname = "fcmDB";
 
     $conn = mysqli_connect($dbhost, $dbuser, $dbpassword, $dbname);
     
