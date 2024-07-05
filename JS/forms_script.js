@@ -5,11 +5,12 @@ function displayAttach(){
     var checkbox = document.getElementById('blueprint-add');
     attachments.value = "";
 
-    if(checkbox.value == "off"){
+    if(checkbox.checked){
+        div.style.display = "block";
+        
+    }else{
         div.style.display = "none";
         div2.style.display = "none";
-    }else{
-        div.style.display = "block";
     }
 }
 
