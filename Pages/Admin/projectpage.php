@@ -2,12 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$servername = "127.0.0.1";
-$username = "root";
-$password = "";
-$dbname = "fcmDB";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
+require '../../Controllers/accessDatabase.php';
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -103,12 +98,10 @@ $result3 = $conn->query($sql); // edit nga ang query kay para sa mga quotation r
   <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-2 p-4 border bg light"><img src="../../WebsitePictures/fcmlogo.png" alt="fcm logo" style=" width: 180px; margin-right:30%;"><br><br>
-                <a href="main.php" style="text-decoration: none; color: black;"><div><span class="material-symbols-outlined">home</span> Home</div><br></a>
-                <div><span class="material-symbols-outlined">calendar_month</span> Calendar</div><br>
-                <a href="projects.php" style="text-decoration: none; color: black;"><div><span class="material-symbols-outlined">inbox</span> Projects</div><br></a>
-                <a href="quotationreqs.php" style="text-decoration: none; color: black;"><div><span class="material-symbols-outlined">request_quote</span>Quotation Requests</div><br></a>
-                </div> 
+            <?php
+            // Navigation Bar for Admin Dashboard
+            include '../../Models/adminNavBar.php'
+            ?>
             <div class="col-sm-10 p-3 border bg light">
                 <div style="font-size: 23px;">
                    <div class="col" style=" border-bottom-style: solid; border-color: green;" >Home</div>

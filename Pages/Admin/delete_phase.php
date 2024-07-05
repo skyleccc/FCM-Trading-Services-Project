@@ -1,10 +1,5 @@
 <?php
-$servername = "127.0.0.1";
-$username = "root";
-$password = "";
-$dbname = "fcmDB";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
+require '../../Controllers/accessDatabase.php';
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
