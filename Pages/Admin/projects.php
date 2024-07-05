@@ -22,7 +22,7 @@ $result = $conn->query($sql);
     <div class="container-fluid">
         <div class="row">
             <?php
-            include '../../Models/adminDashboard.php'
+            include '../../Models/adminNavBar.php'
             ?>
             <div class="col-sm-10 p-3 border bg-light">
                 <div style="font-size: 23px;">

@@ -1,5 +1,5 @@
 <?php
-require '../Controllers/accessDatabase.php';
+require '../../Controllers/accessDatabase.php';
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);

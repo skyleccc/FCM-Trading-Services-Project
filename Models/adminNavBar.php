@@ -2,7 +2,7 @@
 
 // File Redirects
 $homeView = "/Pages/Admin/main.php";
-$calendarView = "";
+$calendarView = "#";
 $projectsView = "/Pages/Admin/projects.php";
 $quotreqsView = "/Pages/Admin/quotationreqs.php";
 

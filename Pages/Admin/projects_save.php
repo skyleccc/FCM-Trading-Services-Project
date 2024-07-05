@@ -1,5 +1,5 @@
 <?php
-require '../Controllers/accessDatabase.php';
+require '../../Controllers/accessDatabase.php';
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

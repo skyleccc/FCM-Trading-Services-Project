@@ -1,5 +1,5 @@
 <?php
-require '../Controllers/accessDatabase.php';
+require '../../Controllers/accessDatabase.php';
 
 $sql = "SELECT project.projectid, project.projectname, building.buildingaddress, project.clientid, client.clientname FROM project, client, building WHERE client.clientid=project.clientid AND project.buildingid=building.buildingid"; // Adjust table name as needed
 $result = $conn->query($sql);
@@ -24,7 +24,7 @@ $result3 = $conn->query($sql); // edit nga ang query kay para sa mga quotation r
     <div class="container-fluid">
         <div class="row">
             <?php
-            include '../../Models/adminDashboard.php'
+            include '../../Models/adminNavBar.php'
             ?>
             <div class="col-sm-10 p-3 border bg light">
                 <div style="font-size: 23px;">
