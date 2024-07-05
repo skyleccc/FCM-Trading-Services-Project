@@ -95,7 +95,6 @@ $conn->close();
     <link rel="stylesheet" href="../CSS/general_style.css">
     <link rel="stylesheet" href="../CSS/forms.css">
     <script src="../JS/forms_script.js"></script>
-    <script src="../JS/button_for_quotationThing.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

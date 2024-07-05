@@ -1,14 +1,5 @@
 <?php
-$servername = "127.0.0.1";
-$username = "root";
-$password = "";
-$dbname = "fcmDB";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include "../../Controllers/accessDatabase.php";
 
 $sql = "SELECT project.projectid, project.projectname, project.buildingaddress, project.clientid, client.clientname FROM project, client WHERE client.clientid=project.clientid"; // Adjust table name as needed
 $result = $conn->query($sql);
@@ -20,6 +11,7 @@ $result = $conn->query($sql);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>FCM Dashboard</title>
+    
     <link rel="stylesheet" href="../../CSS/projects_style.css">
     <link rel="icon" href="../../WebsitePictures/fcmicon.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -29,12 +21,9 @@ $result = $conn->query($sql);
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-2 p-4 border bg-light"><img src="../../WebsitePictures/fcmlogo.png" alt="fcm logo" style="width: 180px;"><br><br>
-                <a href="main.php" style="text-decoration: none; color: black;"><div><span class="material-symbols-outlined">home</span> Home</div><br></a>
-                <div><span class="material-symbols-outlined">calendar_month</span> Calendar</div><br>
-                <a href="projects.php" style="text-decoration: none; color: black;"><div><span class="material-symbols-outlined">inbox</span> Projects</div><br></a>
-                <a href="quotationreqs.php" style="text-decoration: none; color: black;"><div><span class="material-symbols-outlined">request_quote</span>Quotation Requests</div><br></a>
-            </div>
+            <?php
+            include '../../Models/adminDashboard.php'
+            ?>
             <div class="col-sm-10 p-3 border bg-light">
                 <div style="font-size: 23px;">
                     <!-- Content here -->
