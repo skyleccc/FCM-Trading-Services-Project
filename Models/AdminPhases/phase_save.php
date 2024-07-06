@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $temp->bind_param("ssss", $phasetitle, $phasedescription, $expectedfinishdate, $actualfinishdate);
 
         if ($temp->execute()) {
-            header('Location: projectpage.php');
+            header('Location: /../../Pages/Admin/ProjectDetails/projectpage.php');
             exit;
         } else {
             $temp->error;

@@ -11,7 +11,7 @@ echo'
         <div class="quotationscontainer">
             <div class="row" style="height: 100%;">
                 <div class="container p-3 border bg-light rounded">
-                    <div style="font-size: 20px; font-weight: bold; text-align: center; color: black">Enter a new Project<span class="close" onclick="closeModal()">&times;</span>
+                    <div style="font-size: 20px; font-weight: bold; text-align: center; color: black">Edit Project Details<span class="close" onclick="closeModal()">&times;</span>
                     </div><br>
                     <div class="row g-2 calendar" id="calendarcolor" style="text-align: center;">
                         <div class="col-sm ex2" style="border: solid; border-color: green; border-radius: 8px; height: 670px; color: green;">
@@ -89,12 +89,12 @@ echo'
                                         </div>
                                     </div>
                         </div>
-                            <button id="addfinal">Save Changes</button>
+                            <button id="addfinal">Apply Changes</button>
                             </form>
                     </div>
                 </div>
             </div>
-        </div>
+        </div>  
     </div>   
 </div>
 '

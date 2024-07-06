@@ -23,11 +23,77 @@ $result3 = $conn->query($sql); // edit nga ang query kay para sa mga quotation r
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>FCM Dashboard</title>
     <link rel="stylesheet" href="../../../CSS/projects_style.css">
-    <link rel="stylesheet" href="../../../CSS/projectpage_styles.css">
     <link rel="icon" href="fcmicon.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+<style>
+    body{
+        background-color: rgb(235, 242, 246);
+    }
+    .row, .col{
+        border-radius: 10px;
+        background: #fbfbfb;
+    }
 
+    .col-sm-2{
+        font-family: Helvetica;
+        font-weight: bolder;
+    }
+    .material-symbols-outlined {
+        font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24;
+    }
+
+    .centered {
+        position: absolute;
+        top: 40%;
+        left: 40%;
+        transform: translate(6%, -50%);
+    }
+    
+    .container {
+        position: relative;
+        text-align: center;
+        color: white;
+    }
+    
+    div.ex3 {
+        overflow: auto;
+        height: 347px;
+        width: 100%;
+    }
+    div.ex2 {
+        overflow: auto;
+        height: 180px;
+        width: 100%;
+    }
+    div.ex1 {
+        overflow: auto;
+        height: 625px;
+        width: 100%;
+    }
+
+    .icon-container {
+            height: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: none;
+            background: none;
+            padding: 0; 
+    }
+    .button-style {
+            margin: auto;
+            text-decoration: none;
+            color: rgb(52, 173, 46);
+            border: none;
+            background: none;
+            display: block;
+    }
+</style>  
 </head>
   
   <body>
@@ -204,50 +270,10 @@ $result3 = $conn->query($sql); // edit nga ang query kay para sa mga quotation r
                     </div>
                 </div>
 
-                <div class="col modalblock">
-                <div id="myModal" class="popup">
-                    <div class="quotationscontainer" style="height: 70%;">
-                        <div class="row" style="height: 300px;">
-                            <div class="container p-3 border bg-light rounded">
-                                <div style="font-size: 20px; font-weight: bold; text-align: center; color: black">Enter a New Phase<span class="close">&times;</span>
-                                        </div><br>
-                                            <div class="row g-2 calendar" id="calendarcolor" style="text-align: center;">
-                                                <div class="col-sm ex2" style="border: solid; border-color: green; border-radius: 8px; height: 400px; color: green;">
-                                                <form class="form" action="/../../../../Models/AdminPhases/phase_save.php" method="POST" id="addProjectForm">
-                                                        <div id="scrollform">
-                                                            <div class="form-group">
-                                                                <label for="project">Phase Title:</label>
-                                                                <input type="text" id="phasetitle" name="phasetitle" placeholder="Enter Name of Project Here" required>
-                                                            </div>
-                                                            
-                                                            <div class="form-group">
-                                                                <label for="description">Phase Description:</label>
-                                                                <textarea id="phasedescription" name="phasedescription" placeholder="Type Here..." required></textarea>
-                                                            </div>
-                                                          
-                                                            <div class="form-group_three">
-                                                                <div class="input-group">
-                                                                    <label for="projectDeadline" class="siteinfo">Expected Finish Date:</label>
-                                                                    <input type="date" id="expectedfinishdate" name="expectedfinishdate">
-                                                                </div>
-                                                                <div class="space"></div>
-                                                                <div class="input-group">
-                                                                    <label for="startdate" class="siteinfo">Actual Finish Date:</label>
-                                                                    <input type="date" id="actualfinishdate" name="actualfinishdate">
-                                                                </div>
-                                                            </div>
-                                                        </div><br>
-                                                </div>
-                                            </div>
-                                            <button id="addfinal">Add Phase</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>   
-                    </div>
-                </div>   
-            </div>
+                <?php
+                    // Navigation Bar for Admin Dashboard
+                    include '../../../Components/PhaseModals/editPhaseModal.php'
+                    ?>
 
 
             </div>
