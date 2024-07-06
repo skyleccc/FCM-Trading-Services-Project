@@ -3,7 +3,7 @@
                                             while ($row = $result->fetch_assoc()) {
                                                 echo '<div class="row">
                                                     <div class="col-sm-11">
-                                                        <a href="projectpage.php?id=' . htmlspecialchars($row["projectid"]) . '" class="row p-2 border bg-light" style="margin: auto; text-decoration: none;">
+                                                        <a href="../phases/projectpage.php?id=' . htmlspecialchars($row["projectid"]) . '" class="row p-2 border bg-light" style="margin: auto; text-decoration: none;">
                                                             <div class="col-sm-4 rounded" style="background-color:rgb(41, 157, 41); width: 65px; height: 80px; color: rgb(41, 157, 41);">.</div>
                                                             <div class="col p-1 ">
                                                                 <div id="clientname" style="font-weight: bold;text-align: center; color: black;">' . htmlspecialchars($row["clientname"]  ?? '') . '</div>

@@ -1,6 +1,9 @@
 <?php
 require '../../../Controllers/accessDatabase.php';
-require '../../../Controllers/loginCheck.php';
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
 $sql = "SELECT project.projectid, project.projectname, building.buildingaddress, project.clientid, client.clientname FROM project, client, building WHERE client.clientid=project.clientid AND project.buildingid=building.buildingid"; // Adjust table name as needed
 $result = $conn->query($sql);
@@ -26,7 +29,7 @@ $result3 = $conn->query($sql); // edit nga ang query kay para sa mga quotation r
         <div class="row">
             <?php
             // Navigation Bar for Admin Dashboard
-            include '../../../Components/adminNavBar.php'
+            include '../../../Models/adminNavBar.php'
             ?>
             <div class="col-sm-10 p-3 border bg light">
                 <div style="font-size: 23px;">
@@ -131,7 +134,7 @@ $result3 = $conn->query($sql); // edit nga ang query kay para sa mga quotation r
     </div>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-HG1PqQtkbfhTXCpFjtnx3vpkTrkFQe+KvhG5MTpH2wPRpEacC4zJxyEilKF8kGmS" crossorigin="anonymous"></script>
-    <script src="../../../JS/main_script.js"> </script>
+    <script src="/../../js/main.js"> </script>
 
   </body>
 </html>
