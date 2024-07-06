@@ -18,7 +18,7 @@
 <body>
     <?php 
     // NAVIGATION BAR
-    include '../Models/navigationBar.php'
+    include '../Components/navigationBar.php'
     ?>
     <div id="homePage">
         <h1 class="login">&nbsp</h1>
@@ -26,7 +26,9 @@
             <h1>You Have Successfully Submitted a Quotation Request</h1>
         </div>
             <div class="form-group-landingpage">
-                <button class="square-button" onclick="location.href='../Pages/index.php#homePage_intro'">Return to Home Page</button>
+                <div class="h100-w50">
+                    <button class="square-button" onclick="location.href='../Pages/index.php#homePage_intro'">Return to Home Page</button>
+                </div>
             </div>
         </div>
     </div>

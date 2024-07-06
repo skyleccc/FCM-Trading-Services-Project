@@ -3,6 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 require '../../Controllers/accessDatabase.php';
+require '../../Controllers/loginCheck.php';
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -100,7 +101,7 @@ $result3 = $conn->query($sql); // edit nga ang query kay para sa mga quotation r
         <div class="row">
             <?php
             // Navigation Bar for Admin Dashboard
-            include '../../Models/adminNavBar.php'
+            include '../../Components/adminNavBar.php'
             ?>
             <div class="col-sm-10 p-3 border bg light">
                 <div style="font-size: 23px;">

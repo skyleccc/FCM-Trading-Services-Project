@@ -14,7 +14,7 @@
 <body>
     <?php 
     // NAVIGATION BAR
-    include '../Models/navigationBar.php'
+    include '../Components/navigationBar.php'
     ?>
     <div id="homePage" class="section-wrapper">
         <section id="homePage_intro" class="page">
@@ -27,7 +27,7 @@
                     We designed 100+ commercial & residential projects in Cebu & across the Philippines. Providing Construction & Renovation services to everyone.
                 </div>
                 <div id="intro_button">
-                    <button class="square-button">See Our Work</button>
+                    <button class="square-button" onclick="location.href='../Pages/index.php#homePage_projects'">See Our Work</button>
                 </div>
             </div>
         </section>
