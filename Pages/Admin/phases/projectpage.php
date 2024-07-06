@@ -3,10 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 require '../../../Controllers/accessDatabase.php';
-<<<<<<<< HEAD:Pages/Admin/ProjectDetails/projectpage.php
 require '../../../Controllers/loginCheck.php';
-========
->>>>>>>> ac77bee5262ae29cab7060defd866ab409c8c99a:Pages/Admin/phases/projectpage.php
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -104,11 +101,7 @@ $result2 = $conn->query($sql); // edit nga ang query kay para sa mga quotation r
         <div class="row">
             <?php
             // Navigation Bar for Admin Dashboard
-<<<<<<<< HEAD:Pages/Admin/ProjectDetails/projectpage.php
             include '../../../Components/adminNavBar.php'
-========
-            include '../../../Models/adminNavBar.php'
->>>>>>>> ac77bee5262ae29cab7060defd866ab409c8c99a:Pages/Admin/phases/projectpage.php
             ?>
             <div class="col-sm-10 p-3 border bg light">
                 <div class="row p-3 border bg light">
