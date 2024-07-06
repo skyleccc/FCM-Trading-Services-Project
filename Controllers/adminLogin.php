@@ -17,7 +17,7 @@
                     $_SESSION['loggedin'] = TRUE;
                     $_SESSION['name'] = $_POST['username'];
                     $_SESSION['id'] = $id;
-                    header('Location: ../Pages/Admin/main/main.php');
+                    header('Location: ../Pages/Admin/MainDashboard/main.php');
                 } else {
                     // Incorrect password
                     header('Location: ../Pages/loginfail.php');

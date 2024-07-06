@@ -4,11 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FCM Trading Services</title>
-<<<<<<<< HEAD:Pages/Admin/ProjectsList/addprojects.php
     <link rel="icon" href="../../../WebsitePictures/fcmlogowhite.png">
-========
-    <link rel="icon" href="../../WebsitePictures/fcmlogowhite.png">
->>>>>>>> ac77bee5262ae29cab7060defd866ab409c8c99a:Pages/Admin/projects/addprojects.php
     <link rel="stylesheet" href="../../../CSS/general_style.css">
     <link rel="stylesheet" href="../../../CSS/forms.css">
     <script src="../../../JS/forms_script.js"></script>

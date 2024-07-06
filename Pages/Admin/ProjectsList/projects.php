@@ -16,9 +16,6 @@ $result = $conn->query($sql);
     <link rel="icon" href="../../../WebsitePictures/fcmicon.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" /> 
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-HG1PqQtkbfhTXCpFjtnx3vpkTrkFQe+KvhG5MTpH2wPRpEacC4zJxyEilKF8kGmS" crossorigin="anonymous"></script>
-    <script src="../../../JS/projects_script.js"></script>
 </head>
   
 <body>
@@ -54,7 +51,7 @@ $result = $conn->query($sql);
                                                     echo '<div class="col-sm-4 border bg-light proj_cont" style="margin-top: 1%;"> 
                                                             <div class="row">
                                                                 <div class="col-sm-10">
-                                                                    <a href="projectpage.php?id=' . htmlspecialchars($row["projectid"] ?? '') . '" class="row p-2" style="margin: auto; text-decoration: none;">
+                                                                    <a href="../ProjectDetails/projectpage.php?id=' . htmlspecialchars($row["projectid"] ?? '') . '" class="row p-2" style="margin: auto; text-decoration: none;">
                                                                         <div class="row" style="margin: auto; margin-top: 3%;">
                                                                             <div class="col p-1">
                                                                                 <div id="clientname" style="font-weight: bold;text-align: center;font-size: 1.6vw; color: black;">' . htmlspecialchars($row["clientname"] ?? '') . '</div>
@@ -104,5 +101,9 @@ $result = $conn->query($sql);
         // Add Project Modal
         require "../../../Components/ProjectsModals/addProjectModal.php";
     ?>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-HG1PqQtkbfhTXCpFjtnx3vpkTrkFQe+KvhG5MTpH2wPRpEacC4zJxyEilKF8kGmS" crossorigin="anonymous"></script>
+    <script src="../../../JS/projects_script.js"></script>
 </body>
 </html>

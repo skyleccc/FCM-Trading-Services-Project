@@ -1,8 +1,12 @@
-<?php   
+<?php
+
+    // File Redirect: 
+    $redirectTo = "#";
+
     if ($result3->num_rows > 0) {
         while ($row = $result3->fetch_assoc()) {
             echo '
-            <a href="projectpage.php?id=' . htmlspecialchars($row["projectid"]) . '"  class="row p-1 border bg light" style="margin-top: 25px;">
+            <a href="'. $redirectTo . htmlspecialchars($row["projectid"]) . '"  class="row p-1 border bg light" style="margin-top: 25px;">
             <div class="col-sm-4 rounded" style="background-color:rgb(41, 157, 41); width: 35px; height: 80px; color: rgb(41, 157, 41);">.</div>
                 <div class="col p-1 ">
                     <div id="clientname" style="font-weight: bold;text-align: center; color: black;">' . htmlspecialchars($row["clientname"]  ?? '') . '</div>
