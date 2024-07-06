@@ -3,10 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 require '../../../Controllers/accessDatabase.php';
-<<<<<<<< HEAD:Pages/Admin/ProjectDetails/projectpage.php
 require '../../../Controllers/loginCheck.php';
-========
->>>>>>>> ac77bee5262ae29cab7060defd866ab409c8c99a:Pages/Admin/phases/projectpage.php
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -15,8 +12,8 @@ if ($conn->connect_error) {
 $sql = "SELECT project.projectid, project.projectname, project.buildingaddress, project.clientid, client.clientname FROM project, client WHERE client.clientid=project.clientid"; // Adjust table name as needed
 $sql2 = "SELECT *, phaseid FROM phase"; 
 $result = $conn->query($sql2);
-$result3= $conn->query($sql); // edit nga ang query kay mu check ra if close na ang deadline (para nis calendar reminders)
-$result2 = $conn->query($sql); // edit nga ang query kay para sa mga quotation requests rani (atm projects ni siya)
+$result2 = $conn->query($sql); // edit nga ang query kay mu check ra if close na ang deadline (para nis calendar reminders)
+$result3 = $conn->query($sql); // edit nga ang query kay para sa mga quotation requests rani (atm projects ni siya)
 ?>
 
 <!doctype html>
@@ -104,11 +101,7 @@ $result2 = $conn->query($sql); // edit nga ang query kay para sa mga quotation r
         <div class="row">
             <?php
             // Navigation Bar for Admin Dashboard
-<<<<<<<< HEAD:Pages/Admin/ProjectDetails/projectpage.php
             include '../../../Components/adminNavBar.php'
-========
-            include '../../../Models/adminNavBar.php'
->>>>>>>> ac77bee5262ae29cab7060defd866ab409c8c99a:Pages/Admin/phases/projectpage.php
             ?>
             <div class="col-sm-10 p-3 border bg light">
                 <div class="row p-3 border bg light">
@@ -138,10 +131,51 @@ $result2 = $conn->query($sql); // edit nga ang query kay para sa mga quotation r
                                     <br><br>
                                 <div class="ex1">
 
-                                <?php
-                                // Navigation Bar for Admin Dashboard
-                                include 'phaselist.php'
-                                ?>
+
+                                        <?php
+                                            if ($result->num_rows > 0) {
+                                                while ($row = $result->fetch_assoc()) {
+                                                    echo '<div class="row">
+                                                    <div class="col-sm-11">
+                                                        <div class="row p-2 border bg light" style="margin: auto;">
+                                                            <div class="col-sm-4 rounded" style="background-color:rgb(41, 157, 41); width: 65px; height: 80px; color: rgb(41, 157, 41);">
+                                                                <input type="checkbox" style="width: 40px; height: 70px; margin-top: 10%; accent-color: rgb(41, 157, 41);">
+                                                            </div>
+                                                            <div class="col p-1 ">
+                                                            <div id="clientname" style="font-weight: bold;text-align: center;font-size: 1.6vw; color: black;">' . htmlspecialchars($row["phaseTitle"] ?? '') . '</div>
+                                                            <div id="address" style="font-weight: lighter; text-align: center; font-size: 1vw; color: black;">' . htmlspecialchars($row["phaseDescription"] ?? '') . '</div>
+                                                            <div id="projectname" style="font-weight: lighter; text-align: center; font-size: 1.2vw; color:#40ce55;">' . htmlspecialchars($row["projectname"] ?? '') . '</div>
+                                                            </div>
+                                                            <div class="col-sm-4 rounded" style="background-color:rgb(227, 38, 38); width: 160px; height: 80px; padding-top: 13px ;">
+                                                                <div style="color: white; font-size: 15px; font-weight: lighter; ">Deadline:</div>
+                                                                <div style=" color: white">' . htmlspecialchars($row["expectedFinishDate"] ?? '') . '</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                
+                                                        <div class="col-sm-1">
+                                                            <button class="button-style" style="margin-top: 7px">
+                                                                <div class="row border bg-light rounded icon-container">
+                                                                    <span class="material-symbols-outlined" style="font-size: 2vw;">edit</span>
+                                                                </div>
+                                                            </button>
+                                                            <button class="button-style delete-btn" data-id="' . htmlspecialchars($row["phaseid"] ?? '') . '" style="margin-top: 10px">
+                                                            <div class="row border bg-light rounded icon-container">
+                                                                <span class="material-symbols-outlined" style="font-size: 2vw;">delete</span>
+                                                            </div>
+                                                        </button>
+                                                        </div>
+                                                </div>';
+                                                }
+                                            } else {
+                                                echo '<p>No projects found</p>'; // edit add something nga pwede mupakita kung way projects
+                                            }
+                                        ?>
+
+                                    
+
+                                    
+
 
                             </div>
                                    
@@ -180,10 +214,23 @@ $result2 = $conn->query($sql); // edit nga ang query kay para sa mga quotation r
                                 <div class="ex2">
                                 <div class="div" style="width: 90%; margin: auto;">
                                 <div class="div" style="width: 90%; margin: auto;">    
-                                        <?php
-                                        // Navigation Bar for Admin Dashboard
-                                        include '../main/remindersbar.php'
-                                        ?>                                                             
+                                    <?php   
+                                        if ($result2->num_rows > 0) {
+                                            while ($row = $result2->fetch_assoc()) {
+                                                echo '
+                                                <a href="projectpage.php?id=' . htmlspecialchars($row["projectid"]) . '"  class="row p-1 border bg light" style="margin-top: 25px;">
+                                                <div class="col-sm-4 rounded" style="background-color:rgb(212, 43, 34); width: 35px; height: 80px; color: rgb(212, 43, 34);">.</div>
+                                                    <div class="col p-1 ">
+                                                        <div id="clientname" style="font-weight: bold;text-align: center; color: black;">' . htmlspecialchars($row["clientname"]  ?? '') . '</div>
+                                                        <div id="buildingaddress" style="font-weight: lighter; text-align: center; font-size: 13px; color: black;">' . htmlspecialchars($row["buildingaddress"]  ?? '') . '</div>
+                                                        <div id="projectname" style="font-weight: lighter; text-align: center; font-size: 16px; color:#40ce55">' . htmlspecialchars($row["projectname"] ?? '') . '</div>
+                                                    </div>
+                                                </a>';
+                                            }
+                                        } else {
+                                            echo '<p>No projects found</p>';
+                                        }
+                                        ?>                                                                
                                     </div>
                                 </div>
                             </div>
@@ -197,10 +244,23 @@ $result2 = $conn->query($sql); // edit nga ang query kay para sa mga quotation r
                                         <div class="ex3">
                                             <div class="div" style="width: 90%; margin: auto;">
                                        
-                                            <?php
-                                            // Navigation Bar for Admin Dashboard
-                                            include '../main/quotationbar.php'
-                                            ?>
+                                            <?php   
+                                        if ($result3->num_rows > 0) {
+                                            while ($row = $result3->fetch_assoc()) {
+                                                echo '
+                                                <a href="projectpage.php?id=' . htmlspecialchars($row["projectid"]) . '"  class="row p-1 border bg light" style="margin-top: 25px;">
+                                                <div class="col-sm-4 rounded" style="background-color:rgb(41, 157, 41); width: 35px; height: 80px; color: rgb(41, 157, 41);">.</div>
+                                                    <div class="col p-1 ">
+                                                        <div id="clientname" style="font-weight: bold;text-align: center; color: black;">' . htmlspecialchars($row["clientname"]  ?? '') . '</div>
+                                                        <div id="buildingaddress" style="font-weight: lighter; text-align: center; font-size: 13px; color: black;">' . htmlspecialchars($row["buildingaddress"]  ?? '') . '</div>
+                                                        <div id="projectname" style="font-weight: lighter; text-align: center; font-size: 16px; color:#40ce55">' . htmlspecialchars($row["projectname"] ?? '') . '</div>
+                                                    </div>
+                                                </a>';
+                                            }
+                                        } else {
+                                            echo '<p>No projects found</p>';
+                                        }
+                                    ?> 
 
                                     </div>
                                     </div>
@@ -262,6 +322,54 @@ $result2 = $conn->query($sql); // edit nga ang query kay para sa mga quotation r
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="/../../js/phase_js.js"> </script>
+    <script>
+        var modal = document.getElementById("myModal");
+        var btn = document.getElementById("addphase");
+        var span = document.getElementsByClassName("close")[0];
+
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        $('.delete-btn').click(function() {
+    var id = $(this).data('id');
+    console.log('Phase ID:', id); // Log the phase ID being sent
+
+    if (confirm('Are you sure you want to delete this Phase?')) {
+        fetch('delete_phase.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'phaseid=' + id,
+        })
+        .then(response => response.text())
+        .then(data => {
+            console.log('Response:', data); // Log the response from the server
+            if (data === 'success') {
+                alert('Phase deleted successfully!');
+                location.reload();
+            } else {
+                alert('Failed to delete the Phase.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Failed to delete the Phase.');
+        });
+    }
+});
+
+    </script>
 </body>
 </html>

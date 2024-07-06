@@ -1,5 +1,11 @@
 <?php
 
+// Model Requirement: "Models/AdminProjects/project_save.php"
+
+// File Redirects
+$addProject = "../../../Models/AdminProjects/projects_save.php";
+
+
 echo'
 <div class="col modalblock">
     <div id="myModal" class="popup">
@@ -9,7 +15,7 @@ echo'
                     <div style="font-size: 20px; font-weight: bold; text-align: center; color: black">Enter a new Project<span class="close">&times;</span></div><br>
                     <div class="row g-2 calendar" id="calendarcolor" style="text-align: center;">
                         <div class="col-sm ex2" style="border: solid; border-color: green; border-radius: 8px; height: 670px; color: green;">
-                            <form class="form" action="projects_save.php" method="POST" id="addProjectForm">
+                            <form class="form" action="'.$addProject.'" method="POST" id="addProjectForm">
                                 <div id="scrollform">
                                     <div class="form-group">
                                         <label for="project">Project Name:</label>

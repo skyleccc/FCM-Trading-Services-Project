@@ -1,30 +1,8 @@
 <?php
+include '../../Controllers/accessDatabase.php';
 
-if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-    $projectId = intval($_GET['id']);
-    $project = getProjectById($projectId);
-    if (!$project) {
-        echo "Order ID does not exist.";
-        exit();
-    }
-} else {
-    echo "Invalid order ID.";
-    exit();
-}
-
-function getProjectById($id) {
-    global $conn;
-    $save = $conn->prepare("SELECT project.projectname,project.projectscope ,project.projecttype ,project.projectdetails, project.specialrequests, client.clientname,client.clientcontact, building.buildingaddress, building.workarea, building.blueprint, project.startdate, project.deadlinedate, project.completiondate FROM project, client, building WHERE client.clientid = project.clientid AND building.buildingid = project.buildingid AND project.projectid = ?");
-    $save->bind_param("i", $id);
-    $save->execute();
-    $result = $save->get_result();
-
-    if ($result->num_rows > 0) {
-        return $result->fetch_assoc();
-    } else {
-        return null;
-    }
-}
+// Variables:
+$redirectAfter = "Location: ../../Pages/Admin/ProjectDetails/projectpage.php?id=".$projectId;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['projectname'])) {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -84,27 +62,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['projectname'])) {
         $save = $conn->prepare("UPDATE project SET clientid = ?, buildingid = ?, projectname = ?, projecttype = ?, specialRequests = ?, deadlineDate = ?, startdate = ?, completiondate = ? WHERE projectid = ?");
         $save->bind_param("iissssssi", $clientID, $buildingid, $projectname, $projecttype, $specialRequests, $deadlineDate, $startdate, $completiondate, $projectId);
         if ($save->execute()) {
-            header("Location: projects.php");
+            header($redirectAfter);
             exit();
         } else {
             echo "Error updating project: " . $conn->error;
         }
     }
 }
-
-if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-    $projectId = intval($_GET['id']);
-    $project = getProjectById($projectId);
-    if (!$project) {
-        echo "Order ID does not exist.";
-        exit();
-    }
-} else {
-    echo "Invalid project ID.";
-    exit();
-}
-
-$sql = "SELECT project.projectid, project.projectname, building.buildingaddress, project.clientid, client.clientname FROM project, client, building WHERE client.clientid = project.clientid AND building.buildingid = project.buildingid";
-$result = $conn->query($sql);
 
 ?>

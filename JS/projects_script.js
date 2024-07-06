@@ -1,3 +1,19 @@
+var modal = document.getElementById("myModal");
+var btn = document.getElementById("myBtn");
+var span = document.getElementsByClassName("close")[0];
+
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+function closeModal(){
+    window.location.href = `projects.php`;
+}
+
 $('.edit-btn').click(function() {
     var id = $(this).data('id');
     window.location.href = 'projectedit.php?id=' + id;
@@ -28,8 +44,3 @@ $('.delete-btn').click(function() {
         });
     }
 });
-
-
-function closeModal(){
-    window.location.href = `main.php`;
-}

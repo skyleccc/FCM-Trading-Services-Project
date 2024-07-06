@@ -1,10 +1,10 @@
 <?php
 
 // File Redirects
-$homeView = "/Pages/Admin/main/main.php";
+$homeView = "/Pages/Admin/MainDashboard/main.php";
 $calendarView = "#";
-$projectsView = "/Pages/Admin/projects.php";
-$quotreqsView = "/Pages/Admin/quotationreqs.php";
+$projectsView = "/Pages/Admin/ProjectsList/projects.php";
+$quotreqsView = "/Pages/Admin/QuotationReqsList/quotationreqs.php";
 
 echo '
 <div class="col-sm-2 p-4 border bg-light"><img src="/WebsitePictures/fcmlogo.png" alt="fcm logo" style="width: 180px;"><br><br>
