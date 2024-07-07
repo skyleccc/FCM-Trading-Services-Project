@@ -52,7 +52,6 @@
     }
 
     #homePage_statistics {
-        height:auto;
         padding: 5%;
         border: none;
     }
@@ -109,7 +108,7 @@
     }
 
     #statistics_trusted_clients{
-        height: auto;
+        height: fit-content;
         width: 100%;
 
         align-content: center;
@@ -125,7 +124,6 @@
     }
 
     #trusted_clients {
-        display: flex;
     }
 
     #trusted_clients .box{
@@ -314,6 +312,9 @@
         #intro_text {
             width: 100%;
         }
+        #homePage_statistics{
+            height:auto;
+        }
 
         #trusted_clients {
             flex-direction: column;
@@ -334,6 +335,16 @@
             flex-direction: column;
             align-items: center;
             width: 100%;
+        }
+        .header{
+            width: 100%;
+            padding: 5%;
+            font-size: 1vh;
+        }
+        #intro_content{
+            width: 100%;
+            padding: 5%;
+            font-size: .5rem
         }
         
     }
