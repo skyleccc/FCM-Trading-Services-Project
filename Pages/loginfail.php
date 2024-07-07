@@ -1,9 +1,3 @@
-<?php
-if(isset($_SESSION['loggedin'])){
-    header("Location: /Pages/Admin/main/main.php");
-    exit;
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,21 +21,15 @@ if(isset($_SESSION['loggedin'])){
     include '../Components/navigationBar.php'
     ?>
     <div id="homePage">
-        <h1 class="login">Login</h1>
-        <div class="logincontainer">
-            <form action="../Controllers/adminLogin.php" method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" placeholder="Enter Username Here...">
+        <h1 class="login">&nbsp</h1>
+        <div class="content-text h25-w100 flex-centermiddle">
+            <h1>Incorrect Password or Email!</h1>
+        </div>
+            <div class="form-group-landingpage">
+                <div class="h100-w50">
+                    <button class="square-button" onclick="location.href='login.php'">Return to Login Page</button>
                 </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Enter Password Here...">
-                </div>
-                <div class="form-group">
-                    <button type="submit" name="submit" id="login-button">Login</button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 </body>

@@ -1,6 +1,9 @@
 <?php
-require '../Controllers/accessDatabase.php';
+require '../../Controllers/accessDatabase.php';
 
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $phasetitle = $_POST['phasetitle'];
@@ -12,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $temp->bind_param("ssss", $phasetitle, $phasedescription, $expectedfinishdate, $actualfinishdate);
 
         if ($temp->execute()) {
-            header('Location: projectpage.php');
+            header('Location: /../../Pages/Admin/ProjectDetails/projectpage.php');
             exit;
         } else {
             $temp->error;

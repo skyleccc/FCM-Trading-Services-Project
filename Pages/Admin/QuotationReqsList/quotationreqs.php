@@ -1,21 +1,24 @@
+<?php
+    require '../../../Controllers/loginCheck.php';
+?>
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>FCM Dashboard</title>
-    <link rel="stylesheet" href="../../CSS/quotationreqs_styles.css">
-    <link rel="icon" href="../../WebsitePictures/fcmicon.png">
+    <link rel="stylesheet" href="../../../CSS/quotationreqs_styles.css">
+    <link rel="icon" href="../../../WebsitePictures/fcmicon.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" /> 
-
 </head>
   
   <body>
     <div class="container-fluid">
         <div class="row">
             <?php
-            include '../../Models/adminDashboard.php'
+            // Navigation Bar for Admin Dashboard
+            include '../../../Components/adminNavBar.php'
             ?>
             <div class="col-sm-10 p-3 border bg light">
                 <div style="font-size: 23px;">
@@ -24,7 +27,7 @@
                 <div class="row p-3 border bg light">   
                     <div class="col-sm-12">
                         <div class="container">
-                            <img src="../../WebsitePictures/fcmbanner3.png" alt="fcm logo" class="rounded" style="width: 100%; margin:auto;">
+                            <img src="../../../WebsitePictures/fcmbanner3.png" alt="fcm logo" class="rounded" style="width: 100%; margin:auto;">
                         </div>
                         <div class="col p-2 addbtn">
                             <div class="row p-3 border bg light rounded" style="font-size: 20px; font-weight: bold;">
