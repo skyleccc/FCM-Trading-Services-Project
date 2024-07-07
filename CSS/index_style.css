@@ -1,230 +1,372 @@
-.section-wrapper{
-    overflow-y: scroll;
-    scroll-behavior: smooth;
-}
+    .section-wrapper{
+        overflow-y: scroll;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+    }
 
-section {
-    scroll-snap-align: start;
-}
+    section {
+        scroll-snap-align: start;
+    }
 
-.page{
-   width: 100%;
-   height: 100%;
-   border-bottom: 1px solid rgba(45, 45, 45, 0.1);
-}
-
-#homePage {
-    margin-top: 80px;
-    width: 100%;
-    height: calc(100% - 80px);
-}
-
-#homePage .header{
-    font-size: 4vw;
-    font-weight: 700;
-}
-
-#homePage_intro {
-    border: 1px solid white;
-
-    background-image: url("https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png");
-    background-size: contain;
-}
-
-#intro_text {
-    height: 80%;
-    width: 45%;
-    margin: 5%;
-}
-
-#intro_content{
-    width: 90%;
-    margin-top: 50px;
-    white-space: normal;
-    font-size: 1.25vw;
-    
-}
-
-#intro_button {
-    margin-top: 75px;
-    height: 75px;
-}
-
-#homePage_statistics {
-    padding: 5%;
-}
-
-#statistics_text{
-    height: 50%;
-    width: 100%;
-    display: flex
-}
-
-#statistics_header{
-    color: rgb(83, 183, 111);
-}
-
-#statistics_content{
-    margin-top: 10px;
-    font-size: 1.25vw;
-}
-
-#statistics_number {
-    text-align: right;
-    padding: 10px;
-}
-
-#statistics_number .circle_pictureframe{
-    max-width: 125px;
-    max-height: 125px;
-    background-color: rgb(42, 54, 63);
-    border-radius: 50%;
-    padding: 10px;
-    
-}
-
-#statistics_number .circle_pictureframe img{
-    max-height: 90%;
-    max-width: 90%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#statistics_number .large{
-    font-size: 2vw;
-}
-
-#statistics_number .margin{
-    margin: 5px;
-}
-
-#statistics_number .container{
-    max-width: 50%;
-    min-width: 300px;
-    margin-right: 10%;
-}
-
-#statistics_trusted_clients{
-    height: 40%;
-    width: 100%;
-
-    align-content: center;
-    text-align: center;
-    justify-content: center;
-}
-
-#statistics_trusted_clients .small-header {
-    color: rgb(83, 183, 111); 
-    font-weight: 700; 
-    font-size: 1.75vw; 
-    margin: 5px;
-}
-
-#trusted_clients {
-    display: flex;
-}
-
-#trusted_clients .box{
-    height: 125px;
-    margin: 1%;
-    align-content: center;
-    box-shadow: 3px 3px 2px gray;
-    border-radius: 5%;
-    padding: 10px;
-    background-color: white;
-}
-
-#trusted_clients .box:hover{
-    transform: scale(1.05);
-    transition: 0.1s;
-}
-
-#trusted_clients .box img{
-    max-height: 100%;
-    max-width: 100%;
-    object-fit: cover;
-}
-
-#homePage_projects .headerbox {
-    color: white;
-    background-color: rgb(26, 22, 22);
-}
-
-#homePage_projects .gallery-box{
-    transform: scale(0.95);
-    background-color: white;
-    border-radius: 15px;
-    margin-bottom: 1%;
-}
-
-#homePage_projects .gallery-box:hover {
-    transform: scale(1);
-    transition: 0.1s;
-}
-
-#homePage_projects .img-box {
-    padding: 5%;
-    display: flex;
-}
-
-#homePage_projects .img-box img {
-    max-width: 100%;
-    max-height: 100%;
-}
-
-#homePage_projects .text-box{
-    padding: 5%;
-    color:rgb(17, 183, 106);
-}
-
-#homePage_projects .text-box-title {
-    font-size: 2.25vw;
-    font-weight: 700;
-}
-
-#homePage_projects .text-box-normal {
-    font-size: 1.25vw;
-    font-weight: 500;
-}
-
-#homePage_footer {
-    background-color: rgb(32, 37, 32);
-    text-align: center;
-    color: white;
-}
-
-#homePage_footer img{
-    max-height: calc(100% - 28px);
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#homePage_quotations .header{
-    color:rgb(17, 183, 106);
-}
-
-
-#homePage_quotations .image-box2{
-    background-image: url('https://freedesignfile.com/upload/2017/01/Constraction-worker-HD-picture-01.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-    border-radius: 15px;
-    padding-right: 7%;
-}
-
-#homePage_quotations .square-button{
+    .page{
     width: 100%;
     height: 100%;
-    margin-right: 100px;
-}
+    border-bottom: 1px solid rgba(45, 45, 45, 0.1);
+    }
 
-#homePage_quotations .click-quotation{
-    padding-bottom: 6%;
-}
+    #homePage {
+        margin-top: 80px;
+        width: 100%;
+        height: calc(100% - 80px);
+    }
 
-#homePage_quotations .text-box{
-    padding-top: 2%;
-}
+    #homePage .header{
+        font-size: 4vw;
+        font-weight: 700;
+    }
+
+    #homePage_intro {
+        border: 1px solid white;
+
+        background-image: url("https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png");
+        background-size: contain;
+    }
+
+    #intro_text {
+        height: 80%;
+        width: 45%;
+        margin: 5%;
+    }
+
+    #intro_content{
+        width: 90%;
+        margin-top: 50px;
+        white-space: normal;
+        font-size: 1.25vw;
+        
+    }
+
+    #intro_button {
+        margin-top: 75px;
+        height: 75px;
+    }
+
+    #homePage_statistics {
+        height:auto;
+        padding: 5%;
+        border: none;
+    }
+
+    #statistics_text{
+        height: 50%;
+        width: 100%;
+        display: flex
+    }
+
+    #statistics_header{
+        color: rgb(83, 183, 111);
+    }
+
+    #statistics_content{
+        margin-top: 10px;
+        font-size: 1.25vw;
+    }
+
+    #statistics_number {
+        text-align: right;
+        padding: 10px;
+    }
+
+    #statistics_number .circle_pictureframe{
+        max-width: 125px;
+        max-height: 125px;
+        background-color: rgb(42, 54, 63);
+        border-radius: 50%;
+        padding: 10px;
+        
+    }
+
+    #statistics_number .circle_pictureframe img{
+        max-height: 90%;
+        max-width: 90%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #statistics_number .large{
+        font-size: 2vw;
+    }
+
+    #statistics_number .margin{
+        margin: 5px;
+    }
+
+    #statistics_number .container{
+        max-width: 50%;
+        min-width: 300px;
+        margin-right: 10%;
+    }
+
+    #statistics_trusted_clients{
+        height: auto;
+        width: 100%;
+
+        align-content: center;
+        text-align: center;
+        justify-content: center;
+    }
+
+    #statistics_trusted_clients .small-header {
+        color: rgb(83, 183, 111); 
+        font-weight: 700; 
+        font-size: 1.75vw; 
+        margin: 5px;
+    }
+
+    #trusted_clients {
+        display: flex;
+    }
+
+    #trusted_clients .box{
+        height: 125px;
+        margin: 1%;
+        align-content: center;
+        box-shadow: 3px 3px 2px gray;
+        border-radius: 5%;
+        padding: 10px;
+        background-color: white;
+    }
+
+    #trusted_clients .box:hover{
+        transform: scale(1.05);
+        transition: 0.1s;
+    }
+
+    #trusted_clients .box img{
+        max-height: 100%;
+        max-width: 100%;
+        object-fit: cover;
+    }
+
+    #homePage_projects{
+        border:none;
+    }
+
+    #homePage_projects .headerbox {
+        color: white;
+        background-color: rgb(26, 22, 22);
+    }
+
+    #homePage_projects .gallery-box{
+        transform: scale(0.95);
+        background-color: white;
+        border-radius: 15px;
+        margin-bottom: 1%;
+    }
+
+    #homePage_projects .gallery-box:hover {
+        transform: scale(1);
+        transition: 0.1s;
+    }
+
+    #homePage_projects .img-box {
+        padding: 5%;
+        display: flex;
+    }
+
+    #homePage_projects .img-box img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    #homePage_projects .text-box{
+        padding: 5%;
+        color:rgb(17, 183, 106);
+    }
+
+    #homePage_projects .text-box-title {
+        font-size: 2.25vw;
+        font-weight: 700;
+    }
+
+    #homePage_projects .text-box-normal {
+        font-size: 1.25vw;
+        font-weight: 500;
+    }
+
+    #homePage_footer {
+        background-color: rgb(32, 37, 32);
+        text-align: center;
+        color: white;
+    }
+
+    #homePage_footer img{
+        max-height: calc(100% - 28px);
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #homePage_quotations .header{
+        color:rgb(17, 183, 106);
+    }
+
+
+    #homePage_quotations .image-box2{
+        background-image: url('https://freedesignfile.com/upload/2017/01/Constraction-worker-HD-picture-01.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        border-radius: 15px;
+        padding-right: 7%;
+    }
+
+    #homePage_quotations .square-button{
+        width: 100%;
+        height: 100%;
+        margin-right: 100px;
+    }
+
+    #homePage_quotations .click-quotation{
+        padding-bottom: 6%;
+    }
+
+    #homePage_quotations .text-box{
+        padding-top: 2%;
+        word-wrap: break-word; /* For older browsers */
+        overflow-wrap: break-word; /* Standard */
+        white-space: normal;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    #homePage_footer{
+        padding-top: 2%;
+        word-wrap: break-word; /* For older browsers */
+        overflow-wrap: break-word; /* Standard */
+        white-space: normal;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+
+
+    /* Responsive styles for stacking the boxes in a column */
+    @media (max-width: 768px) {
+        *{
+            width:auto;
+        }
+        #intro_text {
+            width: 90%;
+            margin: 5%;
+        }
+
+        #statistics_text {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        #statistics_number {
+            margin: 20px 0;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #statistics_number .container {
+            width: 100%;
+            margin: 10px 0;
+        }
+        .click-quotation{
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        #homePage_quotations .image-box2 {
+            width: 100%;
+            padding: 5%;
+        }
+    
+        #homePage_quotations .text-box {
+            width: 100%;
+            padding: 5%;
+            text-align: center;
+            font-size: 1rem; /* Adjust font size as needed */
+        }
+        #homePage_footer{
+            width: 100%;
+            padding: 5%;
+            text-align: center;
+            font-size: 1rem; /* Adjust font size as needed */
+        }
+    
+        #homePage_quotations .square-button {
+            width: 80%;
+            margin: 10px auto;
+        }
+        
+    }
+
+    @media (max-width: 576px) {
+        #intro_text {
+            width: 100%;
+        }
+
+        #trusted_clients {
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        #trusted_clients .box {
+            width: 80%;
+            margin-bottom: 10px;
+        }
+
+        #homePage_projects {
+            margin-top: 50px;
+        }
+        .gallery {
+            display:flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+        
+    }
+
+    @media (max-width: 480px) {
+        *{
+            width:auto;
+        }
+        #intro_text {
+            width: 100%;
+        }
+
+        #statistics_text {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        #statistics_number {
+            margin-top: 20px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #statistics_number .container {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        #trusted_clients .box {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+    }
