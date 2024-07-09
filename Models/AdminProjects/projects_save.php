@@ -1,5 +1,6 @@
 <?php
 require '../../Controllers/accessDatabase.php';
+require '../../Controllers/loginCheck.php';
 
 // Variables:
 $redirectAfter = "Location: ../../Pages/Admin/ProjectDetails/projectpage.php?id=" . $projectID;

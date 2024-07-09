@@ -1,5 +1,6 @@
 <?php
 require '../../Controllers/accessDatabase.php';
+require '../../Controllers/loginCheck.php';
 
 $requestid = $_POST['requestid'];
 $sql = "DELETE FROM quotation_request WHERE requestid='$requestid'";

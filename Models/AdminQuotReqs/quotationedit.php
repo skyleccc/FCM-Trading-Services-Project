@@ -1,5 +1,6 @@
 <?php
-include '../../Controllers/accessDatabase.php';
+require '../../Controllers/accessDatabase.php';
+require '../../Controllers/loginCheck.php';
 
 $redirectAfter = "Location: ../../Pages/Admin/QUotationReqsList/quotationreqs.php";
 
