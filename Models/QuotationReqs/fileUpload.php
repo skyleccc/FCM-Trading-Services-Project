@@ -1,4 +1,5 @@
 <?php
+require '../../Controllers/accessDatabase.php';
 
 $allowed_ext = array('jpg', 'jpeg', 'png', 'svg', 'webp', 'apng', 'avif', 'ico', 'cur', 'bmp', 'jfif', 'pdf');
 
@@ -50,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Handle file upload
             if ($validFiles > 0) {
-                $upload_dir = 'D:\College\IM2\FCM-Trading-Services-Project\AttachedFiles\Blueprints\blueprint-' . $quotationRequestId;
+                $upload_dir = '..\..\AttachedFiles\Blueprints\blueprint-' . $quotationRequestId;
 
                 // Create upload directory if it does not exist
                 if (!is_dir($upload_dir)) {

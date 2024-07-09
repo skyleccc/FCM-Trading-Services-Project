@@ -1,5 +1,6 @@
 <?php
 require '../../Controllers/accessDatabase.php';
+require '../../Controllers/loginCheck.php';
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
