@@ -31,7 +31,7 @@
         }
     
     }else{
-        header("Location: ../Pages/login.php");
+        header("Location: ../Pages/loginfail.php");
     }
 
     $conn->close();

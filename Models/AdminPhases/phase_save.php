@@ -1,21 +1,22 @@
 <?php
 require '../../Controllers/accessDatabase.php';
+require '../../Controllers/loginCheck.php';
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+// File Redirect
+$redirectAfter = "/../../Pages/Admin/ProjectDetails/projectpage.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $projectid = $_GET['projectid'];
     $phasetitle = $_POST['phasetitle'];
     $phasedescription = $_POST['phasedescription'];
     $expectedfinishdate = $_POST['expectedfinishdate'];
     $actualfinishdate = $_POST['actualfinishdate'];
 
-        $temp = $conn->prepare("INSERT INTO phase (phasetitle, phasedescription, expectedfinishdate, actualfinishdate) VALUES (?, ?, ?, ?)");
-        $temp->bind_param("ssss", $phasetitle, $phasedescription, $expectedfinishdate, $actualfinishdate);
+        $temp = $conn->prepare("INSERT INTO phase (phasetitle, phasedescription, expectedfinishdate, actualfinishdate, projectid) VALUES (?, ?, ?, ?,?)");
+        $temp->bind_param("ssssi", $phasetitle, $phasedescription, $expectedfinishdate, $actualfinishdate, $projectid);
 
         if ($temp->execute()) {
-            header('Location: /../../Pages/Admin/ProjectDetails/projectpage.php');
+            header('Location:'.$redirectAfter.'?id='.$projectid);
             exit;
         } else {
             $temp->error;
