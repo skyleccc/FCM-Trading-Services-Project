@@ -37,17 +37,16 @@ $result3 = $conn->query($sql); // edit nga ang query kay para sa mga quotation r
             // Navigation Bar for Admin Dashboard
             include '../../../Components/adminNavBar.php'
             ?>
-            <div class="col-sm-10 p-3 border bg light">
-                <div class="row p-3 border bg light">
-                    <div class="col-sm-8">
-                        <div class="container">
-                            <img src="../../../WebsitePictures/fcmbanner2.png" alt="fcm logo" class="rounded" style="width: 840px; margin:auto;">
-                            <div class="row-sm=12">
+            <div class="col-10 p-3 border bg light">
+                <div class="row border bg light">
+                    <div class="col-8 p-3 row">
+                        <div class="container container-img rounded" >
+                            <div class="row">
                                 <div class="col">
-                                    <div class="centered" style="font-size: 3vw; left: 4%; top: 50%; color: green; border: solid; padding: 10px; border-radius: 10px;">Roof Repair</div>
+                                    <div class="centered" style="font-size: 1.5vw; left: 4%; top: 50%; color: green; border: solid; padding: 10px; border-radius: 10px;">Roof Repair</div>
                                 </div>
                                 <div class="col">
-                                    <div class="centered" style="font-weight: bolder; font-size: 2vw; text-align: left; left:45%; color: black">Mendero Medical Center</div>
+                                    <div class="centered" style="font-weight: bolder; font-size: 2vw; text-align: left; margin-left:45%; color: black">Mendero Medical Center</div>
                                     <div class="centered" style="color:black; margin-top: 30px; font-size: 1.4vw; left:66% ">Consolacion City, Cebu</div>
                                 </div>
                             </div>
