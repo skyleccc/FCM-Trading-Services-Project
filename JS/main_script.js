@@ -54,7 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to update the table with fetched data
     const updateTable = (data) => {
-        dataContainer.innerHTML = '';
         dataContainer.innerHTML = data;
     };
 
