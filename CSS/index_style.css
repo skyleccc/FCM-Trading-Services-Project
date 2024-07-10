@@ -63,6 +63,7 @@
     }
 
     #statistics_header{
+        height:fit-content;
         color: rgb(83, 183, 111);
     }
 
@@ -123,9 +124,9 @@
         margin: 5px;
     }
 
-    #trusted_clients {
-    }
+    
 
+    
     #trusted_clients .box{
         height: 125px;
         margin: 1%;
@@ -259,6 +260,19 @@
             width: 90%;
             margin: 5%;
         }
+        #homePage_statistics{
+            height:auto;
+        }
+        #trusted_clients {
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        #trusted_clients .box {
+            width: 80%;
+            margin-bottom: 10px;
+        }
 
         #statistics_text {
             flex-direction: column;
@@ -305,7 +319,15 @@
             width: 80%;
             margin: 10px auto;
         }
-        
+        .header{
+            font-size: 5vw;
+        }
+        #intro-content{
+            font-size: 2vw;
+        }
+        .square-button{
+            font-size: 2.5vw;
+        }
     }
 
     @media (max-width: 576px) {
@@ -337,14 +359,35 @@
             width: 100%;
         }
         .header{
-            width: 100%;
-            padding: 5%;
-            font-size: 1vh;
+            
+            font-size: 5vw;
         }
         #intro_content{
             width: 100%;
             padding: 5%;
             font-size: .5rem
+        }
+        
+        #statistics_trusted_clients .small-header{
+            width: 100%;
+            font-size:5vw;
+            padding: 5%;
+        }
+        
+        #statistics_content{
+            font-size: 2vw;
+            text-align: justify;
+        }
+        #statistics_header.header{
+            width:100%;
+            font-size: 5vw;
+            padding:5%;
+        }
+        #intro-content{
+            font-size: 2vw;
+        }
+        .square-button{
+            font-size: 2.5vw;
         }
         
     }
@@ -379,5 +422,8 @@
         #trusted_clients .box {
             width: 100%;
             margin-bottom: 15px;
+        }
+        .square-button{
+            font-size: 2.5vw;
         }
     }
