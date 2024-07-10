@@ -1,7 +1,8 @@
 <?php
 
 // File Redirects
-$addPhase = "../../Models/AdminProjectPage/phase_save.php";
+$projectID = $_GET['id'];
+$addPhase = "../../../Models/AdminPhases/phase_save.php?projectid=".$projectID;
 
 echo'
 <div class="col modalblock">
