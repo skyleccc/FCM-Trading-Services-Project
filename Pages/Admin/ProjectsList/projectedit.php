@@ -35,12 +35,15 @@ $result = $conn->query($sql);
                         </div>
                         <div class="col p-2 addbtn">
                             <div class="row p-3 border bg-light rounded" style="font-size: 20px; font-weight: bold;">
-                                <div class="col" style="margin: 10px; font-size: 2vw;">Projects List</div>
-                                <div class="col-sm-3" style="margin: 10px;">
-                                   <button class="button-style" id="myBtn" style="background-color: rgb(19, 171, 19);width: 200px; height: 50px; font-weight: lighter; margin-left:37%;"><div class="col" style="background-color: rgb(19, 171, 19); font-size: 1.4vw; color: white;">
-                                    <span class="material-symbols-outlined" style="font-size: 30px; color: white;">note_add</span> Add A Project
-                                    </div></button> 
-                                </div><br><br>
+                                <div class="col" style=" font-size: 2vw; display:flex;">
+                                    <div class="">
+                                        Projects List
+                                    </div>
+                                    <div class="col">
+                                        <button class="button-style col" id="myBtn" style="width: 55px !important; height: 50px; font-weight: lighter; padding:0 !important; "><span class="material-symbols-outlined" style="font-size: 30px; color: rgb(19, 171, 19); display:flex; justify-content:center;">note_add</span></button></div>
+                                    </div>
+                                   <input type="text" name="search" id="search"placeholder="Search" class="col"> 
+                                </div>
                                 <div class="ex1"><div class="row projrow">
                                     <div class="container">
                                         <div class="row" style="color: black">
@@ -104,5 +107,33 @@ $result = $conn->query($sql);
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-HG1PqQtkbfhTXCpFjtnx3vpkTrkFQe+KvhG5MTpH2wPRpEacC4zJxyEilKF8kGmS" crossorigin="anonymous"></script>
     <script src="../../../JS/projects_script.js"></script>
+    <script>
+        $(document).ready(function(){
+    $('#search').on('keyup', function(){
+        let query = $(this).val().trim(); // Trim whitespace
+
+        // Perform search only if there's a query
+        if (query.length > 0) {
+            $.ajax({
+                url: 'searchProjects.php', // PHP script for handling search
+                method: 'POST',
+                data: {query: query},
+                success: function(data){
+                    $('#results').html(data);
+                }
+            });
+        } else {
+            // If query is empty, load all projects
+            $.ajax({
+                url: 'searchProjects.php', // PHP script for handling search
+                method: 'POST',
+                success: function(data){
+                    $('#results').html(data);
+                }
+            });
+        }
+    });
+});
+    </script>
 </body>
 </html>

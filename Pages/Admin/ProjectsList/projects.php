@@ -2,7 +2,23 @@
 require '../../../Controllers/accessDatabase.php';
 require '../../../Controllers/loginCheck.php';
 
-$sql = "SELECT project.projectid, project.projectname, project.buildingaddress, project.clientid, client.clientname FROM project, client WHERE client.clientid=project.clientid"; // Adjust table name as needed
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+$searchQuery = '';
+if (isset($_POST['query'])) {
+    $searchQuery = $conn->real_escape_string($_POST['query']); // Escaping special characters
+    $sql = "SELECT project.projectid, project.projectname, project.buildingaddress, project.clientid, client.clientname 
+            FROM project 
+            JOIN client ON client.clientid = project.clientid
+            WHERE project.projectname LIKE '%$searchQuery%' 
+            OR project.buildingaddress LIKE '%$searchQuery%' 
+            OR client.clientname LIKE '%$searchQuery%'";
+} else {
+    $sql = "SELECT project.projectid, project.projectname, project.buildingaddress, project.clientid, client.clientname 
+            FROM project 
+            JOIN client ON client.clientid = project.clientid";
+}
 $result = $conn->query($sql);
 ?>
 
@@ -41,14 +57,11 @@ $result = $conn->query($sql);
                                         Projects List
                                     </div>
                                     <div class="col">
-                                        <button class="button-style col" id="myBtn" style="width: 55px !important; height: 50px; font-weight: lighter; padding:0 !important; "><span class="material-symbols-outlined" style="font-size: 30px; color: rgb(19, 171, 19); display:flex; justify-content:center;">note_add</span></button></div>
+                                        <button class="button-style col" id="myBtn" style="width: 55px !important; height: 50px; font-weight: lighter; padding:0 !important;"><span class="material-symbols-outlined" style="font-size: 30px; color: rgb(19, 171, 19); display:flex; justify-content:center;">note_add</span></button></div>
                                     </div>
-                                      
-                                
-                               
-                                   <input type="text" name="search" placeholder="Search for Project" class="col"> 
+                                   <input type="text" name="search" id="search" placeholder="Search" class="col"> 
                                 </div>
-                                <div class="ex1"><div class="row projrow">
+                                <div class="ex1" id="results"><div class="row projrow">
                                     <div class="container">
                                         <div class="row" style="color: black">
                                             <?php
@@ -89,7 +102,7 @@ $result = $conn->query($sql);
                                                         </div>';
                                                 }
                                             } else {
-                                                echo '<p>No projects found</p>'; // edit add something nga pwede mupakita kung way projects
+                                                echo '<p>No projects found</p>';
                                             }
                                             ?>
                                         </div>
@@ -111,5 +124,33 @@ $result = $conn->query($sql);
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-HG1PqQtkbfhTXCpFjtnx3vpkTrkFQe+KvhG5MTpH2wPRpEacC4zJxyEilKF8kGmS" crossorigin="anonymous"></script>
     <script src="../../../JS/projects_script.js"></script>
+    <script>
+        $(document).ready(function(){
+    $('#search').on('keyup', function(){
+        let query = $(this).val().trim(); // Trim whitespace
+
+        // Perform search only if there's a query
+        if (query.length > 0) {
+            $.ajax({
+                url: 'searchProjects.php', // PHP script for handling search
+                method: 'POST',
+                data: {query: query},
+                success: function(data){
+                    $('#results').html(data);
+                }
+            });
+        } else {
+            // If query is empty, load all projects
+            $.ajax({
+                url: 'searchProjects.php', // PHP script for handling search
+                method: 'POST',
+                success: function(data){
+                    $('#results').html(data);
+                }
+            });
+        }
+    });
+});
+    </script>
 </body>
 </html>
