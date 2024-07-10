@@ -1,0 +1,42 @@
+#sidebar a{
+    font-size: 1vw;
+    
+}
+
+span{
+    border: 0.5px solid red;
+}
+#sidebar div{
+    padding:3px;
+    display: flex;
+    align-items: center;
+}
+
+#sidebar .home{
+transform: scale(0.95);
+}
+#sidebar .sched{
+transform: scale(0.95);
+}
+#sidebar .inbox{
+transform: scale(0.95);
+}
+#sidebar .requestQuote{
+transform: scale(0.95);
+}
+#sidebar .home:hover{
+background-color: lightgreen;
+transform: scale(1);
+}
+#sidebar .sched:hover{
+background-color: lightgreen;
+transform: scale(1);
+}
+#sidebar .inbox:hover{
+background-color: lightgreen;
+transform: scale(1);
+}
+#sidebar .requestQuote:hover{
+background-color: lightgreen;
+transform: scale(1);
+}

@@ -36,12 +36,18 @@ $result = $conn->query($sql);
                         </div>
                         <div class="col p-2 addbtn">
                             <div class="row p-3 border bg-light rounded" style="font-size: 20px; font-weight: bold;">
-                                <div class="col" style="margin: 10px; font-size: 2vw;">Projects List</div>
-                                <div class="col-sm-3" style="margin: 10px;">
-                                   <button class="button-style" id="myBtn" style="background-color: rgb(19, 171, 19);width: 200px; height: 50px; font-weight: lighter; margin-left:37%;"><div class="col" style="background-color: rgb(19, 171, 19); font-size: 1.4vw; color: white;">
-                                    <span class="material-symbols-outlined" style="font-size: 30px; color: white;">note_add</span> Add A Project
-                                    </div></button> 
-                                </div><br><br>
+                                <div class="col" style=" font-size: 2vw; display:flex;">
+                                    <div class="">
+                                        Projects List
+                                    </div>
+                                    <div class="col">
+                                        <button class="button-style col" id="myBtn" style="width: 55px !important; height: 50px; font-weight: lighter; padding:0 !important; "><span class="material-symbols-outlined" style="font-size: 30px; color: rgb(19, 171, 19); display:flex; justify-content:center;">note_add</span></button></div>
+                                    </div>
+                                      
+                                
+                               
+                                   <input type="text" name="search" placeholder="Search for Project" class="col"> 
+                                </div>
                                 <div class="ex1"><div class="row projrow">
                                     <div class="container">
                                         <div class="row" style="color: black">
