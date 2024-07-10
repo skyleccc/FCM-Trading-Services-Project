@@ -11,8 +11,8 @@ if ($conn->connect_error) {
 
 $id = $_GET['id'];
 $sql = "SELECT project.projectid, project.projectname, project.buildingaddress, project.clientid, client.clientname FROM project, client, phase WHERE phase.projectid = project.projectid AND project.projectid = $id " ; // Adjust table name as needed  
-//$sql2 = "SELECT phase.phaseTitle, phase.phaseDescription, project.projectname, phase.phaseID, phase.* FROM phase, project WHERE phase.projectid = project.projectid AND project.projectid = $id "; 
-//$result = $conn->query($sql2);
+$sql2 = "SELECT phase.phaseTitle, phase.phaseDescription, project.projectname, phase.phaseID, phase.* FROM phase, project WHERE phase.projectid = project.projectid AND project.projectid = $id "; 
+$result = $conn->query($sql2);
 $result2 = $conn->query($sql); // edit nga ang query kay mu check ra if close na ang deadline (para nis calendar reminders)
 $result3 = $conn->query($sql); // edit nga ang query kay para sa mga quotation requests rani (atm projects ni siya)
 ?>
