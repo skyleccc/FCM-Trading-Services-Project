@@ -9,8 +9,9 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT project.projectid, project.projectname, project.buildingaddress, project.clientid, client.clientname FROM project, client WHERE client.clientid=project.clientid"; // Adjust table name as needed
-$sql2 = "SELECT *, phaseid FROM phase"; 
+$id = $_GET['id'];
+$sql = "SELECT project.projectid, project.projectname, project.buildingaddress, project.clientid, client.clientname FROM project, client, phase WHERE phase.projectid = project.projectid AND project.projectid = $id " ; // Adjust table name as needed  
+$sql2 = "SELECT phase.phasetitle, phase.phasedescription, project.projectname, phase.phaseid, phase.* FROM phase, project WHERE phase.projectid = project.projectid AND project.projectid = $id "; 
 $result = $conn->query($sql2);
 $result2 = $conn->query($sql); // edit nga ang query kay mu check ra if close na ang deadline (para nis calendar reminders)
 $result3 = $conn->query($sql); // edit nga ang query kay para sa mga quotation requests rani (atm projects ni siya)
@@ -37,17 +38,16 @@ $result3 = $conn->query($sql); // edit nga ang query kay para sa mga quotation r
             // Navigation Bar for Admin Dashboard
             include '../../../Components/adminNavBar.php'
             ?>
-            <div class="col-sm-10 p-3 border bg light">
-                <div class="row p-3 border bg light">
-                    <div class="col-sm-8">
-                        <div class="container">
-                            <img src="../../../WebsitePictures/fcmbanner2.png" alt="fcm logo" class="rounded" style="width: 840px; margin:auto;">
-                            <div class="row-sm=12">
+            <div class="col-10 p-3 border bg light">
+                <div class="row border bg light">
+                    <div class="col-8 p-3 row">
+                        <div class="container container-img rounded" >
+                            <div class="row">
                                 <div class="col">
-                                    <div class="centered" style="font-size: 3vw; left: 4%; top: 50%; color: green; border: solid; padding: 10px; border-radius: 10px;">Roof Repair</div>
+                                    <div class="centered" style="font-size: 1.5vw; left: 4%; top: 50%; color: green; border: solid; padding: 10px; border-radius: 10px;">Roof Repair</div>
                                 </div>
                                 <div class="col">
-                                    <div class="centered" style="font-weight: bolder; font-size: 2vw; text-align: left; left:45%; color: black">Mendero Medical Center</div>
+                                    <div class="centered" style="font-weight: bolder; font-size: 2vw; text-align: left; margin-left:45%; color: black">Mendero Medical Center</div>
                                     <div class="centered" style="color:black; margin-top: 30px; font-size: 1.4vw; left:66% ">Consolacion City, Cebu</div>
                                 </div>
                             </div>
@@ -204,51 +204,9 @@ $result3 = $conn->query($sql); // edit nga ang query kay para sa mga quotation r
                     </div>
                 </div>
 
-                <div class="col modalblock">
-                <div id="myModal" class="popup">
-                    <div class="quotationscontainer" style="height: 70%;">
-                        <div class="row" style="height: 300px;">
-                            <div class="container p-3 border bg-light rounded">
-                                <div style="font-size: 20px; font-weight: bold; text-align: center; color: black">Enter a New Phase<span class="close">&times;</span>
-                                        </div><br>
-                                            <div class="row g-2 calendar" id="calendarcolor" style="text-align: center;">
-                                                <div class="col-sm ex2" style="border: solid; border-color: green; border-radius: 8px; height: 400px; color: green;">
-                                                <form class="form" action="/../../../../Models/AdminPhases/phase_save.php" method="POST" id="addProjectForm">
-                                                        <div id="scrollform">
-                                                            <div class="form-group">
-                                                                <label for="project">Phase Title:</label>
-                                                                <input type="text" id="phasetitle" name="phasetitle" placeholder="Enter Name of Project Here" required>
-                                                            </div>
-                                                            
-                                                            <div class="form-group">
-                                                                <label for="description">Phase Description:</label>
-                                                                <textarea id="phasedescription" name="phasedescription" placeholder="Type Here..." required></textarea>
-                                                            </div>
-                                                          
-                                                            <div class="form-group_three">
-                                                                <div class="input-group">
-                                                                    <label for="projectDeadline" class="siteinfo">Expected Finish Date:</label>
-                                                                    <input type="date" id="expectedfinishdate" name="expectedfinishdate">
-                                                                </div>
-                                                                <div class="space"></div>
-                                                                <div class="input-group">
-                                                                    <label for="startdate" class="siteinfo">Actual Finish Date:</label>
-                                                                    <input type="date" id="actualfinishdate" name="actualfinishdate">
-                                                                </div>
-                                                            </div>
-                                                        </div><br>
-                                                </div>
-                                            </div>
-                                            <button id="addfinal">Add Phase</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>   
-                    </div>
-                </div>   
-            </div>
-
+                <?php
+                    require '../../../Components/PhaseModals/addPhaseModal.php';
+                ?>
 
             </div>
         </div>

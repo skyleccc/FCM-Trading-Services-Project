@@ -4,8 +4,6 @@ require '../../../Controllers/loginCheck.php';
 
 $sql = "SELECT project.projectid, project.projectname, building.buildingaddress, project.clientid, client.clientname, DATE_FORMAT(project.deadlineDate, '%M %d, %Y') AS deadlineDate FROM project, client, building WHERE client.clientid=project.clientid AND project.buildingid=building.buildingid"; // Adjust table name as needed
 $result = $conn->query($sql);
-$result2 = $conn->query($sql); // edit nga ang query kay mu check ra if close na ang deadline (para nis calendar reminders)
-$result3 = $conn->query($sql); // edit nga ang query kay para sa mga quotation requests rani (atm projects ni siya)
 ?>
 
 <!doctype html>
@@ -22,7 +20,7 @@ $result3 = $conn->query($sql); // edit nga ang query kay para sa mga quotation r
   
   <body>
     <div class="container-fluid">
-        <div class="row">
+        <div class="row" style="text-decoration: none">
             <?php
             // Navigation Bar for Admin Dashboard
             include '../../../Components/adminNavBar.php'
@@ -52,7 +50,7 @@ $result3 = $conn->query($sql); // edit nga ang query kay para sa mga quotation r
                                 </div><br><br>
 
                                 <div class="ex1">
-                                <div id="project-container" class="container">
+                                <div id="project-container" class="container" style="text-decoration: none">
                                 <?php
                                     // Projects List
                                     include 'projectlist.php'
@@ -115,7 +113,7 @@ $result3 = $conn->query($sql); // edit nga ang query kay para sa mga quotation r
                                 <div style="text-align: center; color: grey; font-weight: lighter;">Check and validate within 7 Days</div>
                                 <div class="col"></div>
                                 <div class="ex3">
-                                    <div class="div" style="width: 90%; margin: auto;">
+                                    <div class="div" style="width: 90%; margin: auto;" >
                                         
                                     <?php
                                     // Navigation Bar for Admin Dashboard
