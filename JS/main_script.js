@@ -33,3 +33,38 @@ $('.delete-btn').click(function() {
 function closeModal(){
     window.location.href = `main.php`;
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const sortLinks = document.querySelectorAll('.dropdown-content a');
+    const dataContainer = document.getElementById('project-container');
+
+    // Function to fetch data from the server
+    const fetchData = async (sort) => {
+        try {
+            const response = await fetch(`../../../Models/AdminMainDashboard/sortProjectList.php?sort=${sort}`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.text();
+            updateTable(data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+    // Function to update the table with fetched data
+    const updateTable = (data) => {
+        dataContainer.innerHTML = '';
+        dataContainer.innerHTML = data;
+    };
+
+    // Add click event listeners to sort links
+    sortLinks.forEach(link => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            const sort = event.target.getAttribute('data-sort');
+            fetchData(sort);
+        });
+    });
+
+});

@@ -2,15 +2,13 @@
 require '../../../Controllers/accessDatabase.php';
 require '../../../Controllers/loginCheck.php';
 
-// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT requestid, serviceType, clientName, Location FROM quotation_request"; // Adjust table name as needed
+$sql = "SELECT requestid, serviceType, clientName, Location FROM quotation_request WHERE status='pending'"; // Adjust table name as needed
 $result = $conn->query($sql);
 
-// Check if query was successful
 if (!$result) {
     die("Query failed: " . $conn->error);
 }
@@ -30,7 +28,6 @@ if (!$result) {
     <div class="container-fluid">
         <div class="row">
             <?php
-            // Navigation Bar for Admin Dashboard
             include '../../../Components/adminNavBar.php'
             ?>
             <div class="col-sm-10 p-3 border bg light">
@@ -82,14 +79,15 @@ if (!$result) {
                                                             </div>
                                                             
                                                             <div class="col-sm-2 border bg-light">
-                                                                <button class="button-style edit-btn" data-id="' . htmlspecialchars($row["requestid"]) . '" style="margin-top: 8px;">
+                                                                <button class="button-style approve-btn" data-id="' . htmlspecialchars($row["requestid"]) . '" style="margin-top: 8px;">
                                                                     <div class="row border bg-light rounded icon-container" style="height: 7vw; display: flex; align-items: center; justify-content: center;">
-                                                                        <span class="material-symbols-outlined" style="font-size: 1.5vw;">edit</span>
+                                                                        <span class="material-symbols-outlined" style="font-size: 1.5vw;">check_circle</span>
                                                                     </div>
                                                                 </button>
-                                                                <button class="button-style delete-btn" data-id="' . htmlspecialchars($row["requestid"]) . '" style="margin-top: 8px; margin-bottom: 10px;">
+                                                                <button class="button-style decline-btn" data-id="' . htmlspecialchars($row["requestid"]) . '" style="margin-top: 8px; margin-bottom: 10px;">
                                                                         <div class="row border bg-light rounded icon-container" style="height: 7vw; display: flex; align-items: center; justify-content: center;">
-                                                                            <span class="material-symbols-outlined" style="font-size: 1.5vw;">delete</span>
+                                                                            <span class="material-symbols-outlined"  style="font-size: 1.5vw;">cancel</span>
+
                                                                         </div>
                                                                     </button>
 
@@ -99,7 +97,7 @@ if (!$result) {
                                                     ';
                                                         }
                                                     } else {
-                                                        echo '<p>No projects found</p>'; // edit add something nga pwede mupakita kung way projects
+                                                        echo '<p>No projects found</p>';
                                                     }
                                             ?>
                                        
