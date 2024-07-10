@@ -123,8 +123,7 @@
         margin: 5px;
     }
 
-    #trusted_clients {
-    }
+    
 
     #trusted_clients .box{
         height: 125px;
@@ -304,6 +303,9 @@
         #homePage_quotations .square-button {
             width: 80%;
             margin: 10px auto;
+        }
+        #homePage_statistics{
+            height:auto;
         }
         
     }

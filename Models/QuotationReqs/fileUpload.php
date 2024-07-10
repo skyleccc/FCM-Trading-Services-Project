@@ -1,5 +1,9 @@
 <?php
-require '../../Controllers/accessDatabase.php';
+require '..\..\Controllers\accessDatabase.php';
+
+// File Redirect
+$redirectTo = "..\..\Pages\landingpage.php";
+$dir = '..\..\AttachedFiles\Blueprints\blueprint-';
 
 $allowed_ext = array('jpg', 'jpeg', 'png', 'svg', 'webp', 'apng', 'avif', 'ico', 'cur', 'bmp', 'jfif', 'pdf');
 
@@ -19,10 +23,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $withBlueprint = isset($_POST['blueprint-add']) ? 1 : 0;
 
     // Validate files
-    $validFiles = 0;
-    $invalidFiles = [];
+    if ($_FILES['blueprint']['error'][0] != UPLOAD_ERR_NO_FILE) {
+        $validFiles = 0;
+        $invalidFiles = [];
 
-    if (isset($_FILES['blueprint'])) {
         for ($i = 0; $i < count($_FILES['blueprint']['name']); $i++) {
             $file_name = $_FILES['blueprint']['name'][$i];
             $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
@@ -51,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Handle file upload
             if ($validFiles > 0) {
-                $upload_dir = '..\..\AttachedFiles\Blueprints\blueprint-' . $quotationRequestId;
+                $uploadFile_dir = $dir . $quotationRequestId;
 
                 // Create upload directory if it does not exist
                 if (!is_dir($upload_dir)) {
@@ -73,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             echo "New records created successfully";
             // Redirect to success page after form submission
-            header("Location: landingpage.php");
+            header("Location: ".$redirectTo);
             exit(); // Ensure script stops execution after redirection
         } else {
             echo "Error: " . $stmt->error;
