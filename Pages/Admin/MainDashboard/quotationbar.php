@@ -1,8 +1,8 @@
 <?php
 
     // File Redirect: 
-    $redirectTo = "#";
-    $sql = "SELECT requestid, serviceType, clientName, Location FROM quotation_request WHERE status='pending'"; 
+    $redirectTo = "../ProjectDetails/projectpage.php?id=";
+    $sql = "SELECT quotation_request.requestid, quotation_request.serviceType, quotation_request.clientName, quotation_request.Location, project.projectid FROM quotation_request, project WHERE status='pending'";
     $result3 = $conn->query($sql);
 
     if ($result3->num_rows > 0) {
@@ -10,11 +10,11 @@
             echo '
             <a href="'. $redirectTo . htmlspecialchars($row["projectid"]) . '"  class="row p-1 border bg light" style="margin-top: 25px;  text-decoration: none">
             <div class="col-sm-4 rounded" style="background-color:rgb(41, 157, 41); width: 35px; height: 80px; color: rgb(41, 157, 41);">.</div>
-                <div class="col p-1 ">
-                    <div id="clientname" style="font-weight: bold;text-align: center; color: black;">' . htmlspecialchars($row["clientname"]  ?? '') . '</div>
-                    <div id="buildingaddress" style="font-weight: lighter; text-align: center; font-size: 13px; color: black;">' . htmlspecialchars($row["buildingaddress"]  ?? '') . '</div>
-                    <div id="projectname" style="font-weight: lighter; text-align: center; font-size: 16px; color:#40ce55">' . htmlspecialchars($row["projectname"] ?? '') . '</div>
-                </div>
+            <div class="col p-1">
+            <div style="font-weight: bold;text-align: center;font-size: 1.3vw; color: black;">' . htmlspecialchars($row["Location"]) . '</div>
+            <div style="font-weight: lighter; text-align: center; font-size: 0.9vw; color: black;" >' . htmlspecialchars($row["clientName"]) . '</div>
+            <div style="font-weight: lighter; text-align: center; font-size: 0.75vw; color:#40ce55" >' . htmlspecialchars($row["serviceType"]) . '</div>
+        </div>
             </a>';
         }
     } else {

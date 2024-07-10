@@ -3,10 +3,7 @@ require '../../../Controllers/accessDatabase.php';
 require '../../../Controllers/loginCheck.php';
 
 $sql = "SELECT project.projectid, project.projectname, building.buildingaddress, project.clientid, client.clientname, DATE_FORMAT(project.deadlineDate, '%M %d, %Y') AS deadlineDate FROM project, client, building WHERE client.clientid=project.clientid AND project.buildingid=building.buildingid"; // Adjust table name as needed
-
 $result = $conn->query($sql);
-// edit nga ang query kay mu check ra if close na ang deadline (para nis calendar reminders)
- // edit nga ang query kay para sa mga quotation requests rani (atm projects ni siya)
 ?>
 
 <!doctype html>
