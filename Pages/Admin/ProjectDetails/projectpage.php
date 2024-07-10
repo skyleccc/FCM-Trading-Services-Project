@@ -10,11 +10,23 @@ if ($conn->connect_error) {
 }
 
 $id = $_GET['id'];
-$sql = "SELECT project.projectid, project.projectname, project.buildingaddress, project.clientid, client.clientname FROM project, client, phase WHERE phase.projectid = project.projectid AND project.projectid = $id " ; // Adjust table name as needed  
+$sql = "SELECT project.projectid, project.projectname, building.buildingaddress, project.clientid, client.clientname FROM project, client, phase, building WHERE project.projectid = $id AND project.clientid = client.clientid AND project.buildingID = building.buildingID AND project.projectid=phase.projectid " ; // Adjust table name as needed  
 $sql2 = "SELECT phase.phaseTitle, phase.phaseDescription, project.projectname, phase.phaseID, phase.* FROM phase, project WHERE phase.projectid = project.projectid AND project.projectid = $id "; 
+$sql3 = "SELECT project.projectname, building.buildingaddress, client.clientname FROM project, client, building WHERE client.clientid= project.clientid  AND project.buildingID = building.buildingID AND project.projectid = $id" ;
+
 $result = $conn->query($sql2);
 $result2 = $conn->query($sql); // edit nga ang query kay mu check ra if close na ang deadline (para nis calendar reminders)
-$result3 = $conn->query($sql); // edit nga ang query kay para sa mga quotation requests rani (atm projects ni siya)
+$result3 = $conn->query($sql3); // edit nga ang query kay para sa mga quotation requests rani (atm projects ni siya)
+
+$clientname = "";
+$projectname = "";
+$buildingaddress = "";
+if ($result3->num_rows > 0) {
+    $row = $result3->fetch_assoc();
+    $clientname = $row['clientname'];
+    $projectname = $row['projectname'];
+    $buildingaddress = $row['buildingaddress'];
+}
 ?>
 
 <!doctype html>
@@ -44,11 +56,11 @@ $result3 = $conn->query($sql); // edit nga ang query kay para sa mga quotation r
                         <div class="container container-img rounded" >
                             <div class="row">
                                 <div class="col">
-                                    <div class="centered" style="font-size: 1.5vw; left: 4%; top: 50%; color: green; border: solid; padding: 10px; border-radius: 10px;">Roof Repair</div>
+                                    <div class="centered" style="font-size: 1.5vw; left: 4%; top: 50%; color: green; border: solid; padding: 10px; border-radius: 10px;"><?php echo htmlspecialchars($projectname); ?></div>
                                 </div>
                                 <div class="col">
-                                    <div class="centered" style="font-weight: bolder; font-size: 2vw; text-align: left; margin-left:45%; color: black">Mendero Medical Center</div>
-                                    <div class="centered" style="color:black; margin-top: 30px; font-size: 1.4vw; left:66% ">Consolacion City, Cebu</div>
+                                    <div class="centered clientname" style="font-weight: bolder; font-size: 2vw; color: black"><?php echo htmlspecialchars($clientname); ?></div>
+                                    <div class="centered buildingaddress" style="color:black; margin-top: 30px; font-size: 1.4vw;"><?php echo htmlspecialchars($buildingaddress); ?></div>
                                 </div>
                             </div>
                         </div>

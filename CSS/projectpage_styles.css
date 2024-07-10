@@ -70,3 +70,14 @@
             background: none;
             display: block;
     }
+
+    .clientname,
+.buildingaddress {
+    text-align: left; /* Ensure left alignment */
+    overflow: hidden; /* Hide overflow if text exceeds container */
+    white-space: nowrap; /* Prevent text wrapping */
+    text-overflow: ellipsis; /* Show ellipsis (...) for overflow text */
+    max-width: 100%; /* Ensure text does not exceed container width */
+}
+
+
