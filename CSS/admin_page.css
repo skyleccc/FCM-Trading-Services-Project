@@ -25,18 +25,14 @@ transform: scale(0.95);
 transform: scale(0.95);
 }
 #sidebar .home:hover{
-background-color: lightgreen;
 transform: scale(1);
 }
 #sidebar .sched:hover{
-background-color: lightgreen;
 transform: scale(1);
 }
 #sidebar .inbox:hover{
-background-color: lightgreen;
 transform: scale(1);
 }
 #sidebar .requestQuote:hover{
-background-color: lightgreen;
 transform: scale(1);
 }
