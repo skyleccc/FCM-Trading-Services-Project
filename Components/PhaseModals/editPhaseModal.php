@@ -3,7 +3,8 @@ include '../../../Controllers/accessDatabase.php';
 
 $redirectAfter = "Location: ../../Pages/Admin/ProjectDetails/projectpage.php";
 
-$phaseId = isset($_GET['id']) ? $_GET['id'] : null;
+$phaseId = isset($_GET['phaseid']) ? $_GET['phaseid'] : null;
+$projID = $_GET['id'];
 
 if ($phaseId) {
     $stmt = $conn->prepare("SELECT phasetitle, phasedescription, expectedfinishdate, actualfinishdate FROM phase WHERE phaseId = ?");
@@ -33,7 +34,7 @@ echo '
                                         </div><br>
                                             <div class="row g-2 calendar" id="calendarcolor" style="text-align: center;">
                                                 <div class="col-sm ex2" style="border: solid; border-color: green; border-radius: 8px; height: 400px; color: green;">
-                                                <form class="form" action="/../../../Models/AdminPhases/phase_edit.php?id='.$phaseId.'" method="POST" id="addProjectForm">
+                                                <form class="form" action="/../../../Models/AdminPhases/phase_edit.php?id='.$projID.'&phaseid='.$phaseId.'" method="POST" id="addProjectForm">
                                                         <div id="scrollform">
                                                          <input type="hidden" name="id" value="'.$phaseId.'">  
                                                             <div class="form-group">

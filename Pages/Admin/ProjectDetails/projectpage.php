@@ -5,27 +5,28 @@ ini_set('display_errors', 1);
 require '../../../Controllers/accessDatabase.php';
 require '../../../Controllers/loginCheck.php';
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
 $id = $_GET['id'];
-$sql = "SELECT project.projectid, project.projectname, building.buildingaddress, project.clientid, client.clientname FROM project, client, phase, building WHERE project.projectid = $id AND project.clientid = client.clientid AND project.buildingID = building.buildingID AND project.projectid=phase.projectid " ; // Adjust table name as needed  
-$sql2 = "SELECT phase.phaseTitle, phase.phaseDescription, project.projectname, phase.phaseID, phase.* FROM phase, project WHERE phase.projectid = project.projectid AND project.projectid = $id "; 
+// Phase Table
+$sql = "SELECT phase.* FROM phase, project WHERE project.projectid = $id AND phase.projectid = project.projectid";
+
+// Phase Reminders
+$sql2 = "SELECT project.projectid, project.projectname, building.buildingaddress, project.clientid, client.clientname FROM project, client, phase, building WHERE project.projectid = $id AND project.clientid = client.clientid AND project.buildingID = building.buildingID AND project.projectid=phase.projectid " ; 
+
+// Header Text
 $sql3 = "SELECT project.projectname, building.buildingaddress, client.clientname FROM project, client, building WHERE client.clientid= project.clientid  AND project.buildingID = building.buildingID AND project.projectid = $id" ;
 
-$result = $conn->query($sql2);
-$result2 = $conn->query($sql); // edit nga ang query kay mu check ra if close na ang deadline (para nis calendar reminders)
-$result3 = $conn->query($sql3); // edit nga ang query kay para sa mga quotation requests rani (atm projects ni siya)
+$result = $conn->query($sql);
+$result2 = $conn->query($sql2);
+$result3 = $conn->query($sql3);
 
 $clientname = "";
 $projectname = "";
 $buildingaddress = "";
 if ($result3->num_rows > 0) {
-    $row = $result3->fetch_assoc();
-    $clientname = $row['clientname'];
-    $projectname = $row['projectname'];
-    $buildingaddress = $row['buildingaddress'];
+    $header_row = $result3->fetch_assoc();
+    $clientname = $header_row['clientname'];
+    $projectname = $header_row['projectname'];
+    $buildingaddress = $header_row['buildingaddress'];
 }
 ?>
 
@@ -85,7 +86,7 @@ if ($result3->num_rows > 0) {
                                                     <div class="col-sm-11">
                                                         <div class="row p-2 border bg light" style="margin: auto;">
                                                             <div class="col-sm-4 rounded" style="background-color:rgb(41, 157, 41); width: 65px; height: 80px; color: rgb(41, 157, 41);">
-                                                                <input type="checkbox" style="width: 40px; height: 70px; margin-top: 10%; accent-color: rgb(41, 157, 41);">
+                                                                <input type="checkbox" data-id="' . htmlspecialchars($row["phaseID"] ?? '') . '" style="width: 40px; height: 70px; margin-top: 10%; accent-color: rgb(41, 157, 41);">
                                                             </div>
                                                             <div class="col p-1 ">
                                                             <div id="clientname" style="font-weight: bold;text-align: center;font-size: 1.6vw; color: black;">' . htmlspecialchars($row["phaseTitle"] ?? '') . '</div>
@@ -100,12 +101,12 @@ if ($result3->num_rows > 0) {
                                                     </div>
                 
                                                         <div class="col-sm-1">
-                                                            <button class="button-style edit-btn" data-id="' . htmlspecialchars($row["phaseid"] ?? '') . '" style="margin-top: 7px">
+                                                            <button class="button-style edit-btn" data-id="' . htmlspecialchars($row["phaseID"] ?? '') . '" style="margin-top: 7px">
                                                                 <div class="row border bg-light rounded icon-container">
                                                                     <span class="material-symbols-outlined" style="font-size: 2vw;">edit</span>
                                                                 </div>
                                                             </button>
-                                                            <button class="button-style delete-btn" data-id="' . htmlspecialchars($row["phaseid"] ?? '') . '" style="margin-top: 10px">
+                                                            <button class="button-style delete-btn" data-id="' . htmlspecialchars($row["phaseID"] ?? '') . '" style="margin-top: 10px">
                                                             <div class="row border bg-light rounded icon-container">
                                                                 <span class="material-symbols-outlined" style="font-size: 2vw;">delete</span>
                                                             </div>
@@ -114,7 +115,7 @@ if ($result3->num_rows > 0) {
                                                 </div>';
                                                 }
                                             } else {
-                                                echo '<p>No projects found</p>'; // edit add something nga pwede mupakita kung way projects
+                                                echo '<p>No projects found</p>';
                                             }
                                         ?>
 

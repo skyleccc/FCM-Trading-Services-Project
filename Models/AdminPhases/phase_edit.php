@@ -2,12 +2,14 @@
 require '../../Controllers/accessDatabase.php';
 require '../../Controllers/loginCheck.php';
 
-$redirectAfter = "Location: ../../Pages/Admin/ProjectDetails/projectpage.php";
-
+$projID = $_GET['id'];
+$redirectAfter = "Location: ../../Pages/Admin/ProjectDetails/projectpage.php?id=".$projID;
+$formFilled = isset($_POST['phasetitle']) && isset($_POST['phasedescription']) && isset($_POST['expectedfinishdate']) && isset($_POST['actualfinishdate'] );
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
-    $phaseId = $_POST['id'];
+if ($_SERVER["REQUEST_METHOD"] == "POST" && $formFilled) {
+    $projID = $_GET['id'];
+    $phaseId = $_GET['phaseid'];
     $phasetitle = $_POST['phasetitle'];
     $phasedescription = $_POST['phasedescription'];
     $expectedfinishdate = $_POST['expectedfinishdate'];
@@ -26,4 +28,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
         exit();
     }
 }
+
 ?>

@@ -5,20 +5,7 @@ require '../../../Controllers/loginCheck.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$searchQuery = '';
-if (isset($_POST['query'])) {
-    $searchQuery = $conn->real_escape_string($_POST['query']); // Escaping special characters
-    $sql = "SELECT project.projectid, project.projectname, project.buildingaddress, project.clientid, client.clientname 
-            FROM project 
-            JOIN client ON client.clientid = project.clientid
-            WHERE project.projectname LIKE '%$searchQuery%' 
-            OR project.buildingaddress LIKE '%$searchQuery%' 
-            OR client.clientname LIKE '%$searchQuery%'";
-} else {
-    $sql = "SELECT project.projectid, project.projectname, project.buildingaddress, project.clientid, client.clientname 
-            FROM project 
-            JOIN client ON client.clientid = project.clientid";
-}
+$sql = "SELECT project.projectid, project.projectname, building.buildingaddress, project.clientid, client.clientname FROM project JOIN client ON client.clientid = project.clientid JOIN building ON building.buildingid = project.buildingid";
 $result = $conn->query($sql);
 ?>
 
