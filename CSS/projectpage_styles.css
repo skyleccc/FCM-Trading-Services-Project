@@ -18,6 +18,19 @@
         'opsz' 24;
     }
 
+    .container-fluid{
+        overflow-x: hidden;
+        width: 100%;
+        min-height: 100vh;
+        margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* div{
+        border: 1px solid red;
+    } */
+
     .centered {
         position: absolute;
         top: 40%;
@@ -29,11 +42,16 @@
         margin: 0 !important;
         position: relative;
         text-align: center;
-        color: white;
+      
     }
 
     .container-img {
         background-image: url('../../../WebsitePictures/fcmbanner2.png');
+    }
+
+    .img-cont{
+            background-image: url('../../../WebsitePictures/fcmbanner2.png');
+            height: 100px;
     }
     
     
@@ -79,5 +97,18 @@
     text-overflow: ellipsis; /* Show ellipsis (...) for overflow text */
     max-width: 100%; /* Ensure text does not exceed container width */
 }
+
+
+
+
+
+/* djkwadkwa */
+
+
+.first,.second,.third{
+    /* height: 100%; */
+    height: auto;
+}
+
 
 

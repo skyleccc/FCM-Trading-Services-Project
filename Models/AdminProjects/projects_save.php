@@ -2,9 +2,6 @@
 require '../../Controllers/accessDatabase.php';
 require '../../Controllers/loginCheck.php';
 
-// Variables:
-$redirectAfter = "Location: ../../Pages/Admin/ProjectDetails/projectpage.php?id=" . $projectID;
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $projectname = $_POST['projectname'];
     $clientname = $_POST['clientname'];
@@ -72,14 +69,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($redirResult && $redirResult->num_rows > 0) {
                 $row = $redirResult->fetch_assoc();
                 $projectID = $row['projectID'];
-        
+
+                $redirectAfter = "Location: ../../Pages/Admin/ProjectDetails/projectpage.php?id=" . $projectID;
                 header($redirectAfter);
                 exit;
             } else {
-
                 echo "Failed to retrieve the projectID.";
             }
-            exit;
         } else {
             $temp->error;
         }

@@ -9,11 +9,24 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT project.projectid, project.projectname, building.buildingaddress, project.clientid, client.clientname FROM project, client, building WHERE client.clientid=project.clientid AND project.buildingid = building.buildingid"; // Adjust table name as needed
-$sql2 = "SELECT *, phaseid FROM phase"; 
+$id = $_GET['id'];
+$sql = "SELECT project.projectid, project.projectname, building.buildingaddress, project.clientid, client.clientname FROM project, client, phase, building WHERE project.projectid = $id AND project.clientid = client.clientid AND project.buildingID = building.buildingID AND project.projectid=phase.projectid " ; // Adjust table name as needed  
+$sql2 = "SELECT phase.phaseTitle, phase.phaseDescription, project.projectname, phase.phaseID, phase.* FROM phase, project WHERE phase.projectid = project.projectid AND project.projectid = $id "; 
+$sql3 = "SELECT project.projectname, building.buildingaddress, client.clientname FROM project, client, building WHERE client.clientid= project.clientid  AND project.buildingID = building.buildingID AND project.projectid = $id" ;
+
 $result = $conn->query($sql2);
 $result2 = $conn->query($sql); // edit nga ang query kay mu check ra if close na ang deadline (para nis calendar reminders)
-$result3 = $conn->query($sql); // edit nga ang query kay para sa mga quotation requests rani (atm projects ni siya)
+$result3 = $conn->query($sql3); // edit nga ang query kay para sa mga quotation requests rani (atm projects ni siya)
+
+$clientname = "";
+$projectname = "";
+$buildingaddress = "";
+if ($result3->num_rows > 0) {
+    $row = $result3->fetch_assoc();
+    $clientname = $row['clientname'];
+    $projectname = $row['projectname'];
+    $buildingaddress = $row['buildingaddress'];
+}
 ?>
 
 <!doctype html>
@@ -23,77 +36,11 @@ $result3 = $conn->query($sql); // edit nga ang query kay para sa mga quotation r
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>FCM Dashboard</title>
     <link rel="stylesheet" href="../../../CSS/projects_style.css">
+    <link rel="stylesheet" href="../../../CSS/projectpage_styles.css">
     <link rel="icon" href="fcmicon.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-<style>
-    body{
-        background-color: rgb(235, 242, 246);
-    }
-    .row, .col{
-        border-radius: 10px;
-        background: #fbfbfb;
-    }
 
-    .col-sm-2{
-        font-family: Helvetica;
-        font-weight: bolder;
-    }
-    .material-symbols-outlined {
-        font-variation-settings:
-        'FILL' 0,
-        'wght' 400,
-        'GRAD' 0,
-        'opsz' 24;
-    }
-
-    .centered {
-        position: absolute;
-        top: 40%;
-        left: 40%;
-        transform: translate(6%, -50%);
-    }
-    
-    .container {
-        position: relative;
-        text-align: center;
-        color: white;
-    }
-    
-    div.ex3 {
-        overflow: auto;
-        height: 347px;
-        width: 100%;
-    }
-    div.ex2 {
-        overflow: auto;
-        height: 180px;
-        width: 100%;
-    }
-    div.ex1 {
-        overflow: auto;
-        height: 625px;
-        width: 100%;
-    }
-
-    .icon-container {
-            height: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: none;
-            background: none;
-            padding: 0; 
-    }
-    .button-style {
-            margin: auto;
-            text-decoration: none;
-            color: rgb(52, 173, 46);
-            border: none;
-            background: none;
-            display: block;
-    }
-</style>  
 </head>
   
   <body>
@@ -103,18 +50,17 @@ $result3 = $conn->query($sql); // edit nga ang query kay para sa mga quotation r
             // Navigation Bar for Admin Dashboard
             include '../../../Components/adminNavBar.php'
             ?>
-            <div class="col-sm-10 p-3 border bg light">
-                <div class="row p-3 border bg light">
-                    <div class="col-sm-8">
-                        <div class="container">
-                            <img src="../../../WebsitePictures/fcmbanner2.png" alt="fcm logo" class="rounded" style="width: 840px; margin:auto;">
-                            <div class="row-sm=12">
+            <div class="col-10 p-3 border bg light">
+                <div class="row border bg light">
+                    <div class="col-8 p-3 row">
+                        <div class="container container-img rounded" >
+                            <div class="row">
                                 <div class="col">
-                                    <div class="centered" style="font-size: 3vw; left: 4%; top: 50%; color: green; border: solid; padding: 10px; border-radius: 10px;">Roof Repair</div>
+                                    <div class="centered" style="font-size: 1.5vw; left: 4%; top: 50%; color: green; border: solid; padding: 10px; border-radius: 10px;"><?php echo htmlspecialchars($projectname); ?></div>
                                 </div>
                                 <div class="col">
-                                    <div class="centered" style="font-weight: bolder; font-size: 2vw; text-align: left; left:45%; color: black">Mendero Medical Center</div>
-                                    <div class="centered" style="color:black; margin-top: 30px; font-size: 1.4vw; left:66% ">Consolacion City, Cebu</div>
+                                    <div class="centered clientname" style="font-weight: bolder; font-size: 2vw; color: black"><?php echo htmlspecialchars($clientname); ?></div>
+                                    <div class="centered buildingaddress" style="color:black; margin-top: 30px; font-size: 1.4vw;"><?php echo htmlspecialchars($buildingaddress); ?></div>
                                 </div>
                             </div>
                         </div>
@@ -172,12 +118,9 @@ $result3 = $conn->query($sql); // edit nga ang query kay para sa mga quotation r
                                             }
                                         ?>
 
-                                    
-
-                                    
-
-
-                            </div>
+                                
+                           
+</div>
                                    
                                 
                         <br><br><br></div>
@@ -271,10 +214,8 @@ $result3 = $conn->query($sql); // edit nga ang query kay para sa mga quotation r
                 </div>
 
                 <?php
-                    // Navigation Bar for Admin Dashboard
-                    include '../../../Components/PhaseModals/editPhaseModal.php'
-                    ?>
-
+                    require '../../../Components/PhaseModals/addPhaseModal.php';
+                ?>
 
             </div>
         </div>

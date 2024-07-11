@@ -8,16 +8,18 @@ ini_set('display_errors', 1);
 $searchQuery = '';
 if (isset($_POST['query'])) {
     $searchQuery = $conn->real_escape_string($_POST['query']); // Escaping special characters
-    $sql = "SELECT project.projectid, project.projectname, project.buildingaddress, project.clientid, client.clientname 
-            FROM project 
+    $sql = "SELECT project.projectid, project.projectname, building.buildingaddress, project.clientid, client.clientname, DATE_FORMAT(project.deadlineDate, '%M %d, %Y') AS deadlineDate
+            FROM project
             JOIN client ON client.clientid = project.clientid
+            JOIN building ON building.buildingid = project.buildingid
             WHERE project.projectname LIKE '%$searchQuery%' 
-            OR project.buildingaddress LIKE '%$searchQuery%' 
+            OR building.buildingaddress LIKE '%$searchQuery%' 
             OR client.clientname LIKE '%$searchQuery%'";
 } else {
-    $sql = "SELECT project.projectid, project.projectname, project.buildingaddress, project.clientid, client.clientname 
-            FROM project 
-            JOIN client ON client.clientid = project.clientid";
+    $sql = "SELECT project.projectid, project.projectname, building.buildingaddress, project.clientid, client.clientname, DATE_FORMAT(project.deadlineDate, '%M %d, %Y') AS deadlineDate
+            FROM project
+            JOIN client ON client.clientid = project.clientid
+            JOIN building ON building.buildingid = project.buildingid";
 }
 $result = $conn->query($sql);
 ?>

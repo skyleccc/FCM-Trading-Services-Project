@@ -6,11 +6,12 @@ $searchQuery = '';
 
 if (isset($_POST['query'])) {
     $searchQuery = $_POST['query']; // Get the query from the POST request
-    $sql = "SELECT project.projectid, project.projectname, project.buildingaddress, project.clientid, client.clientname 
+    $sql = "SELECT project.projectid, project.projectname, building.buildingaddress, project.clientid, client.clientname 
             FROM project 
             JOIN client ON client.clientid = project.clientid
+            JOIN building ON building.buildingid = project.buildingid
             WHERE project.projectname LIKE ? 
-            OR project.buildingaddress LIKE ? 
+            OR building.buildingaddress LIKE ? 
             OR client.clientname LIKE ?";
             
     $stmt = $conn->prepare($sql);
