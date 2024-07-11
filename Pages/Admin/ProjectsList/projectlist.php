@@ -15,7 +15,7 @@ if ($result->num_rows > 0) {
                             </div>
                             <div class="col" style="margin-top: 10px;">
                                 <div class="col-sm-4 rounded" style="background-color:rgb(41, 157, 41); width: 100%;color: rgb(255, 255, 255);"> Progress</div>
-                                <div class="col-sm-4 rounded" style="background-color:rgb(227, 38, 38); width: 100%; color: rgb(255, 251, 251); margin-top: 5px;"> Deadline</div>
+                                <div class="col-sm-4 rounded" style="background-color:rgb(227, 38, 38); width: 100%; color: rgb(255, 251, 251); margin-top: 5px;">' . htmlspecialchars($row["deadlineDate"] ?? '') . '</div>
                             </div>
                         </a>
                     </div>
