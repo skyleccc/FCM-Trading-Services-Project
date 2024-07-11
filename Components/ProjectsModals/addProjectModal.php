@@ -39,8 +39,14 @@ echo'
                                     </div>
                                         <div class="space"></div>
                                         <div class="input-group">
-                                            <label for="type">Type of Work:</label>
-                                            <input type="text" id="projecttype" name="projecttype" placeholder="Enter Type of Work Here" required>
+                                            <label for="servicetype">Service Type:</label>
+                                            <div>
+                                                <select id="servicetype" title="Service Type" name="servicetype" required>
+                                                    <option selected value="" disabled>-</option>
+                                                    <option value="Construction">Construction</option>
+                                                    <option value="Renovation">Renovation</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -52,8 +58,8 @@ echo'
                                         
                                         <div class="space"></div>
                                         <div class="input-group">
-                                            <label for="building">Work Area:</label>
-                                            <input type="text" id="workarea" name="workarea" placeholder="Enter Name of Building" required>
+                                            <label for="building">Work Area (sqm.):</label>
+                                            <input type="number" id="workarea" name="workarea" placeholder="Enter Name of Building" required>
                                             
 
                                             <label for="blueprint">Blueprints</label>
