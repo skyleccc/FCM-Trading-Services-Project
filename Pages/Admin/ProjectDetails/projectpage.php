@@ -13,7 +13,7 @@ $sql = "SELECT phase.* FROM phase, project WHERE project.projectid = $id AND pha
 $sql2 = "SELECT project.projectid, project.projectname, building.buildingaddress, project.clientid, client.clientname FROM project, client, phase, building WHERE project.projectid = $id AND project.clientid = client.clientid AND project.buildingID = building.buildingID AND project.projectid=phase.projectid " ; 
 
 // Header Text
-$sql3 = "SELECT project.projectname, building.buildingaddress, client.clientname FROM project, client, building WHERE client.clientid= project.clientid  AND project.buildingID = building.buildingID AND project.projectid = $id" ;
+$sql3 = "SELECT project.projectname, building.buildingaddress, client.clientname, client.clientcontact, project.projecttype, building.workarea, building.blueprint, DATE_FORMAT(project.deadlineDate, '%M %d, %Y') AS deadlineDate FROM project, client, building WHERE client.clientid= project.clientid  AND project.buildingID = building.buildingID AND project.projectid = $id" ;
 
 $result = $conn->query($sql);
 $result2 = $conn->query($sql2);
