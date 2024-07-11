@@ -154,15 +154,26 @@ if ($result3->num_rows > 0) {
                         Blueprints:
                         <?php
                             $arrFiles = array();
-                            $dirPath = "../../../AttachedFiles/Blueprints/blueprint-".$id;
-                            // Using scandir()
-                            echo "<br>";
-                            $files = scandir($dirPath);
-                            foreach ($files as $file) {
-                                $filePath = $dirPath . '/' . $file;
-                                if (is_file($filePath)) {
-                                    echo "<a href = ".$filePath . " target='_blank'>" . $file . "</a>". "<br>";
+                            $dirPath = "../../../AttachedFiles/Blueprints/blueprint-" . $id;
+                            
+                            if (is_dir($dirPath)) {
+                                echo "<br>";
+                                $files = scandir($dirPath);
+                                $hasFiles = false;
+                                
+                                foreach ($files as $file) {
+                                    $filePath = $dirPath . '/' . $file;
+                                    if (is_file($filePath)) {
+                                        $hasFiles = true; // Set to true when a file is found
+                                        echo "<a href='" . $filePath . "' target='_blank'>" . $file . "</a><br>";
+                                    }
                                 }
+                                
+                                if (!$hasFiles) { // Correct condition to check if no files were found
+                                    echo "No blueprints available.";
+                                }
+                            } else {
+                                echo "No blueprints attached.";
                             }
                         ?>
                             <!-- NEEDS FIX -->
