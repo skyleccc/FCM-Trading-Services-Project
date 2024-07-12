@@ -3,7 +3,7 @@ require '..\..\Controllers\accessDatabase.php';
 
 // File Redirect
 $redirectTo = "..\..\Pages\landingpage.php";
-$dir = '..\..\AttachedFiles\Blueprints\blueprint-';
+$dir = '..\..\AttachedFiles\Blueprints\quotationRequestBlueprints\blueprint-';
 
 $allowed_ext = array('jpg', 'jpeg', 'png', 'svg', 'webp', 'apng', 'avif', 'ico', 'cur', 'bmp', 'jfif', 'pdf');
 
@@ -58,8 +58,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $uploadFile_dir = $dir . $quotationRequestId;
 
                 // Create upload directory if it does not exist
-                if (!is_dir($upload_dir)) {
-                    if (!mkdir($upload_dir, 0755, true)) {
+                if (!is_dir($uploadFile_dir)) {
+                    if (!mkdir($uploadFile_dir, 0755, true)) {
                         die("Failed to create upload directory.");
                     }
                 }
@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 for ($i = 0; $i < count($_FILES['blueprint']['name']); $i++) {
                     $file_name = $_FILES['blueprint']['name'][$i];
                     $file_tmp = $_FILES['blueprint']['tmp_name'][$i];
-                    $file_target = $upload_dir . '/' . basename($file_name); // Use basename() for security
+                    $file_target = $uploadFile_dir . '/' . basename($file_name); // Use basename() for security
 
                     if (!move_uploaded_file($file_tmp, $file_target)) {
                         echo "Failed to upload file: $file_name<br>";

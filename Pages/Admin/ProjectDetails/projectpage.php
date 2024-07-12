@@ -154,7 +154,7 @@ if ($result3->num_rows > 0) {
                         Blueprints:
                         <?php
                             $arrFiles = array();
-                            $dirPath = "../../../AttachedFiles/Blueprints/blueprint-" . $id;
+                            $dirPath = "../../../AttachedFiles/Blueprints/projectBlueprints/blueprint-" . $id;
                             
                             if (is_dir($dirPath)) {
                                 echo "<br>";
