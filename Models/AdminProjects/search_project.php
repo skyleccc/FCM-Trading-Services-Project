@@ -6,7 +6,7 @@ $searchQuery = '';
 
 if (isset($_POST['query'])) {
     $searchQuery = $_POST['query']; // Get the query from the POST request
-    $sql = "SELECT project.projectid, project.projectname, building.buildingaddress, project.clientid, client.clientname 
+    $sql = "SELECT project.projectid, project.projectname, building.buildingaddress, project.clientid, client.clientname, project.deadlineDate 
             FROM project 
             JOIN client ON client.clientid = project.clientid 
             JOIN building ON building.buildingid = project.buildingid
@@ -20,7 +20,7 @@ if (isset($_POST['query'])) {
     $stmt->execute();
     $result = $stmt->get_result();
 } else {
-    $sql = "SELECT project.projectid, project.projectname, building.buildingaddress, project.clientid, client.clientname FROM project JOIN client ON client.clientid = project.clientid JOIN building ON building.buildingid = project.buildingid";
+    $sql = "SELECT project.projectid, project.projectname, building.buildingaddress, project.clientid, client.clientname,project.deadlineDate FROM project JOIN client ON client.clientid = project.clientid JOIN building ON building.buildingid = project.buildingid";
     $result = $conn->query($sql);
 }
 
