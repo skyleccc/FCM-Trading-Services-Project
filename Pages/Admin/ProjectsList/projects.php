@@ -5,7 +5,7 @@ require '../../../Controllers/loginCheck.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$sql = "SELECT project.projectid, project.projectname, building.buildingaddress, project.clientid, client.clientname, DATE_FORMAT(project.deadlineDate, '%M %d, %Y') AS deadlineDate FROM project JOIN client ON client.clientid = project.clientid JOIN building ON building.buildingid = project.buildingid";
+$sql = "SELECT project.projectid, project.projectname, project.projecttype, building.buildingaddress, project.clientid, client.clientname, DATE_FORMAT(project.deadlineDate, '%M %d, %Y') AS deadlineDate FROM project JOIN client ON client.clientid = project.clientid JOIN building ON building.buildingid = project.buildingid";
 $result = $conn->query($sql);
 ?>
 
