@@ -1,6 +1,7 @@
 var modal = document.getElementById("myModal");
+var modalEdit = document.getElementById("myEditModal");
 var btn = document.getElementById("addphase");
-var span = document.getElementsByClassName("close")[0];
+const spans = document.querySelectorAll(".close");
 
 // $_GET VALUES
 const urlParams = new URLSearchParams(window.location.search);
@@ -10,14 +11,23 @@ btn.onclick = function() {
     modal.style.display = "block";
 }
 
-span.onclick = function() {
-    modal.style.display = "none";
-}
+
+spans.forEach(function(span) {
+    span.onclick = function() {
+        modal.style.display = "none";
+        modalEdit.style.display = "none";
+    }
+});
 
 window.onclick = function(event) {
-    if (event.target == modal) {
+    if (event.target == modal || event.target == modalEdit) {
         modal.style.display = "none";
+        modalEdit.style.display = "none";
     }
+}
+
+function closeModal(){
+    window.location.href = `projectpage.php?id=` + projectid;
 }
 
 $('.edit-btn').click(function() {
