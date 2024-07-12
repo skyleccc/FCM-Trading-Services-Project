@@ -7,10 +7,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $clientname = $_POST['clientname'];
     $clientContact = $_POST['clientContact'];
     $projectScope = $_POST['projectScope'];
-    $projecttype = $_POST['projecttype'];
+    $projecttype = $_POST['servicetype'];
     $buildingaddress = $_POST['buildingaddress'];
     $workarea = $_POST['workarea'];
-    $blueprint = $_POST['blueprint'];
     $projectDetails = $_POST['projectDetails'];
     $specialRequests = $_POST['specialRequests'];
     $deadlineDate = $_POST['deadlineDate'];
@@ -50,8 +49,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $buildingid = $existing_buildingid;
     } else {
         $temp->close();
-        $temp = $conn->prepare("INSERT INTO building (buildingaddress, workarea, blueprint) VALUES (?, ?, ?)");
-        $temp->bind_param("sss", $buildingaddress, $workarea, $blueprint);
+        $temp = $conn->prepare("INSERT INTO building (buildingaddress, workarea) VALUES (?, ?)");
+        $temp->bind_param("ss", $buildingaddress, $workarea);
         if ($temp->execute()) {
             $buildingid = $temp->insert_id;
         } else {
@@ -64,20 +63,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $temp->bind_param("ssssssssss", $projectname, $clientid, $buildingid, $projectScope, $projecttype, $projectDetails, $specialRequests, $deadlineDate, $startdate, $completiondate);
 
         if ($temp->execute()) {
-            $redirQuery = "SELECT projectID FROM project ORDER BY projectID DESC LIMIT 1;";
-            $redirResult = $conn->query($redirQuery);
-            if ($redirResult && $redirResult->num_rows > 0) {
-                $row = $redirResult->fetch_assoc();
-                $projectID = $row['projectID'];
+            $projectID = $temp->insert_id; // Get the newly inserted project ID
+            
+            // Handle blueprint file upload
+            if (isset($_FILES['blueprint']) && $_FILES['blueprint']['error'] == UPLOAD_ERR_OK) {
+                $dir = '..\..\AttachedFiles\Blueprints\projectBlueprints\blueprint-'; 
+                $uploadFile_dir = $dir . $projectID;
 
-                $redirectAfter = "Location: ../../Pages/Admin/ProjectDetails/projectpage.php?id=" . $projectID;
-                header($redirectAfter);
-                exit;
-            } else {
-                echo "Failed to retrieve the projectID.";
+                // Create upload directory if it does not exist
+                if (!is_dir($uploadFile_dir)) {
+                    if (!mkdir($uploadFile_dir, 0755, true)) {
+                        die("Failed to create upload directory.");
+                    }
+                }
+
+                $blueprint_filename = basename($_FILES['blueprint']['name']);
+                $blueprint_target = $uploadFile_dir . DIRECTORY_SEPARATOR . $blueprint_filename;
+
+                if (move_uploaded_file($_FILES['blueprint']['tmp_name'], $blueprint_target)) {
+                    $blueprint = $blueprint_filename;
+
+                    // Update project with blueprint filename
+                    $update_stmt = $conn->prepare("UPDATE project SET blueprint = ? WHERE projectID = ?");
+                    $update_stmt->bind_param("si", $blueprint, $projectID);
+                    $update_stmt->execute();
+                } else {
+                    echo "Failed to upload blueprint file.";
+                }
             }
+
+            $redirectAfter = "Location: ../../Pages/Admin/ProjectDetails/projectpage.php?id=" . $projectID;
+            header($redirectAfter);
+            exit;
         } else {
-            $temp->error;
+            echo "Error: " . $temp->error;
         }
     }
 
