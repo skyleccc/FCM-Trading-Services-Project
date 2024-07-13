@@ -14,7 +14,26 @@ $result = $conn->query($sql);
 $result2 = $conn->query($sql2);
 
 
-    $row2 = $result2->fetch_assoc();
+$row2 = $result2->fetch_assoc();
+$requestID = $row2['requestid'];
+$clientname = $row2['clientname'];
+$location = $row2['location'];
+$siteinformation = $row2['siteinformation'];
+$servicetype = $row2['servicetype'];
+$startdate = $row2['startdate'];
+$completedate = $row2['completedate'];
+$projectdetails = $row2['projectdetails'];
+$workarea = $row2['workarea'];
+$budgetconstraint = $row2['budgetconstraint'];
+$specialrequests = $row2['specialrequests'];
+$contact = $row2['contact'];
+$withblueprint = $row2['withblueprint'];
+$numberoffiles = $row2['numberoffiles'];
+$status = $row2['status'];
+
+$redirectAfter = "Location: ../../Pages/Admin/QuotationReqsList/quotationreqs.php";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && $formFilled) {
     $requestID = $row2['requestid'];
     $clientname = $row2['clientname'];
     $location = $row2['location'];
@@ -31,10 +50,20 @@ $result2 = $conn->query($sql2);
     $numberoffiles = $row2['numberoffiles'];
     $status = $row2['status'];
 
+    $save = $conn->prepare("UPDATE quotation_request SET clientname = ? , location = ? , siteinformation = ? , servicetype = ? , startdate,completedate = ? , projectdetails = ? , workarea = ? , budgetconstraint = ? , specialrequests = ? ,contact = ? , withblueprint = ? , numberoffiles = ? WHERE requestid = $id");
+    $save->bind_param("ssssssssssssi", $clientname, $location,$siteinformation,$servicetype,$startdate,$completedate,$projectdetails,$workarea,$budgetconstraint,$specialrequests,$contact,$withblueprint,$numberoffiles ,$status,$requestID);
 
-if (!$result) {
-    die("Query failed: " . $conn->error);
+    if ($save->execute()) {
+        $save->close();
+        $conn->close();
+        header($redirectAfter);
+        exit();
+    } else {
+        echo "Error updating phase: " . $conn->error;
+        exit();
+    }
 }
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -141,30 +170,30 @@ if (!$result) {
                     <div class="ex1 border bg light rounded">
                         <form id="quotationForm" class="p-3" action="../../../Models/QuotationReqs/fileUpload.php" method="post" enctype="multipart/form-data">
                         <div style="font-size: 20px; font-weight: bold; text-align: center; color: black">
-                        <span class="material-symbols-outlined edit" data-id=<?php echo htmlspecialchars($requestID); ?>>edit</span>
+                        <span class="material-symbols-outlined edit">edit</span>
                         Enter a new Project
                         <span class="close">&times;</span>
                         </div><br>
                         <div class="form-group">
                     <label for="requester">Requested By:</label>
-                    <input type="text" id="requester" name="requestername" value="<?php echo htmlspecialchars($clientname); ?>" disabled>
+                    <input type="text" id="requester" name="requestername" value="<?php echo htmlspecialchars($clientname); ?>" required>
                 </div>
                 <div class="form-group_two">
                     <div class="input-group">
                     <label for="loc">Location:</label>
-                    <input type="text" id="loc" name="location" value="<?php echo htmlspecialchars($location); ?>" disabled>
+                    <input type="text" id="loc" name="location" value="<?php echo htmlspecialchars($location); ?>" required>
                     </div>
                     <div class="space"></div>
                     <div class="input-group">
                     <label for="site" class="siteinfo">Site Information:</label>
-                    <input type="text" id="site" name="siteinfo" value="<?php echo htmlspecialchars($siteinformation); ?>" disabled>
+                    <input type="text" id="site" name="siteinfo" value="<?php echo htmlspecialchars($siteinformation); ?>" required>
                     </div>
                 </div>
                 <div class="form-group_three">
                     <div class="input-group">
                         <label for="servicetype">Service Type:</label>
                         <div>
-                            <select id="servicetype" title="Service Type" name="servicetype" disabled>
+                            <select id="servicetype" title="Service Type" name="servicetype" required>
                                 <option selected value="<?php echo htmlspecialchars($servicetype); ?>"><?php echo htmlspecialchars($servicetype); ?></option>
                                 <option value="Construction">Construction</option>
                                 <option value="Renovation">Renovation</option>
@@ -174,77 +203,64 @@ if (!$result) {
                     <div class="space"></div>
                     <div class="input-group">
                         <label for="startdate" class="siteinfo">Start Date:</label>
-                        <input type="date" id="startdate" name="startdate" value="<?php echo htmlspecialchars($startdate); ?>" disabled>
+                        <input type="date" id="startdate" name="startdate" value="<?php echo htmlspecialchars($startdate); ?>" required>
                     </div>
                     <div class="space"></div>
                     <div class="input-group">
                         <label for="datecomplete" class="siteinfo">Date of Completion:</label>
-                        <input type="date" id="datecomplete" name="datecomplete" value="<?php echo htmlspecialchars($completedate); ?>" disabled>
+                        <input type="date" id="datecomplete" name="datecomplete" value="<?php echo htmlspecialchars($completedate); ?>" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="details">Project Details:</label>
-                    <textarea type="textarea" id="details" name="projdetails" disabled><?php echo htmlspecialchars($projectdetails); ?></textarea>
+                    <textarea type="textarea" id="details" name="projdetails" required><?php echo htmlspecialchars($projectdetails); ?></textarea>
                 </div>
                 <div class="form-group_two">
                     <div class="input-group">
                         <label for="areaofwork">Area of Work:</label>
-                        <input type="number" id="areaofwork" name="areaofwork" value="<?php echo htmlspecialchars($workarea); ?>" disabled> 
+                        <input type="number" id="areaofwork" name="areaofwork" value="<?php echo htmlspecialchars($workarea); ?>" required> 
                     </div>
                     <div class="space"></div>
                     <div class="input-group">
                         <label for="constraints" class="siteinfo">Budget Constraints:</label>
-                        <input type="number" id="constraints" name="budget_constraints" value="<?php echo htmlspecialchars($budgetconstraint); ?>" disabled>
+                        <input type="number" id="constraints" name="budget_constraints" value="<?php echo htmlspecialchars($budgetconstraint); ?>" required>
                     </div>
                 </div>
                 <div class="form-group">
                         <label for="specialrequests">Special Requests:</label>
-                        <textarea type="textarea" id="specialrequests" name="specialrequests" disabled><?php echo htmlspecialchars($specialrequests); ?></textarea>
+                        <textarea type="textarea" id="specialrequests" name="specialrequests" required><?php echo htmlspecialchars($specialrequests); ?></textarea>
                 </div>
                 <div class="form-group">
                     <label for="contact">Email / Contact Number:</label>
-                    <input type="text" id="contact" name="contact" value="<?php echo htmlspecialchars($contact); ?>" disabled>
+                    <input type="text" id="contact" name="contact" value="<?php echo htmlspecialchars($contact); ?>" required>
                 </div>
-                
+                <div class="form-group_two">
+                    <div class="input-group">
+                        <label for="blueprint-add" class="toggle">
+                            <input id="blueprint-add" class="toggle-checkbox" type="checkbox" name="blueprint-add" onclick="displayAttach();" required>
+                            <div class="toggle-switch"></div>
+                            <span class="toggle-label">With Blueprint/Floor Plan</span>
+                        </label>
+                    </div>
+                    <div class="space"></div>
+                    <div class="input-group" id="attach-blueprint">
+                        <label for="blueprint" class="labelforupload"><i class="fa-solid fa-upload"> ADD BLUEPRINT</i></label>
+                        <input type="file" id="blueprint" name="blueprint[]" onchange="displayFileList();" multiple>
+                    </div>
+                </div>
                 <div id="attachment" class="w100">
                     <div class="bold">
                         Attached Files:
                     </div>
                     <div id="attached-filelist">
                         <ul id="list">
-                        <?php
-                            $arrFiles = array();
-                            $dirPath = "../../../AttachedFiles/Blueprints/quotationRequestBlueprints/blueprint-" . $id;
-                            
-                            if (is_dir($dirPath)) {
-                                $files = scandir($dirPath);
-                                $hasFiles = false;
-                                
-                                foreach ($files as $file) {
-                                    $filePath = $dirPath . '/' . $file;
-                                    if (is_file($filePath)) {
-                                        $hasFiles = true; // Set to true when a file is found
-                                        echo "<li><a href='" . $filePath . "' target='_blank'>" . $file . "</a></li><br>";
-                                    }
-                                }
-                                
-                                if (!$hasFiles) { // Correct condition to check if no files were found
-                                    echo "No blueprints available.";
-                                }
-                            } else {
-                                echo "No blueprints attached.";
-                            }
-                        ?>
                         </ul>
                     </div>
                 </div>
 
                 </div>
-                        <div class="row" style="width: 100%">
-                            <div class="col"><button type="submit" class="addfinal approve-btn" data-id="<?php htmlspecialchars($row2["requestid"]) ?>" name="submit" >Approve Quotation</button></div>
-                            <div class="col"><button class="addfinal2 decline-btn" data-id="<?php htmlspecialchars($row2["requestid"]) ?>"name="submit" >Decline Quotation</button></div>
-                        </div>
-                    </div>
+                    <button id="addfinal">Apply Changes</button>
+                </div>
             </form>
 
 
