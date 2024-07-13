@@ -351,6 +351,11 @@ input[type="file"] {
     float: right;
 }
 
+.edit {
+    cursor: pointer;
+    float: left;
+}
+
 .bprintfile {
     width: 100%;
 }
