@@ -1,9 +1,9 @@
 <?php
-require '..\..\Controllers\accessDatabase.php';
+require '../../Controllers/accessDatabase.php';
 
 // File Redirect
-$redirectTo = "..\..\Pages\landingpage.php";
-$dir = '..\..\AttachedFiles\Blueprints\quotationRequestBlueprints\blueprint-';
+$redirectTo = "../../Pages/landingpage.php";
+$dir = '../../AttachedFiles/Blueprints/quotationRequestBlueprints/blueprint-';
 
 $allowed_ext = array('jpg', 'jpeg', 'png', 'svg', 'webp', 'apng', 'avif', 'ico', 'cur', 'bmp', 'jfif', 'pdf');
 

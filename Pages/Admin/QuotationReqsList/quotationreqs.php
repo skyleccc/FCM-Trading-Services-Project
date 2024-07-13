@@ -63,7 +63,7 @@ if (!$result) {
                                         
                                                         <div class="row" style="color: black">
                                                         <div class="col-sm-10">
-                                                            <a href="quotationpage.php?id=' . htmlspecialchars($row["requestid"]) . '" class="row p-2" style="margin: auto; text-decoration: none;">
+                                                            <a href="quotationedit.php?id=' . htmlspecialchars($row["requestid"]) . '" class="row p-2" style="margin: auto; text-decoration: none;">
                                                                 <div class="row" style="margin: auto; margin-top: 3%;">
                                                                     <div class="col p-1">
                                                                         <div style="font-weight: bold;text-align: center;font-size: 1.6vw; color: black;">' . htmlspecialchars($row["Location"]) . '</div>
