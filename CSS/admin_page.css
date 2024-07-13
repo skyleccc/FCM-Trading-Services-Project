@@ -1,11 +1,8 @@
 #sidebar a{
     font-size: 1vw;
-    
+    font-weight: bolder;
 }
 
-span{
-    border: 0.5px solid red;
-}
 #sidebar div{
     padding:2px;
     display: flex;

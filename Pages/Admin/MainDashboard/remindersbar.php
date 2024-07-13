@@ -1,6 +1,6 @@
 <?php
 
-    $sql2 = "SELECT DISTINCT phase.phasetitle, phase.phasedescription, project.projectname, phase.phaseid, project.projectid FROM phase, project WHERE project.projectid = phase.projectid"; 
+    $sql2 = "SELECT phase.phasetitle, phase.phasedescription, project.projectname, phase.phaseid, project.projectid FROM phase, project WHERE project.projectid = phase.projectid AND phase.isFinished != TRUE"; 
     $result2 = $conn->query($sql2);
 
     $redirectTo = "../ProjectDetails/projectpage.php?id=";

@@ -63,3 +63,53 @@ fetch('/../Models/AdminPhases/delete_phase.php', {
 });
 }
 });
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('input[type="checkbox"]').forEach(function (checkbox) {
+        checkbox.addEventListener('change', function () {
+            const phaseID = this.getAttribute('data-id');
+            const isFinished = this.checked ? 1 : 0;
+
+            fetch('../../../Models/AdminPhases/phase_checker.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    phaseID: phaseID,
+                    isFinished: isFinished
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log('Phase status updated successfully');
+                    updateProgressBar();
+                } else {
+                    console.error('Error updating phase status:', data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
+
+    function updateProgressBar() {
+        fetch('../../../Models/AdminPhases/progress_updater.php?id='+projectid, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const progressRate = data.progressRate;
+                document.getElementById('progressNum').textContent = `${progressRate}%`;
+            } else {
+                console.error('Error fetching progress rate:', data.message);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+});

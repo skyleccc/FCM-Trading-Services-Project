@@ -5,7 +5,7 @@
             echo '<div class="row">
                 <div class="col-sm-11">
                     <a href="../ProjectDetails/projectpage.php?id=' . htmlspecialchars($row["projectid"]) . '" class="row p-2 border bg-light" style="margin: auto; text-decoration: none;">
-                        <div class="col-1 rounded" style="background-color:rgb(41, 157, 41); height: 80px; color: rgb(255,255,255); display: flex; justify-content: center; align-items: center;">'.htmlspecialchars($row["progressrate"] ?? '').'%'.'</div>
+                        <div class="col-1 rounded" style="background-color:rgb(41, 157, 41); height: 80px; color: rgb(255,255,255); display: flex; justify-content: center; align-items: center;">'.htmlspecialchars($row["progressRate"] ?? '0').'%'.'</div>
                         <div class="col-8 p-1 ">
                             <div id="clientname" style="font-weight: bold;text-align: center; color: black;">' . htmlspecialchars($row["clientname"]  ?? '') . '</div>
                             <div id="buildingaddress" style="font-weight: lighter; text-align: center; font-size: 13px; color: black;">' . htmlspecialchars($row["buildingaddress"]  ?? '') . '</div>

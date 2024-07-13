@@ -2,8 +2,24 @@
 require '../../../Controllers/accessDatabase.php';
 require '../../../Controllers/loginCheck.php';
 
-$sql = "SELECT project.projectid, project.projectname, project.progressrate, building.buildingaddress, project.clientid, client.clientname, DATE_FORMAT(project.deadlineDate, '%M %d, %Y') AS deadlineDate FROM project, client, building WHERE client.clientid=project.clientid AND project.buildingid=building.buildingid"; // Adjust table name as needed
+$sql = "SELECT 
+        project.projectid, 
+        project.projectname, 
+        building.buildingaddress, 
+        project.clientid, 
+        client.clientname, 
+        DATE_FORMAT(project.deadlineDate, '%M %d, %Y') AS deadlineDate,
+        (SELECT ROUND((SUM(phase.isFinished)/COUNT(phase.isFinished))*100, 0) 
+         FROM phase 
+         WHERE phase.projectid = project.projectid) AS progressRate
+    FROM 
+        project
+    JOIN 
+        client ON client.clientid = project.clientid
+    JOIN 
+        building ON project.buildingid = building.buildingid"; 
 $result = $conn->query($sql);
+
 ?>
 
 <!doctype html>

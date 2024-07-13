@@ -1,0 +1,255 @@
+/* div,span,button {
+    border: 1px solid red;
+} */
+
+* {
+    margin: 0;
+    padding: 0;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    display: flex;
+    height: 100vh;
+    background: #fbfbfb;
+    overflow: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+#sidebar {
+    height: 100%;
+    border-radius: 10px;
+    border: 1px solid #dee2e6;
+}
+
+.box {
+    border: 1px solid #dee2e6;
+    border-radius: 3px;
+    padding: 5px;
+}
+
+.header{
+    margin-top: 10px;
+    font-size: clamp(0.75vw,2vw,2vw);
+    font-weight: bolder;
+    padding: 10px;
+}
+
+.middle-box {
+    margin: 10px;
+    height: 100%;
+}
+
+#client_list {
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding-bottom: 20px;
+    padding-top: 10px;
+}
+
+.client {
+    height: 100px;
+    display: flex;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.client-details{
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.client-name {
+    font-size: 24px;
+    font-weight: bolder;
+}
+
+.client-contact {
+    font-size: 18px;
+    color: #289c28;
+}
+
+.action-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.add-client button, .add-client button span{
+    background: none;
+    border: none;
+    font-size: 2vw;
+    color: #34ad2e;
+}
+
+.add-client{
+    padding: 0;
+    padding-top: 5px;
+}
+
+.add-client button{
+    margin-left: 10px;
+    height: 100%;
+}
+
+.action-buttons button {
+    width: 100px;
+    height: 50px;
+    margin: 5px 0;
+    border: 1px solid #dee2e6;
+    background: none;
+    color: #34ad2e;
+}
+
+.action-buttons button span {
+    font-size: 2vw;
+}
+
+.last-project {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#client-statistics {
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 10px;
+    border: 1px solid #dee2e6;
+}
+
+#client-statistics>div{
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px solid #299d29;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+}
+
+.header-text, .header-name {
+    display: -webkit-box;
+    overflow: hidden;
+    line-clamp: 1;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+.header-text {
+    width: 100%;
+    font-size: 3vw;
+    font-weight: 500;
+}
+
+.header-name {
+    width: 100%;
+    font-size: 1vw;
+    font-weight: 500;
+}
+
+.text {
+    margin-top: 10px;
+    width: 100%;
+    font-size: 0.9vw;
+}
+
+#client-summary{
+    margin-top: 5px;
+    border: 1px solid #dee2e6;
+    padding: 5px;
+}
+
+#recent-projects{
+    padding: 5px;
+}
+
+.detail-header {
+    font-size: 1.3vw;
+    font-weight: 600;
+}
+
+#project-tab{
+    overflow-y: auto;
+}
+
+.project {
+    margin-bottom: 10px;
+    height: 75px;
+    width: 100%;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+}
+
+.project>div {
+    flex-direction: column;
+}
+
+.ongoing {
+    background-color: #e32626;
+    color: white;
+}
+
+.finished {
+    background-color: #299d29;
+    color: white;
+}
+
+.project>div>span{
+    display: -webkit-box;
+    overflow: hidden;
+    line-clamp: 1;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+.h100-w50 {height: 100%; width: 50%;}
+.h50-w100 {height: 50%; width: 100%;}
+.h100-w25 {height: 100%; width: 25%;}
+.h100-w75 {height: 100%; width: 75%;}
+.h100-w20 {height: 100%; width: 20%;}
+.h50-w50 {height: 50%; width: 50%;}
+.h100-w33 {height: 100%; width: 33%;}
+.h20-w100 {height: 20%; width: 100%;}
+.h75-w100 {height: 75%; width: 100%;}
+.h25-w100 {height: 25%; width: 100%;}
+.h80-w100 {height: 80%; width: 100%;}
+.h30-w100 {height: 30%; width: 100%;}
+.h40-w100 {height: 40%; width: 100%;}
+.h15-w100 {height: 15%; width: 100%;}
+.h20-w100 {height: 20%; width: 100%;}
+.h35-w100 {height: 35%; width: 100%;}
+.h10-w100 {height: 10%; width: 100%;}
+.h90-w100 {height: 90%; width: 100%;}
+.h25-w35 {height: 25%; width: 35%;}
+.h60-w100 {height: 60%; width: 100%;}
+.h70-w100 {height: 70%; width: 100%;}
+.h10-w100 {height: 10%; width: 100%;}
+.h100-w60 {height: 100%; width: 60%;}
+.h100-w40 {height: 100%; width: 40%;}
+
+
+.flex-rightmiddle {display: flex; justify-content: flex-end; align-items: center;}
+.flex-leftmiddle {display: flex; justify-content: flex-start; align-items: center;}
+.flex-centermiddle {display: flex; justify-content: center; align-items: center;}
+.flex-evenmiddle {display: flex; justify-content: space-evenly; align-items: center;}
+
+.text-center {text-align: center;}
+.text-left {text-align: left;}
+.bold {font-weight: 550;}

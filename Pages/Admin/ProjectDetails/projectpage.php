@@ -1,20 +1,13 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 require '../../../Controllers/accessDatabase.php';
 require '../../../Controllers/loginCheck.php';
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
 
 $id = $_GET['id'];
 // Phase Table
 $sql = "SELECT phase.* FROM phase, project WHERE project.projectid = $id AND phase.projectid = project.projectid";
 
-// Phase Reminders
-$sql2 = "SELECT project.projectid, project.projectname, building.buildingaddress, project.clientid, client.clientname FROM project, client, phase, building WHERE project.projectid = $id AND project.clientid = client.clientid AND project.buildingID = building.buildingID AND project.projectid=phase.projectid " ; 
+// Phase Progress SQL
+$sql2 = "SELECT ROUND((SUM(isFinished)/COUNT(isFinished))*100, 0) AS progressRate FROM project, client, phase, building WHERE project.projectid = $id AND project.clientid = client.clientid AND project.buildingID = building.buildingID AND project.projectid=phase.projectid";
 
 // Header Text
 $sql3 = "SELECT project.projectname, building.buildingaddress, client.clientname, client.clientcontact, project.projecttype, building.workarea, building.blueprint, DATE_FORMAT(project.deadlineDate, '%M %d, %Y') AS deadlineDate FROM project, client, building WHERE client.clientid= project.clientid  AND project.buildingID = building.buildingID AND project.projectid = $id" ;
@@ -23,6 +16,10 @@ $result = $conn->query($sql);
 $result2 = $conn->query($sql2);
 $result3 = $conn->query($sql3);
 
+if ($result2->num_rows > 0) {
+    $res2_row = $result2->fetch_assoc();
+    $progressRate = $res2_row["progressRate"];
+}
 
 if ($result3->num_rows > 0) {
     $row = $result3->fetch_assoc();
@@ -78,8 +75,10 @@ if ($result3->num_rows > 0) {
                                 <button class="button-style" id="addphase" style="width: 30px; height: 50px;"><span class="material-symbols-outlined"style="font-size: 50px; position: relative; top: -10%;  left: -600%;  font-size: 50px;" sys_getloadavg >add_circle</span></button>
                                 <div class="col-sm-3" style="height: 30px;">
                                     <div class="row" style="background-color: rgb(19, 171, 19); width: 210px; height: 50px;">
-                                        <div class="col" style="background-color: rgb(19, 171, 19); font-size: 1vw; color: white;">Progress:</div>
-                                        <div class="col" style="background-color: rgb(19, 171, 19); font-size: 2vw; color: white;">30%</div>
+                                        <div class="col" style="background-color: rgb(19, 171, 19); font-size: 1vw; color: white; display:flex; justify-content: center">
+                                            <div class="col" style="background-color: rgb(19, 171, 19); font-size: 1.2vw; color: white; margin: auto;">Progress: </div>
+                                            <div id="progressNum" class="col" style="background-color: rgb(19, 171, 19); font-size: 1.5vw; color: white; margin-left: 15px; margin-top: auto; margin-bottom: auto;"><?php echo htmlspecialchars($progressRate ?? '0') ?>%</div>
+                                        </div>
                                     </div>
                                 </div>
                                     <br><br>
@@ -87,11 +86,12 @@ if ($result3->num_rows > 0) {
                                 <?php
                                             if ($result->num_rows > 0) {
                                                 while ($row = $result->fetch_assoc()) {
+                                                    $phaseFinished = $row["isFinished"] == 1 ? 'checked' : '';
                                                     echo '<div class="row">
                                                     <div class="col-sm-11">
                                                         <div class="row p-2 border bg light" style="margin: auto;">
                                                             <div class="col-sm-4 rounded" style="background-color:rgb(41, 157, 41); width: 65px; height: 80px; color: rgb(41, 157, 41);">
-                                                                <input type="checkbox" data-id="' . htmlspecialchars($row["phaseID"] ?? '') . '" style="width: 40px; height: 70px; margin-top: 10%; accent-color: rgb(41, 157, 41);">
+                                                                <input type="checkbox" data-id="' . htmlspecialchars($row["phaseID"] ?? '') . '" style="width: 40px; height: 70px; margin-top: 10%; accent-color: rgb(41, 157, 41);" '.$phaseFinished.'>
                                                             </div>
                                                             <div class="col p-1 ">
                                                             <div id="clientname" style="font-weight: bold;text-align: center;font-size: 1.6vw; color: black;">' . htmlspecialchars($row["phaseTitle"] ?? '') . '</div>
@@ -184,7 +184,7 @@ if ($result3->num_rows > 0) {
                             <!-- NEEDS FIX -->
                     </div>
                     <div class="col deadline">
-                        Projet Deadline:
+                        Project Deadline:
                         <div><?php echo htmlspecialchars($deadlineDate); ?></div>
                     </div>
 
