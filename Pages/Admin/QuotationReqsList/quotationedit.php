@@ -203,26 +203,36 @@ if (!$result) {
                     <label for="contact">Email / Contact Number:</label>
                     <input type="text" id="contact" name="contact" value="<?php echo htmlspecialchars($contact); ?>" disabled>
                 </div>
-                <div class="form-group_two">
-                    <div class="input-group">
-                        <label for="blueprint-add" class="toggle">
-                            <input id="blueprint-add" class="toggle-checkbox" type="checkbox" name="blueprint-add" onclick="displayAttach();" disabled>
-                            <div class="toggle-switch"></div>
-                            <span class="toggle-label">With Blueprint/Floor Plan</span>
-                        </label>
-                    </div>
-                    <div class="space"></div>
-                    <div class="input-group" id="attach-blueprint">
-                        <label for="blueprint" class="labelforupload"><i class="fa-solid fa-upload"> ADD BLUEPRINT</i></label>
-                        <input type="file" id="blueprint" name="blueprint[]" onchange="displayFileList();" multiple>
-                    </div>
-                </div>
+                
                 <div id="attachment" class="w100">
                     <div class="bold">
                         Attached Files:
                     </div>
                     <div id="attached-filelist">
                         <ul id="list">
+                        <?php
+                            $arrFiles = array();
+                            $dirPath = "../../../AttachedFiles/Blueprints/quotationRequestBlueprints/blueprint-" . $id;
+                            
+                            if (is_dir($dirPath)) {
+                                $files = scandir($dirPath);
+                                $hasFiles = false;
+                                
+                                foreach ($files as $file) {
+                                    $filePath = $dirPath . '/' . $file;
+                                    if (is_file($filePath)) {
+                                        $hasFiles = true; // Set to true when a file is found
+                                        echo "<li><a href='" . $filePath . "' target='_blank'>" . $file . "</a></li><br>";
+                                    }
+                                }
+                                
+                                if (!$hasFiles) { // Correct condition to check if no files were found
+                                    echo "No blueprints available.";
+                                }
+                            } else {
+                                echo "No blueprints attached.";
+                            }
+                        ?>
                         </ul>
                     </div>
                 </div>
