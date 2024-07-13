@@ -9,7 +9,7 @@
         while ($row = $result3->fetch_assoc()) {
             //make quotation page shit
             echo '
-            <a class="row p-1 border bg light" style="margin-top: 25px;  text-decoration: none">
+            <a href="../QuotationReqsList/quotationedit.php?id=' . htmlspecialchars($row["requestid"]) . '" class="row p-1 border bg light" style="margin-top: 25px;  text-decoration: none">
             <div class="col-sm-4 rounded" style="background-color:rgb(41, 157, 41); width: 35px; height: 80px; color: rgb(41, 157, 41);">.</div>
             <div class="col p-1">
             <div style="font-weight: bold;text-align: center;font-size: 1.3vw; color: black;">' . htmlspecialchars($row["Location"]) . '</div>

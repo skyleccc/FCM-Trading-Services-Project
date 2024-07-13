@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var modal = document.getElementById("myModal");
     var btn = document.getElementById("myBtn");
     var span = document.getElementsByClassName("close")[0];
+    var span2 = document.getElementsByClassName("edit")[0];
 
     if (btn) {
         btn.onclick = function() {
@@ -17,6 +18,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function closeModal() {
         window.location.href = `quotationreqs.php`;
+    }
+
+    if (span2) {
+        span2.onclick = function() {
+            var id = $(this).data('id');
+            window.location.href = `edit_quotation.php` + '?id=' + id;
+        }
     }
 
     $('.approve-btn').click(function() {
