@@ -13,7 +13,7 @@
                 $query->bind_result($id, $password);
                 $query->fetch();
                 if ($_POST['password'] === $password) {
-                    session_regenerate_id();
+                    session_regenerate_id(true);
                     $_SESSION['loggedin'] = TRUE;
                     $_SESSION['name'] = $_POST['username'];
                     $_SESSION['id'] = $id;
