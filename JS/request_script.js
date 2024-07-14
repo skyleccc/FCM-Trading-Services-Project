@@ -87,29 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
 });
 
-$(document).ready(function() {
 
-    // Handle form submission
-    $('form').on('submit', function(e) {
-        e.preventDefault();
-
-        $.ajax({
-            url: $(this).attr('action'),
-            type: $(this).attr('method'),
-            data: new FormData(this),
-            contentType: false,
-            processData: false,
-            success: function(response) {
-                alert('Form submitted successfully!');
-                $('#myModal').hide();
-                window.location.href = 'quotationreqs.php';
-            },
-            error: function(xhr, status, error) {
-                alert('Form submission failed: ' + error);
-            }
-        });
-    });
-});
 
 $(document).ready(function() {
     // Approve button click handler
@@ -142,4 +120,77 @@ $(document).ready(function() {
             }
         });
     }
+});
+
+let fileUrls = [];
+
+document.addEventListener('DOMContentLoaded', function() {
+    fetchExistingFiles();
+});
+
+function fetchExistingFiles() {
+    const requesterID = new URLSearchParams(window.location.search).get('id');
+    fetch(`listFiles.php?id=${requesterID}`)
+        .then(response => response.json())
+        .then(files => {
+            const listElement = document.getElementById('list');
+            listElement.innerHTML = ''; // Clear existing list items
+
+            files.forEach(file => {
+                const listItem = document.createElement('li');
+                const previewDiv = document.createElement('div');
+                previewDiv.classList.add('preview');
+
+                const fileUrl = `../../AttachedFiles/Blueprints/quotationRequestBlueprints/blueprint-${requesterID}/${file}`;
+                fileUrls.push(fileUrl);
+
+                const fileLink = document.createElement('a');
+                fileLink.textContent = file;
+                fileLink.classList.add('filename');
+                fileLink.href = fileUrl;
+                fileLink.target = '_blank';
+
+                previewDiv.appendChild(fileLink);
+                listItem.appendChild(previewDiv);
+                listElement.appendChild(listItem);
+            });
+        })
+        .catch(error => console.error('Error fetching existing files:', error));
+}
+
+function displayFileList() {
+    const fileInput = document.getElementById('blueprint');
+    const fileList = fileInput.files;
+    const listElement = document.getElementById('list');
+
+    // Clear any previously displayed new files
+    const newFileItems = document.querySelectorAll('.new-file');
+    newFileItems.forEach(item => listElement.removeChild(item));
+
+    for (let i = 0; i < fileList.length; i++) {
+        const file = fileList[i];
+        const listItem = document.createElement('li');
+        listItem.classList.add('new-file');
+        const previewDiv = document.createElement('div');
+        previewDiv.classList.add('preview');
+
+        const fileUrl = URL.createObjectURL(file);
+        fileUrls.push(fileUrl);
+
+        const fileLink = document.createElement('a');
+        fileLink.textContent = file.name;
+        fileLink.classList.add('filename');
+        fileLink.href = fileUrl;
+        fileLink.target = '_blank';
+
+        previewDiv.appendChild(fileLink);
+        previewDiv.appendChild(document.createTextNode(" (Apply Changes to Save)"));
+        listItem.appendChild(previewDiv);
+        listElement.appendChild(listItem);
+    }
+}
+
+// Revoke all created URLs when the window is unloaded
+window.addEventListener('unload', () => {
+    fileUrls.forEach(url => URL.revokeObjectURL(url));
 });

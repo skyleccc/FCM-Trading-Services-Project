@@ -2,11 +2,15 @@
 require '../../Controllers/accessDatabase.php';
 require '../../Controllers/loginCheck.php';
 
-$redirectAfter = "Location: ../../Pages/Admin/QUotationReqsList/quotationreqs.php";
+$requesterID = $_GET['id'];
+
+$redirectAfter = "Location: ../../Pages/Admin/QuotationReqsList/quotationreqs.php";
+$sql = "UPDATE quotation_request SET clientName = ?, location = ?, siteInformation = ?, serviceType = ?, startDate = ?, completeDate = ?, projectDetails = ?, workArea = ?, budgetConstraint = ?, specialRequests = ?, contact = ? WHERE requestID = ?";
+$dataType = "ssssssssissi";
 
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['projectname'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_GET['id'])) {
     $requestername = isset($_POST['requestername']) ? $_POST['requestername'] : '';
     $location = isset($_POST['location']) ? $_POST['location'] : '';
     $siteinfo = isset($_POST['siteinfo']) ? $_POST['siteinfo'] : '';
@@ -20,14 +24,69 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['projectname'])) {
     $contact = isset($_POST['contact']) ? $_POST['contact'] : '';
     $withBlueprint = isset($_POST['blueprint-add']) ? 1 : 0;
 
-    $stmt = $conn->prepare("INSERT INTO quotation_request (clientName, location, siteInformation, servicetype, startDate, completeDate, projectDetails, workArea, budgetConstraint, specialRequests, contact, withBlueprint, numberOfFiles) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssssssssssss", $requestsername, $location, $siteinfo, $servicetype, $startdate, $datecomplete, $projdetails, $areaofwork, $budget_constraints, $specialrequests, $contact, $withBlueprint, $validFiles);
+    $allowed_ext = array('jpg', 'jpeg', 'png', 'svg', 'webp', 'apng', 'avif', 'ico', 'cur', 'bmp', 'jfif', 'pdf');
 
-    if ($save->execute()) {
+    // Validate files
+    if (isset($_FILES['blueprint']) && $_FILES['blueprint']['error'][0] != UPLOAD_ERR_NO_FILE) {
+        $validFiles = 0;
+        $invalidFiles = [];
+        $dir = '../../AttachedFiles/Blueprints/quotationRequestBlueprints/blueprint-';
+
+        for ($i = 0; $i < count($_FILES['blueprint']['name']); $i++) {
+            $file_name = $_FILES['blueprint']['name'][$i];
+            $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+
+            // Validate file extension
+            if (!in_array($file_ext, $allowed_ext)) {
+                $invalidFiles[] = $file_name;
+            } else {
+                $validFiles++;
+            }
+        }
+
+        if (!empty($invalidFiles)) {
+            echo '<script>alert("The following files are invalid: ' . implode(", ", $invalidFiles) . '"); window.history.back();</script>';
+            exit(); // Stop further execution
+        } else {
+            $sql = "UPDATE quotation_request SET clientName = ?, location = ?, siteInformation = ?, serviceType = ?, startDate = ?, completeDate = ?, projectDetails = ?, workArea = ?, budgetConstraint = ?, specialRequests = ?, contact = ?, withBluePrint = ?, numberOfFiles = ? WHERE requestID = ?";
+            $dataType = "ssssssssissiii";
+
+            if ($validFiles > 0) {
+                $uploadFile_dir = $dir . $requesterID;
+
+                // Create upload directory if it does not exist
+                if (!is_dir($uploadFile_dir)) {
+                    if (!mkdir($uploadFile_dir, 0755, true)) {
+                        die("Failed to create upload directory.");
+                    }
+                }
+
+                for ($i = 0; $i < count($_FILES['blueprint']['name']); $i++) {
+                    $file_name = $_FILES['blueprint']['name'][$i];
+                    $file_tmp = $_FILES['blueprint']['tmp_name'][$i];
+                    $file_target = $uploadFile_dir . '/' . basename($file_name); // Use basename() for security
+
+                    if (!move_uploaded_file($file_tmp, $file_target)) {
+                        echo "Failed to upload file: $file_name<br>";
+                    }
+                }
+            }
+        }
+    }
+
+    $stmt = $conn->prepare($sql);
+    // Bind parameters directly to the prepared statement
+    if (strpos($sql, 'withBluePrint') !== false) {
+        $stmt->bind_param($dataType, $requestername, $location, $siteinfo, $servicetype, $startdate, $datecomplete, $projdetails, $areaofwork, $budget_constraints, $specialrequests, $contact, $withBlueprint, $validFiles, $requesterID);
+    } else {
+        $stmt->bind_param($dataType, $requestername, $location, $siteinfo, $servicetype, $startdate, $datecomplete, $projdetails, $areaofwork, $budget_constraints, $specialrequests, $contact, $requesterID);
+    }
+
+    if ($stmt->execute()) {
         header($redirectAfter);
         exit();
     } else {
-        echo "Error updating project: " . $conn->error;
+        echo "Error updating project: " . $stmt->error;
         exit();
     }
 }

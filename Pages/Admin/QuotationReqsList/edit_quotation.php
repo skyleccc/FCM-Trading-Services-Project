@@ -2,10 +2,6 @@
 require '../../../Controllers/accessDatabase.php';
 require '../../../Controllers/loginCheck.php';
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
 $id = $conn->real_escape_string($_GET['id']);
 $sql = "SELECT requestid, serviceType, clientName, Location FROM quotation_request WHERE status='pending'";
 $sql2 = $conn->prepare("SELECT requestid, clientname, location, siteinformation, servicetype, startdate, completedate, projectdetails, workarea, budgetconstraint, specialrequests, contact, withblueprint, numberoffiles, status FROM quotation_request WHERE requestid = ?");
@@ -203,13 +199,6 @@ $status = $row2['status'];
                     <input type="text" id="contact" name="contact" value="<?php echo htmlspecialchars($contact); ?>" required>
                 </div>
                 <div class="form-group_two">
-                    <div class="input-group">
-                        <label for="blueprint-add" class="toggle">
-                            <input id="blueprint-add" class="toggle-checkbox" type="checkbox" name="blueprint-add" onclick="displayAttach();">
-                            <div class="toggle-switch"></div>
-                            <span class="toggle-label">With Blueprint/Floor Plan</span>
-                        </label>
-                    </div>
                     <div class="space"></div>
                     <div class="input-group" id="attach-blueprint">
                         <label for="blueprint" class="labelforupload"><i class="fa-solid fa-upload"> ADD BLUEPRINT</i></label>
@@ -222,6 +211,29 @@ $status = $row2['status'];
                     </div>
                     <div id="attached-filelist">
                         <ul id="list">
+                            <?php
+                                $arrFiles = array();
+                                $dirPath = "../../../AttachedFiles/Blueprints/quotationRequestBlueprints/blueprint-" . $id;
+                                
+                                if (is_dir($dirPath)) {
+                                    $files = scandir($dirPath);
+                                    $hasFiles = false;
+                                    
+                                    foreach ($files as $file) {
+                                        $filePath = $dirPath . '/' . $file;
+                                        if (is_file($filePath)) {
+                                            $hasFiles = true; // Set to true when a file is found
+                                            echo "<li><a href='" . $filePath . "' target='_blank'>" . $file . "</a></li>";
+                                        }
+                                    }
+                                    
+                                    if (!$hasFiles) { // Correct condition to check if no files were found
+                                        echo "No blueprints available.";
+                                    }
+                                } else {
+                                    echo "No blueprints attached.";
+                                }
+                            ?>
                         </ul>
                     </div>
                 </div>
