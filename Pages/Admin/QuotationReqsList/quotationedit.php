@@ -6,7 +6,7 @@ require '../../../Controllers/loginCheck.php';
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-
+    
 $id = $_GET['id'];
 $sql = "SELECT requestid, serviceType, clientName, Location FROM quotation_request WHERE status='pending'"; // Adjust table name as needed
 $sql2 = "SELECT requestid ,clientname, location, siteinformation, servicetype, startdate,completedate, projectdetails, workarea, budgetconstraint, specialrequests ,contact, withblueprint, numberoffiles, status FROM quotation_request WHERE requestid = $id";

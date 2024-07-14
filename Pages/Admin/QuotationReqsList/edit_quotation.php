@@ -2,19 +2,20 @@
 require '../../../Controllers/accessDatabase.php';
 require '../../../Controllers/loginCheck.php';
 
-
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$id = $_GET['id'];
-$sql = "SELECT requestid, serviceType, clientName, Location FROM quotation_request WHERE status='pending'"; // Adjust table name as needed
-$sql2 = "SELECT requestid ,clientname, location, siteinformation, servicetype, startdate,completedate, projectdetails, workarea, budgetconstraint, specialrequests ,contact, withblueprint, numberoffiles, status FROM quotation_request WHERE requestid = $id";
+$id = $conn->real_escape_string($_GET['id']);
+$sql = "SELECT requestid, serviceType, clientName, Location FROM quotation_request WHERE status='pending'";
+$sql2 = $conn->prepare("SELECT requestid, clientname, location, siteinformation, servicetype, startdate, completedate, projectdetails, workarea, budgetconstraint, specialrequests, contact, withblueprint, numberoffiles, status FROM quotation_request WHERE requestid = ?");
+$sql2->bind_param("i", $id);
+$sql2->execute();
+$result2 = $sql2->get_result();
+
 $result = $conn->query($sql);
-$result2 = $conn->query($sql2);
-
-
 $row2 = $result2->fetch_assoc();
+
 $requestID = $row2['requestid'];
 $clientname = $row2['clientname'];
 $location = $row2['location'];
@@ -30,39 +31,6 @@ $contact = $row2['contact'];
 $withblueprint = $row2['withblueprint'];
 $numberoffiles = $row2['numberoffiles'];
 $status = $row2['status'];
-
-$redirectAfter = "Location: ../../Pages/Admin/QuotationReqsList/quotationreqs.php";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST" && $formFilled) {
-    $requestID = $row2['requestid'];
-    $clientname = $row2['clientname'];
-    $location = $row2['location'];
-    $siteinformation = $row2['siteinformation'];
-    $servicetype = $row2['servicetype'];
-    $startdate = $row2['startdate'];
-    $completedate = $row2['completedate'];
-    $projectdetails = $row2['projectdetails'];
-    $workarea = $row2['workarea'];
-    $budgetconstraint = $row2['budgetconstraint'];
-    $specialrequests = $row2['specialrequests'];
-    $contact = $row2['contact'];
-    $withblueprint = $row2['withblueprint'];
-    $numberoffiles = $row2['numberoffiles'];
-    $status = $row2['status'];
-
-    $save = $conn->prepare("UPDATE quotation_request SET clientname = ? , location = ? , siteinformation = ? , servicetype = ? , startdate,completedate = ? , projectdetails = ? , workarea = ? , budgetconstraint = ? , specialrequests = ? ,contact = ? , withblueprint = ? , numberoffiles = ? WHERE requestid = $id");
-    $save->bind_param("ssssssssssssi", $clientname, $location,$siteinformation,$servicetype,$startdate,$completedate,$projectdetails,$workarea,$budgetconstraint,$specialrequests,$contact,$withblueprint,$numberoffiles ,$status,$requestID);
-
-    if ($save->execute()) {
-        $save->close();
-        $conn->close();
-        header($redirectAfter);
-        exit();
-    } else {
-        echo "Error updating phase: " . $conn->error;
-        exit();
-    }
-}
 
 ?>
 <!doctype html>
@@ -168,9 +136,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $formFilled) {
                 <div id="myModal" class="popup"style="display: block;">
                     <div class="quotationscontainer">
                     <div class="ex1 border bg light rounded">
-                        <form id="quotationForm" class="p-3" action="../../../Models/QuotationReqs/fileUpload.php" method="post" enctype="multipart/form-data">
+                    <form id="quotationForm" class="p-3" action="../../../Models/AdminQuotReqs/quotationedit.php?id=<?php echo $requestID; ?>" method="post" enctype="multipart/form-data">
                         <div style="font-size: 20px; font-weight: bold; text-align: center; color: black">
-                        <span class="material-symbols-outlined edit">edit</span>
+                        <span class="material-symbols-outlined editdone">edit</span>
                         Enter a new Project
                         <span class="close">&times;</span>
                         </div><br>
@@ -237,7 +205,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $formFilled) {
                 <div class="form-group_two">
                     <div class="input-group">
                         <label for="blueprint-add" class="toggle">
-                            <input id="blueprint-add" class="toggle-checkbox" type="checkbox" name="blueprint-add" onclick="displayAttach();" required>
+                            <input id="blueprint-add" class="toggle-checkbox" type="checkbox" name="blueprint-add" onclick="displayAttach();">
                             <div class="toggle-switch"></div>
                             <span class="toggle-label">With Blueprint/Floor Plan</span>
                         </label>
@@ -259,7 +227,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $formFilled) {
                 </div>
 
                 </div>
-                    <button id="addfinal">Apply Changes</button>
+                    <button type="submit" id="addfinal">Apply Changes</button>
                 </div>
             </form>
 
