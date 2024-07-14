@@ -27,6 +27,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+
+    
     $('.approve-btn').click(function() {
         var id = $(this).data('id');
         console.log('Approve button clicked for ID:', id); // Debugging line
@@ -43,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.log('Response from approve:', data); // Debugging line
                 if (data === 'success') {
                     alert('Project approved!');
-                    location.reload();
+                    window.location.href = 'quotationreqs.php';
                 } else {
                     alert('Failed to approve the request.');
                 }
@@ -71,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.log('Response from decline:', data); // Debugging line
                 if (data === 'success') {
                     alert('Project declined!');
-                    location.reload();
+                    window.location.href = 'quotationreqs.php';
                 } else {
                     alert('Failed to decline the request.');
                 }
@@ -82,4 +84,62 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
     });
+    
+});
+
+$(document).ready(function() {
+
+    // Handle form submission
+    $('form').on('submit', function(e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: $(this).attr('action'),
+            type: $(this).attr('method'),
+            data: new FormData(this),
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                alert('Form submitted successfully!');
+                $('#myModal').hide();
+                window.location.href = 'quotationreqs.php';
+            },
+            error: function(xhr, status, error) {
+                alert('Form submission failed: ' + error);
+            }
+        });
+    });
+});
+
+$(document).ready(function() {
+    // Approve button click handler
+    $('.approve-btn').click(function(e) {
+        e.preventDefault();
+        var requestId = $(this).data('id');
+        processRequest(requestId, 'approve');
+    });
+
+    // Decline button click handler
+    $('.decline-btn').click(function(e) {
+        e.preventDefault();
+        var requestId = $(this).data('id');
+        processRequest(requestId, 'decline');
+    });
+
+    function processRequest(requestId, action) {
+        $.ajax({
+            url: '../../../Models/QuotationReqs/processRequest.php',
+            type: 'POST',
+            data: { requestId: requestId, action: action },
+            dataType: 'json',
+            success: function(response) {
+                if (response.status === 'success') {
+                    alert(response.message);
+                    window.location.href = 'quotationreqs.php';
+                } else {
+                    alert(response.message);
+                }   
+            }
+        });
+    }
 });
