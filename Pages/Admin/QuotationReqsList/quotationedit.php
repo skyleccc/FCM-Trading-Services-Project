@@ -224,7 +224,7 @@ if (!$result) {
                                     $filePath = $dirPath . '/' . $file;
                                     if (is_file($filePath)) {
                                         $hasFiles = true; // Set to true when a file is found
-                                        echo "<li><a href='" . $filePath . "' target='_blank'>" . $file . "</a></li><br>";
+                                        echo "<li><a href='" . $filePath . "' target='_blank'>" . $file . "</a></li>";
                                     }
                                 }
                                 
