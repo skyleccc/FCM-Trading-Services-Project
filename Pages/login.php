@@ -1,6 +1,7 @@
 <?php
+session_start();
 if(isset($_SESSION['loggedin'])){
-    header("Location: /Pages/Admin/main/main.php");
+    header("Location: /Pages/Admin/MainDashboard/main.php");
     exit;
 }
 ?>

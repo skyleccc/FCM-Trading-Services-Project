@@ -198,6 +198,7 @@ a {
     width: 100%;
     border: 1px solid #dee2e6;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .project>div {
@@ -220,6 +221,47 @@ a {
     -webkit-line-clamp: 1;
     line-clamp: 1;
     -webkit-box-orient: vertical;
+}
+
+
+/* Client Modals */
+
+.modal-dialog {
+    max-width: 50vw;
+    max-height: 80vh;
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.modal-content {
+    height: 100%;
+    background-color: #f8f9fa;
+    font-weight: 500;
+}
+
+.modal-body {
+    height: calc(100% - 56px); /* Adjust height based on modal header and footer height */
+    overflow-y: auto;
+}
+
+.modal-header .modal-title {
+    flex: 1;
+    text-align: center;
+}
+label{
+    color: #008000;
+}
+
+.modal-container{
+    border-radius: 5px;
+    border: 3px solid #008000;
+    padding: 8px;
+}
+
+button:focus, button:active {
+    outline: none;
+    box-shadow: none;
 }
 
 .h100-w50 {height: 100%; width: 50%;}

@@ -12,9 +12,9 @@ require '../../../Controllers/loginCheck.php';
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>FCM Dashboard</title>
     <link rel="icon" href="../../../WebsitePictures/fcmicon.png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../../CSS/clients_styles.css">
 </head>
 <body>
@@ -31,7 +31,7 @@ require '../../../Controllers/loginCheck.php';
                 <div class="client-header d-flex align-items-center h100-w50">
                     Clients List
                     <div class="add-client">
-                        <button type="button" class="add-client">
+                        <button type="button" class="add-client" data-toggle="modal" data-target="#addClientModal">
                             <span class="material-symbols-outlined">person_add</span>
                         </button>
                     </div>
@@ -81,47 +81,18 @@ require '../../../Controllers/loginCheck.php';
         <div id="client-summary" class="h60-w100 flex-centermiddle">
             No client selected. Please click a client.
         </div>
-    </div>    
+    </div>
+    <?php
+        // Add Client Modal
+        require '../../../Components/ClientModals/addClientModal.php';
+        // Edit Client Modal
+        require '../../../Components/ClientModals/editClientModal.php';
+    ?>
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-HG1PqQtkbfhTXCpFjtnx3vpkTrkFQe+KvhG5MTpH2wPRpEacC4zJxyEilKF8kGmS" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="../../../JS/clients_script.js"></script>
 </html>
-
-
-<!--             <div class="client box">
-                <div class="client-details h100-w50">
-                    <div class="client-name flex-centermiddle">Justin Alec M. Antonio</div>
-                    <div class="client-contact flex-centermiddle">Contact Number</div>
-                </div>
-                <div class="last-project h100-w25">
-                    <div><b>Last Project:</b></div>
-                    <div>December 24, 2023</div>
-                </div>
-                <div class="action-buttons h100-w25">
-                    <button type="button" class="btn btn-primary">
-                        <span class="material-symbols-outlined">edit</span>
-                    </button>
-                    <button type="button" class="btn btn-danger">
-                        <span class="material-symbols-outlined">delete</span>
-                    </button>
-                </div>
-            </div>
-            
--->
-
-
-<!--
-
-                    <div class="project flex-centermiddle">
-                        <div class="h100-w60 flex-centermiddle text-center">
-                            <span><b>Project Name Project Nam eProject Name Project Name</b><br></span>
-                            <span style="color: #299d29">Project Scope </span>
-                        </div>
-                        <div class="h100-w40 flex-centermiddle finished">
-                            <b>Completed<br>
-                            09-23-2024</b>
-                        </div>
-                    </div>
-
--->
