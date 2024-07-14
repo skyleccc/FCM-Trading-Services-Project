@@ -25,7 +25,7 @@ if($clientListResult->num_rows > 0){
                     <div class="client-name flex-centermiddle">'.htmlspecialchars($clientListRow["clientName"]).'</div>
                     <div class="client-contact flex-centermiddle">'.htmlspecialchars($clientListRow["clientContact"]).'</div>
                 </div>
-                <div class="last-project h100-w25">
+                <div class="last-project h100-w25" data-id="'.$clientListRow["clientID"].'">
                     <div><b>Last Project:</b></div>
                     <div>'.htmlspecialchars($clientListRow["latestProjectDate"] ?? $clientListProj).'</div>
                 </div>

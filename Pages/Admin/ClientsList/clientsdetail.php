@@ -4,12 +4,12 @@ require '../../../Controllers/loginCheck.php';
 
 $clientID = $_POST['clientid'];
 
-$clientDetailQuery = "SELECT c.*, COUNT(p.projectID) AS numProjects, latest_project.projectID AS latestProjectID, DATE_FORMAT(latest_project.completionDate, '%d %m %y') AS latestProjectDate, p.projectName FROM client c LEFT JOIN project p ON c.clientID = p.clientID LEFT JOIN ( SELECT clientID, projectID, completionDate FROM project WHERE clientID = $clientID AND completionDate IS NULL ) latest_project ON c.clientID = latest_project.clientID WHERE c.clientID = $clientID GROUP BY c.clientID ORDER BY latest_project.completionDate ASC;";
+$clientDetailQuery = "SELECT c.clientID, c.clientName, c.clientContact, c.clientEmail, COUNT(p.projectID) AS numProjects, latest_project.projectID AS currentProjectID, latest_project.projectName AS currentProjectName FROM client c LEFT JOIN project p ON c.clientID = p.clientID LEFT JOIN ( SELECT clientID, projectID, projectName FROM project WHERE clientID = $clientID AND completionDate IS NULL ORDER BY startDate DESC LIMIT 1 ) latest_project ON c.clientID = latest_project.clientID WHERE c.clientID = $clientID GROUP BY c.clientID, c.clientName, c.clientContact, c.clientEmail, currentProjectID, currentProjectName;";
 
 $clientProjQuery = "SELECT projectName, projectType, DATE_FORMAT(completionDate, '%M %d, %Y') AS completionDate FROM project, client WHERE client.clientID = project.clientID AND client.clientID = $clientID ORDER BY completionDate ASC;";
 
 $clientDetailResult = ($conn->query($clientDetailQuery))->fetch_assoc();
-$clientCurrProj = ($clientDetailResult["latestProjectID"] != NULL) ? $clientDetailResult['projectName'] : "No current projects";
+$clientCurrProj = ($clientDetailResult["currentProjectID"] != NULL) ? $clientDetailResult['currentProjectName'] : "No current projects";
 
 $clientProjResult = $conn->query($clientProjQuery);
 
