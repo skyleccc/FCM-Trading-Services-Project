@@ -228,9 +228,7 @@ if (!$result) {
                                     }
                                 }
                                 
-                                if (!$hasFiles) { // Correct condition to check if no files were found
-                                    echo "No blueprints available.";
-                                }
+                               
                             } else {
                                 echo "No blueprints attached.";
                             }

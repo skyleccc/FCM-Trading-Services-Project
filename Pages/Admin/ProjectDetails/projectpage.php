@@ -174,10 +174,6 @@ if ($result3->num_rows > 0) {
                                                 echo "<a href='" . $filePath . "' target='_blank'>" . $file . "</a><br>";
                                             }
                                         }
-                                        
-                                        if (!$hasFiles) { // Correct condition to check if no files were found
-                                            echo "No blueprints available.";
-                                        }
                                     } else {
                                         echo "No blueprints attached.";
                                     }
