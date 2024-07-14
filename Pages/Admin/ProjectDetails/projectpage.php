@@ -26,7 +26,7 @@ if ($result3->num_rows > 0) {
     $clientname = $row['clientname'];
     $projectname = $row['projectname'];
     $buildingaddress = $row['buildingaddress'];
-    // $clientcontact = $row('clientcontact');
+    $clientcontact = $row['clientcontact'];
     $worktype = $row['projecttype'];
     $workArea = $row['workarea'];
     $deadlineDate = $row['deadlineDate'];
@@ -127,67 +127,71 @@ if ($result3->num_rows > 0) {
 
                 </div>
             </div>
-            <div class="col-3 third border bg light">
-
-                <div class="col">
-
-                    <div class="col projectname">
-                        Project Name:
-                        <div><?php echo htmlspecialchars($projectname); ?></div>
+            <div class="col-3 third p-3 border bg light">
+                <div class="col p-3 border bg light">
+                <div class="col" style="color: green; font-size: 1.7vw; font-weight: bolder; display: flex; justify-content: center; padding: 15px">Project Details</div>
+                <div class="col details p-3">
+                    <div class="row a">
+                        <div class="col projectname">Project Name: </div>
+                         <div class="col data1"><?php echo htmlspecialchars($projectname); ?></div>
                     </div>
-                    <div class="col client">
-                        Client Name:
-                        <div><?php echo htmlspecialchars($clientname); ?></div>
+                    <div class="row b">
+                        <div class="col client">Client Name:</div>
+                         <div class="col data2"><?php echo htmlspecialchars($clientname); ?></div>
                     </div>
-                    <div class="col contact-info">
-                        Contact Information:
-                        <div> NEEDS FIX </div>
+                    <div class="row c">
+                        <div class="col contact-info">Contact:</div>
+                        <div class="col data3"><?php echo htmlspecialchars($clientcontact); ?></div>
                     </div>
-                    <div class="col worktype">
-                        Work Type:
-                        <div><?php echo htmlspecialchars($worktype); ?></div>
+                    <div class="row d">
+                        <div class="col worktype">Work Type:</div>
+                        <div class="col data4"><?php echo htmlspecialchars($worktype); ?></div>
                     </div>
-                    <div class="col location">
-                        Location:
-                        <div><?php echo htmlspecialchars($buildingaddress); ?></div>
+                    <div class="row e">
+                        <div class="col location">Location:</div>
+                        <div class="col data5"><?php echo htmlspecialchars($buildingaddress); ?></div>
                     </div>
-                    <div class="col workarea">
-                        Area of Work:
-                        <div><?php echo htmlspecialchars($workArea); ?></div>
+                    <div class="row f">
+                        <div class="col workarea">Area of Work:</div>
+                        <div class="col data6"><?php echo htmlspecialchars($workArea); ?></div>
                     </div>
-                    <div class="col blueprints">
-                        Blueprints:
-                        <?php
-                            $arrFiles = array();
-                            $dirPath = "../../../AttachedFiles/Blueprints/projectBlueprints/blueprint-" . $id;
-                            
-                            if (is_dir($dirPath)) {
-                                echo "<br>";
-                                $files = scandir($dirPath);
-                                $hasFiles = false;
-                                
-                                foreach ($files as $file) {
-                                    $filePath = $dirPath . '/' . $file;
-                                    if (is_file($filePath)) {
-                                        $hasFiles = true; // Set to true when a file is found
-                                        echo "<a href='" . $filePath . "' target='_blank'>" . $file . "</a><br>";
+                    <div class="row g">
+                        <div class="col blueprints">Blueprints:</div>
+                            <div class="col data7">
+                                <?php
+                                    $arrFiles = array();
+                                    $dirPath = "../../../AttachedFiles/Blueprints/projectBlueprints/blueprint-" . $id;
+                                    
+                                    if (is_dir($dirPath)) {
+                                        echo "<br>";
+                                        $files = scandir($dirPath);
+                                        $hasFiles = false;
+                                        
+                                        foreach ($files as $file) {
+                                            $filePath = $dirPath . '/' . $file;
+                                            if (is_file($filePath)) {
+                                                $hasFiles = true; // Set to true when a file is found
+                                                echo "<a href='" . $filePath . "' target='_blank'>" . $file . "</a><br>";
+                                            }
+                                        }
+                                        
+                                        if (!$hasFiles) { // Correct condition to check if no files were found
+                                            echo "No blueprints available.";
+                                        }
+                                    } else {
+                                        echo "No blueprints attached.";
                                     }
-                                }
-                                
-                                if (!$hasFiles) { // Correct condition to check if no files were found
-                                    echo "No blueprints available.";
-                                }
-                            } else {
-                                echo "No blueprints attached.";
-                            }
-                        ?>
-                            <!-- NEEDS FIX -->
+                                ?>
+                            </div>
                     </div>
-                    <div class="col deadline">
-                        Project Deadline:
-                        <div><?php echo htmlspecialchars($deadlineDate); ?></div>
+                            <!-- NEEDS FIX -->
+                    
+                    <div class="row h">
+                        <div class="col deadline">Deadline:</div>
+                        <div class="col data2"><?php echo htmlspecialchars($deadlineDate); ?></div>
                     </div>
 
+                </div>
                 </div>
 
             </div>
