@@ -1,3 +1,50 @@
+let fileUrls = [];
+
+function previewFileList() {
+    const fileInput = document.getElementById('blueprint');
+    const fileList = fileInput.files;
+    const listElement = document.getElementById('list');
+
+    // Clear any existing list items
+    listElement.innerHTML = '';
+
+    // Revoke any previously created URLs
+    fileUrls.forEach(url => URL.revokeObjectURL(url));
+    fileUrls = [];
+
+    for (let i = 0; i < fileList.length; i++) {
+        const file = fileList[i];
+        const listItem = document.createElement('li');
+        listItem.classList.add('file-item'); // Add a specific class
+        const previewDiv = document.createElement('div');
+        previewDiv.classList.add('preview');
+
+        const fileUrl = URL.createObjectURL(file);
+        fileUrls.push(fileUrl);
+
+        const fileLink = document.createElement('a');
+        fileLink.textContent = file.name;
+        fileLink.classList.add('filename');
+        fileLink.href = fileUrl;
+        fileLink.target = '_blank';
+        fileLink.style.color = 'black';
+
+        // Add any additional text or elements here
+        const additionalText = document.createElement('span');
+        additionalText.style.marginLeft = '10px';
+
+        previewDiv.appendChild(fileLink);
+        previewDiv.appendChild(additionalText);
+        listItem.appendChild(previewDiv);
+        listElement.appendChild(listItem);
+    }
+}
+
+// Revoke all created URLs when the window is unloaded
+window.addEventListener('unload', () => {
+    fileUrls.forEach(url => URL.revokeObjectURL(url));
+});
+
 document.addEventListener("DOMContentLoaded", function() {
     const blueprintCheckbox = document.getElementById('blueprint-add');
     const blueprintInput = document.getElementById('blueprint');
@@ -28,6 +75,7 @@ document.addEventListener("DOMContentLoaded", function() {
             listItem.textContent = fileList[i].name;
             list.appendChild(listItem);
         }
+        previewFileList();
     }
 
     // Initial check
