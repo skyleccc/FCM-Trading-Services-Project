@@ -8,7 +8,7 @@
 
 // File Redirects
 $homeView = "../MainDashboard/main.php";
-$calendarView = "#";
+$calendarView = "../Calendar/calendarMain.php";
 $projectsView = "../ProjectsList/projects.php";
 $clientsView = "../ClientsList/clients.php";
 $quotreqsView = "../QuotationReqsList/quotationreqs.php";
