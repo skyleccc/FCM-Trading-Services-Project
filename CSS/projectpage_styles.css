@@ -1,4 +1,4 @@
-    
+
     body{
         background-color: rgb(235, 242, 246);
     }
@@ -110,4 +110,31 @@
 }
 
 
+.details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 3px solid rgb(102, 160, 119);
+}
 
+.a,.b,.c,.d,.e,.f,.g,.h {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+
+.projectname, .client, .contact-info, .worktype, .location, .workarea, .deadline, .blueprints{
+    font-size: 1.1vw;
+    font-weight: bolder;
+    margin-top: 100px;
+    color: green;  
+}
+
+.data1,.data2,.data3,.data4,.data5,.data6,.data7 .data8{
+    font-size: 1.3vw;
+    font-weight: normal;
+}
