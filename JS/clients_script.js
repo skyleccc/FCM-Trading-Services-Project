@@ -41,4 +41,39 @@ document.addEventListener('DOMContentLoaded', function() {
     lastProjectDivs.forEach(lastProject => {
         lastProject.addEventListener('click', handleClick);
     });
+
+    const searchInput = document.getElementById('search');
+    searchInput.addEventListener('keyup', function() {
+        let query = this.value.trim(); // Trim whitespace
+
+        // Send AJAX request to search_client.php
+        fetch('../../../Models/Clients/search_client.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: 'query=' + encodeURIComponent(query)
+        })
+        .then(response => response.text())
+        .then(data => {
+            // Update the client_list div with search results
+            const clientList = document.getElementById('client_list');
+            clientList.innerHTML = data;
+
+            // Re-attach event listeners to new elements
+            const newClientDetailDivs = clientList.querySelectorAll('.client-details');
+            const newLastProjectDivs = clientList.querySelectorAll('.last-project');
+
+            newClientDetailDivs.forEach(clientDetails => {
+                clientDetails.addEventListener('click', handleClick);
+            });
+
+            newLastProjectDivs.forEach(lastProject => {
+                lastProject.addEventListener('click', handleClick);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+    });
 });
