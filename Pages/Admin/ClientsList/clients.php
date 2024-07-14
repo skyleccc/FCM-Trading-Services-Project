@@ -63,7 +63,7 @@ require '../../../Controllers/loginCheck.php';
             ?>
             <div>
                 <span class="header-text"><?php echo htmlspecialchars($numClientsResult["count"] ?? '0') ?></span>
-                <span class="text">Number of Clients</span>
+                <span class="text">Number of Clients<br>&nbsp;</span>
             </div>
             <div>
                 <span class="header-text"><?php echo htmlspecialchars($ongoingClientsResult["ongoingClientsCount"] ?? '0') ?></span>
@@ -71,7 +71,7 @@ require '../../../Controllers/loginCheck.php';
             </div>
             <div>
                 <span class="header-name"><?php echo htmlspecialchars($mostProjClientResult["clientName"] ?? '0') ?></span>
-                <span class="text">Client w/ Most Projects<br>&nbsp</span>
+                <span class="text">Client w/ Most Projects<br>&nbsp;</span>
             </div>
             <div>
                 <span class="header-name"><?php echo htmlspecialchars($mostRecentClientResult["clientName"] ?? '0') ?></span>
