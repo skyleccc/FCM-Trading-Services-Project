@@ -22,7 +22,6 @@ $result = $conn->query($sql);
     <style>
 
 body {
-  margin: 40px 10px;
   padding: 0;
   font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
   font-size: 14px;
