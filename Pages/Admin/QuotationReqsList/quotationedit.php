@@ -239,8 +239,8 @@ if (!$result) {
 
                 </div>
                         <div class="row" style="width: 100%">
-                            <div class="col"><button type="submit" class="addfinal approve-btn" data-id="<?php htmlspecialchars($row2["requestid"]) ?>" name="submit" >Approve Quotation</button></div>
-                            <div class="col"><button class="addfinal2 decline-btn" data-id="<?php htmlspecialchars($row2["requestid"]) ?>"name="submit" >Decline Quotation</button></div>
+                        <div class="col"><button class="addfinal approve-btn" data-id="<?php echo htmlspecialchars($requestID); ?>">Approve Quotation</button></div>
+                        <div class="col"><button class="addfinal2 decline-btn" data-id="<?php echo htmlspecialchars($requestID); ?>">Decline Quotation</button></div>
                         </div>
                     </div>
             </form>

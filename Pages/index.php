@@ -96,33 +96,33 @@
             <div class="h80-w100 flex-centermiddle gallery">
                 <div class="h100-w33 gallery-box">
                     <div class="h75-w100 img-box flex-centermiddle">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png" alt="Placeholder">
+                        <img src="../WebsitePictures/img1.png" alt="Placeholder">
                     </div>
                     <div class="h25-w100 text-box">
                         <div class="text-box-title">
-                            Maria Luisa Residence
+                            Jollibee Carcar
                         </div>
                         <div class="text-box-normal">
-                            - Balcony Project
+                            - Exterior Wall Repaint Project
                         </div>
                     </div>
                 </div>
                 <div class="h100-w33 gallery-box">
                     <div class="h75-w100 img-box flex-centermiddle">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png" alt="Placeholder">
+                        <img src="../WebsitePictures/img2.png" alt="Placeholder">
                     </div>
                     <div class="h25-w100 text-box">
                         <div class="text-box-title">
-                            Maria Luisa Residence
+                             Jollibee Bulacao
                         </div>
                         <div class="text-box-normal">
-                            - Balcony Project
+                            - Glass Installation Project
                         </div>
                     </div>
                 </div>
                 <div class="h100-w33 gallery-box">
                     <div class="h75-w100 img-box flex-centermiddle">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png" alt="Placeholder">
+                        <img src="../WebsitePictures/img3.png" alt="Placeholder">
                     </div>
                     <div class="h25-w100 text-box">
                         <div class="text-box-title">

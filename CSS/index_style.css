@@ -26,9 +26,9 @@
     }
 
     #homePage_intro {
-        border: 1px solid white;
-
-        background-image: url("https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png");
+        border: 1px solid black;
+        width: 100%;
+        background-image: url("../../../WebsitePictures/main1.png");
         background-size: contain;
     }
 
@@ -36,6 +36,7 @@
         height: 80%;
         width: 45%;
         margin: 5%;
+        color: white;
     }
 
     #intro_content{
