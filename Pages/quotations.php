@@ -68,7 +68,7 @@ require '../Controllers/accessDatabase.php';
                     </div>
                     <div class="space"></div>
                     <div class="input-group">
-                        <label for="datecomplete" class="siteinfo">Date of Completion:</label>
+                        <label for="datecomplete" class="siteinfo">Deadline:</label>
                         <input type="date" id="datecomplete" name="datecomplete" placeholder="Type Here..." required>
                     </div>
                 </div>
