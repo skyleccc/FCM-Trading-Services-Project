@@ -25,7 +25,7 @@ $sortProg = "SELECT
     JOIN 
         building ON project.buildingid = building.buildingid
     ORDER BY
-        $sort";
+        $sort DESC";
 
 
 $query = $conn->prepare("$sortProg");

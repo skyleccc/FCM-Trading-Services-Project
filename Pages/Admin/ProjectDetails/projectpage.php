@@ -49,7 +49,7 @@ if ($result3->num_rows > 0) {
 </head>
   
   <body>
-    <div class="container-fluid">
+    <div class="container-fluid" style="height: 100%">
         <div class="row">
             <div class="col-2 p-1 first border bg light">
                 <?php

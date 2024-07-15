@@ -29,21 +29,52 @@ body {
   padding: 0;
   font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
   font-size: 14px;
-  text-decoration: none;
+  text-decoration: none;    
 }
 
 #calendar {
   max-width: 1100px;
   margin: 0 auto;
   text-decoration: none;
+  color: green;
 }
 
+.fc-header-toolbar {
+    background-color: #f0f0f0;
+  }
+
+  /* Change the font color of the day numbers */
+  .fc-daygrid-day-number {
+    color: green;
+  }
+
+  /* Change the event background color */
+  .fc-event {
+    background-color: green;
+    border: none;
+  }
+
+  #calendar {
+    max-width: 1200px;  /* Adjust the width as needed */
+    height: 600px;     /* Adjust the height as needed */
+    margin: 0 auto;
+    text-decoration: none;
+    color: black    ;
+  }
+
+  .calendar{
+    background-color: c2f0c2;
+  }
+
+  
 </style>
 
 </head>
 <script src='index.global.js'></script>
 
 <script>
+
+
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -95,8 +126,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     calendar.render();
-});
 
+});
 
 
 </script>
