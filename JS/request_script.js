@@ -47,7 +47,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     alert('Project approved!');
                     window.location.href = 'quotationreqs.php';
                 } else {
-                    alert('Failed to approve the request.');
+                    if (confirm('Client already exists. Do you want to use existing details?')) {
+                        alert('Using existing details.');
+                        updateUsingExistingClientDetails(id);
+                    }else{
+                        if(confirm('Do you want to create a new cient?')){
+                            alert('Creating new client information');
+                            createNewClient(id);
+                        }
+                    }
                 }
             })
             .catch(error => {
@@ -86,6 +94,53 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     
 });
+function updateUsingExistingClientDetails(requestId) {
+    fetch('../../../Models/AdminQuotReqs/updateUsingExistingClientDetails.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'requestid=' + requestId,
+    })
+    .then(response => response.text())
+    .then(data => {
+        console.log('Response from updating using existing client details:', data); // Debugging line
+        if (data === 'success') {
+            alert('Updated using existing client details.');
+            window.location.href = 'quotationreqs.php';
+        } else {
+            alert('Failed to update using existing client details.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to update using existing client details.');
+    });
+}
+
+function createNewClient(requestId) {
+    fetch('../../../Models/AdminQuotReqs/createNewClient.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'requestid=' + requestId,
+    })
+    .then(response => response.text())
+    .then(data => {
+        console.log('Response from creating new client:', data); // Debugging line
+        if (data === 'success') {
+            alert('New client created and request approved.');
+            window.location.href = 'quotationreqs.php';
+        } else {
+            alert('Failed to create new client.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to create new client.');
+    });
+}
 
 
 
@@ -106,7 +161,7 @@ $(document).ready(function() {
 
     function processRequest(requestId, action) {
         $.ajax({
-            url: '../../../Models/QuotationReqs/processRequest.php',
+            url: 'C:\Users\desktop\School Shit\FCM-Trading-Services-Project\Pages\Admin\QuotationReqsList\processreq.php',
             type: 'POST',
             data: { requestId: requestId, action: action },
             dataType: 'json',
