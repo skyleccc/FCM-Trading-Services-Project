@@ -52,9 +52,9 @@ require '../../../Controllers/loginCheck.php';
         <div id="client-statistics" class="h40-w100">
             <?php
                 $numClientsQuery = "SELECT COUNT(*) AS count FROM client";
-                $ongoingClientsQuery = "SELECT COUNT(DISTINCT c.clientID) AS ongoingClientsCount FROM client c JOIN project p ON c.clientID = p.clientID WHERE p.completionDate IS NULL";
+                $ongoingClientsQuery = "SELECT COUNT(DISTINCT c.clientID) AS ongoingClientsCount FROM client c JOIN project p ON c.clientID = p.clientID WHERE p.isComplete = 0";
                 $mostProjClientQuery = "SELECT c.*, COUNT(p.projectID) AS projectCount FROM client c JOIN project p ON c.clientID = p.clientID GROUP BY c.clientID ORDER BY projectCount DESC LIMIT 1;";
-                $mostRecentClientQuery = "SELECT c.*, p.projectID, p.completionDate AS mostRecentProjectDate FROM client c JOIN project p ON c.clientID = p.clientID WHERE (c.clientID, p.completionDate) IN ( SELECT clientID, MAX(completionDate) AS mostRecentProjectDate FROM project GROUP BY clientID ) ORDER BY p.completionDate DESC LIMIT 1;";
+                $mostRecentClientQuery = "SELECT c.*, p.projectID, p.completionDate AS mostRecentProjectDate FROM client c JOIN project p ON c.clientID = p.clientID WHERE (c.clientID, p.completionDate) IN ( SELECT clientID, MAX(completionDate) AS mostRecentProjectDate FROM project GROUP BY clientID ) AND isComplete = '1' ORDER BY p.completionDate DESC LIMIT 1;";
 
                 $numClientsResult = ($conn->query($numClientsQuery))->fetch_assoc();
                 $ongoingClientsResult = ($conn->query($ongoingClientsQuery))->fetch_assoc();
@@ -70,12 +70,12 @@ require '../../../Controllers/loginCheck.php';
                 <span class="text">Clients w/ Current Projects</span>
             </div>
             <div>
-                <span class="header-name"><?php echo htmlspecialchars($mostProjClientResult["clientName"] ?? '0') ?></span>
+                <span class="header-name"><?php echo htmlspecialchars($mostProjClientResult["clientName"] ?? 'None') ?></span>
                 <span class="text">Client w/ Most Projects<br>&nbsp;</span>
             </div>
             <div>
-                <span class="header-name"><?php echo htmlspecialchars($mostRecentClientResult["clientName"] ?? '0') ?></span>
-                <span class="text">Client w/<br> Most Recent Project</span>
+                <span class="header-name"><?php echo htmlspecialchars($mostRecentClientResult["clientName"] ?? 'None') ?></span>
+                <span class="text">Client w/<br>Recent Project Finished</span>
             </div>
         </div>
         <div id="client-summary" class="h60-w100 flex-centermiddle">
