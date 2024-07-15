@@ -6,7 +6,7 @@ $clientID = $_POST['clientid'];
 
 $clientDetailQuery = "SELECT c.clientID, c.clientName, c.clientContact, c.clientEmail, COUNT(p.projectID) AS numProjects, latest_project.projectID AS currentProjectID, latest_project.projectName AS currentProjectName FROM client c LEFT JOIN project p ON c.clientID = p.clientID LEFT JOIN ( SELECT clientID, projectID, projectName FROM project WHERE clientID = $clientID AND completionDate IS NULL ORDER BY startDate DESC LIMIT 1 ) latest_project ON c.clientID = latest_project.clientID WHERE c.clientID = $clientID GROUP BY c.clientID, c.clientName, c.clientContact, c.clientEmail, currentProjectID, currentProjectName;";
 
-$clientProjQuery = "SELECT projectID, projectName, projectType, DATE_FORMAT(completionDate, '%M %d, %Y') AS completionDate FROM project, client WHERE client.clientID = project.clientID AND client.clientID = $clientID ORDER BY completionDate ASC;";
+$clientProjQuery = "SELECT projectID, projectName, projectType, DATE_FORMAT(completionDate, '%M %d, %Y') AS completionDate, isComplete FROM project, client WHERE client.clientID = project.clientID AND client.clientID = $clientID ORDER BY completionDate ASC;";
 
 $clientDetailResult = ($conn->query($clientDetailQuery))->fetch_assoc();
 $clientCurrProj = ($clientDetailResult["currentProjectID"] != NULL) ? $clientDetailResult['currentProjectName'] : "No current projects";
@@ -32,8 +32,8 @@ echo '
 
 if($clientProjResult->num_rows > 0){
     while($clientProjRow = $clientProjResult->fetch_assoc()){
-        $clientProjStatus = ($clientProjRow["completionDate"] != NULL) ? "finished" : "ongoing";
-        $clientProj = ($clientProjRow["completionDate"] != NULL) ? "Completed<br>".$clientProjRow["completionDate"] : "Ongoing";
+        $clientProjStatus = ($clientProjRow["isComplete"] != '0') ? "finished" : "ongoing";
+        $clientProj = ($clientProjRow["isComplete"] != '0') ? "Completed<br>".$clientProjRow["completionDate"] : "Ongoing";
         echo'
             <div class="project flex-centermiddle" onclick="goToLink('.$clientProjRow["projectID"].')">
                 <div class="h100-w60 flex-centermiddle text-center">

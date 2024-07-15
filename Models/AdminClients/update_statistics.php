@@ -3,7 +3,7 @@
 require '../../Controllers/accessDatabase.php';
 
 $numClientsQuery = "SELECT COUNT(*) AS count FROM client";
-$ongoingClientsQuery = "SELECT COUNT(DISTINCT c.clientID) AS ongoingClientsCount FROM client c JOIN project p ON c.clientID = p.clientID WHERE p.completionDate IS NULL";
+$ongoingClientsQuery = "SELECT COUNT(DISTINCT c.clientID) AS ongoingClientsCount FROM client c JOIN project p ON c.clientID = p.clientID WHERE p.isComplete = 0";
 $mostProjClientQuery = "SELECT c.*, COUNT(p.projectID) AS projectCount FROM client c JOIN project p ON c.clientID = p.clientID GROUP BY c.clientID ORDER BY projectCount DESC LIMIT 1;";
 $mostRecentClientQuery = "SELECT c.*, p.projectID, p.completionDate AS mostRecentProjectDate FROM client c JOIN project p ON c.clientID = p.clientID WHERE (c.clientID, p.completionDate) IN ( SELECT clientID, MAX(completionDate) AS mostRecentProjectDate FROM project GROUP BY clientID ) ORDER BY p.completionDate DESC LIMIT 1;";
 
