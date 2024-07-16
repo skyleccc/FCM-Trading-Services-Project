@@ -5,10 +5,11 @@ body {
 
 .fc .fc-button-primary { color: #FFFFFF; background-color: #3485FF !important; border-color: #FFFFFF !important; } /* Change all button color here */
 .fc-toolbar-chunk .fc-listMonth-button {background-color: green !important;} /* List View button */
-.fc-toolbar-chunk .fc-dayGridMonth-button {background-color: aqua !important;} /* Calendar View button */
-.fc-button-group .fc-prev-button, .fc-button-group .fc-next-button {background-color: yellowgreen !important;} /* left and right button */
-.fc-toolbar-chunk .fc-today-button {background-color: yellow !important;} /* today button */
+.fc-toolbar-chunk .fc-dayGridMonth-button {background-color: rgb(60, 180, 60) !important;} /* Calendar View button */
+.fc-button-group .fc-prev-button, .fc-button-group .fc-next-button {background-color: green !important;} /* left and right button */
+.fc-toolbar-chunk .fc-today-button {background-color: rgb(60, 180, 60) !important;} /* today button */
 .fc-day-today {background-color: #f9f5db !important;} /* Calendar View today grid*/
-th .fc-day {background-color: red !important;} /* day header div*/
-.fc-daygrid-day-top .fc-daygrid-day-number{text-decoration: none !important;} /* day number */
-
+th .fc-day {background-color: green !important;} /* day header div*/
+.fc-daygrid-day-top .fc-daygrid-day-number{text-decoration: none; color: green !important;} /* day number */
+.fc-col-header-cell-cushion {color: white; text-decoration: none;}
+.fc-toolbar-title{font-weight: bolder; font-size: 2.2vw !important}

@@ -6,6 +6,10 @@ body{
     background: #fbfbfb;
 }
 
+body {
+    overflow: hidden;
+}
+
 .col-sm-2{
     font-family: Helvetica;
 }
@@ -38,6 +42,10 @@ div.ex1 {
     overflow: auto;
     height: 625px;
     width: 100%;
+}
+
+.img1{
+    margin-top: 10px !important;
 }
 
 .icon-container {
