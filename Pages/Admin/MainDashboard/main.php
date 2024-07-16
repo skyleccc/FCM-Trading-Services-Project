@@ -49,7 +49,7 @@ $result = $conn->query($sql);
                 <div class="row border bg light">
                     <div class="col-sm-8">
                         <div class="container">
-                            <img src="../../../WebsitePictures/fcmbanner.png" alt="fcm logo" class="rounded" style="width: 840px; margin:auto;">
+                            <img src="../../../WebsitePictures/fcmbanner.png" alt="fcm logo" class="rounded img1" style="width: 840px; margin:auto;">
                         </div>
                         <div class="col p-2">
                             <div class="row p-3 border bg light rounded" style="font-size: 20px; font-weight: bold;">
