@@ -36,6 +36,10 @@ $result = $conn->query($sql);
     <link rel="icon" href="../../../WebsitePictures/fcmicon.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-HG1PqQtkbfhTXCpFjtnx3vpkTrkFQe+KvhG5MTpH2wPRpEacC4zJxyEilKF8kGmS" crossorigin="anonymous"></script>
+    <script src="../../../JS/main_script.js"> </script>
 </head>
   
   <body>
@@ -85,38 +89,9 @@ $result = $conn->query($sql);
                     </div>
                     <div class="col-sm-4">
                         <div class="row">
-                            <div class="container p-3 border bg-light rounded">
-                                <div style="font-size: 20px; font-weight: bold; text-align: center; color: black">Calendar Reminders</div><br>
-                                <div class="row g-2 calendar" id="calendarcolor" style="text-align: center;">
-                                    <div class="col-sm p-2" style="border: solid; border-color: green; border-radius: 8px; color: green;">
-                                        <div style="font-weight: bold; font-size: 18px;">Sun</div>
-                                        <br>11
-                                    </div>
-                                    <div class="col-sm p-2" style="border: solid; border-color: green; border-radius: 8px; color: green;">
-                                        <div style="font-weight: bold; font-size: 18px;">Mon</div>
-                                        <br>12
-                                    </div>
-                                    <div class="col-sm p-2" style="border: solid; border-color: green; border-radius: 8px; color: green;">
-                                        <div style="font-weight: bold; font-size: 18px;">Tue</div>
-                                        <br>13
-                                    </div>
-                                    <div class="col-sm p-2" style="border: solid; border-color: rgb(221, 30, 30); border-radius: 8px; color: rgb(221, 30, 30);">
-                                        <div style="font-weight: bold; font-size: 18px;">Wed</div>
-                                        <br>14
-                                    </div>
-                                    <div class="col-sm p-2" style="border: solid; border-color: green; border-radius: 8px; color: green;">
-                                        <div style="font-weight: bold; font-size: 18px;">Thu</div>
-                                        <br>15
-                                    </div>
-                                    <div class="col-sm p-2" style="border: solid; border-color: green; border-radius: 8px; color: green;">
-                                        <div style="font-weight: bold; font-size: 18px;">Fri</div>
-                                        <br>16
-                                    </div>
-                                    <div class="col-sm p-2" style="border: solid; border-color: green; border-radius: 8px; color: green;">
-                                        <div style="font-weight: bold; font-size: 18px;">Sat</div>
-                                        <br>17
-                                    </div>
-                                </div><br>
+                            <div id="calendar" class="container p-3 border bg-light rounded">
+                                <div style="font-size: 20px; font-weight: bold; text-align: center; color: black">Today's Reminders</div><br>
+                                <div class="row g-2 calendar" id="calendarcolor"></div><br>
                                 <div class="ex2">
                                     <div class="div" style="width: 90%; margin: auto;">    
                                     <?php
@@ -149,8 +124,5 @@ $result = $conn->query($sql);
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-HG1PqQtkbfhTXCpFjtnx3vpkTrkFQe+KvhG5MTpH2wPRpEacC4zJxyEilKF8kGmS" crossorigin="anonymous"></script>
-    <script src="../../../JS/main_script.js"> </script>
   </body>
 </html>

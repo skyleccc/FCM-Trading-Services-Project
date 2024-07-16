@@ -88,3 +88,23 @@ div.ex1 {
     .dropdown-content a:hover {background-color: #ddd;}
 
     .dropdown:hover .dropdown-content {display: block;}
+
+
+    .calendar .col-sm {
+        border: solid;
+        border-color: green;
+        border-radius: 8px;
+        color: green;
+        text-align: center;
+    }
+    .calendar .current-day {
+        border-color: rgb(221, 30, 30);
+        color: rgb(221, 30, 30);
+    }
+    .calendar .day-name {
+        font-weight: bold;
+        font-size: 18px;
+    }
+    .calendar .day-number {
+        font-size: 16px;
+    }

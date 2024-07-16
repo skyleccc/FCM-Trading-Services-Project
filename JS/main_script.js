@@ -73,3 +73,38 @@ document.addEventListener('DOMContentLoaded', () => {
 function closeModal(){
     window.location.href = `main.php`;
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const today = new Date();
+    const currentDayIndex = today.getDay();
+    const currentDate = today.getDate();
+    const currentMonth = today.getMonth();
+    const currentYear = today.getFullYear();
+
+    const calendarEl = document.getElementById('calendarcolor');
+    calendarEl.innerHTML = '';
+
+    for (let i = 0; i < days.length; i++) {
+        const colDiv = document.createElement('div');
+        colDiv.classList.add('col-sm', 'p-2');
+        if (i === currentDayIndex) {
+            colDiv.classList.add('current-day');
+        }
+
+        const dayNameDiv = document.createElement('div');
+        dayNameDiv.classList.add('day-name');
+        dayNameDiv.innerText = days[i];
+
+        const adjustedDate = new Date(currentYear, currentMonth, currentDate + (i - currentDayIndex));
+        const dayNumberDiv = document.createElement('div');
+        dayNumberDiv.classList.add('day-number');
+        dayNumberDiv.innerText = adjustedDate.getDate();
+
+        colDiv.appendChild(dayNameDiv);
+        colDiv.appendChild(document.createElement('br'));
+        colDiv.appendChild(dayNumberDiv);
+
+        calendarEl.appendChild(colDiv);
+    }
+});
