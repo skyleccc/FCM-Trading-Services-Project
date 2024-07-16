@@ -33,33 +33,13 @@ body {
 }
 
 #calendar {
-  max-width: 1100px;
-  height: 1000px;
+  max-width: 1280px;
+  height: 700px;
   margin: 0 auto;
   text-decoration: none;
   color: black;
 }
 
-.fc-header-toolbar {
-    background-color: #f0f0f0;
-  }
-
-  /* Change the font color of the day numbers */
-  .fc-daygrid-day-number {
-    color: green;
-  }
-
-  /* Change the event background color */
-  .fc-event {
-    background-color: green;
-    border: none;
-  }
-
-  .calendar{
-    background-color: c2f0c2;
-  }
-
-  
 </style>
 
 </head>
