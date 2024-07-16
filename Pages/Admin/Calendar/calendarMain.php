@@ -26,6 +26,7 @@ $result = $conn->query($sql);
     <script src='../../../JS/calendar_script.js'></script>
 </head>
 <body>
+    <div class="container-fluid">
         <div class="row">
             <?php
             // Navigation Bar for Admin Dashboard
@@ -45,5 +46,7 @@ $result = $conn->query($sql);
                 </div>
             </div>
         </div>
+    </div>
+
 </body>
 </html>

@@ -45,8 +45,8 @@ $result = $conn->query($sql);
             // Navigation Bar for Admin Dashboard
             include '../../../Components/adminNavBar.php'
             ?>
-            <div class="col-sm-10 p-3 border bg light">
-                <div class="row p-3 border bg light">
+            <div class="col-sm-10 border bg light">
+                <div class="row border bg light">
                     <div class="col-sm-8">
                         <div class="container">
                             <img src="../../../WebsitePictures/fcmbanner.png" alt="fcm logo" class="rounded" style="width: 840px; margin:auto;">

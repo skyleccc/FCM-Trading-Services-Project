@@ -30,7 +30,7 @@ if (!$result) {
             <?php
             include '../../../Components/adminNavBar.php'
             ?>
-            <div class="col-sm-10 p-3 border bg light">
+            <div class="col-sm-10 border bg light">
                 <div style="font-size: 23px;">
                    
                 </div>
@@ -42,7 +42,7 @@ if (!$result) {
                         <div class="col p-2 addbtn">
                             <div class="row p-3 border bg light rounded" style="font-size: 20px; font-weight: bold;">
                                 <div class="col" style="margin: 10px; font-size: 2vw;">Quotation Requests List</div>
-                                <div class="col-sm-4" style="margin: 10px;">
+                                <div class="col-4" style="margin: 10px;">
                                    <!-- <button class="button-style" id="myBtn" style="background-color: rgb(19, 171, 19);width: 280px; height: 50px;    font-weight: lighter; margin-left:32%;"><div class="col" style="background-color: rgb(19, 171, 19); font-size: 1.2vw; color: white;">
                                     <span class="material-symbols-outlined" style="font-size: 30px; color: white;">note_add</span> Add A Quotation Request
                                     </div></button>  -->
@@ -106,7 +106,7 @@ if (!$result) {
                                     </div>
                                 
                                 </div>
-                        <br><br><br></div>
+                            </div>
                         </div>
                     </div>
                 </div>
