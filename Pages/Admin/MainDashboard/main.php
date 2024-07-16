@@ -17,7 +17,10 @@ $sql = "SELECT
     JOIN 
         client ON client.clientid = project.clientid
     JOIN 
-        building ON project.buildingid = building.buildingid"; 
+        building ON project.buildingid = building.buildingid
+    WHERE
+        isComplete = 0;    
+    ";
 $result = $conn->query($sql);
 
 ?>
@@ -59,9 +62,9 @@ $result = $conn->query($sql);
                                         </div>
                                     </button>
                                     <div id="sort-list" class="dropdown-content">
-                                        <a href="#" data-sort="progressRate">Progress Rate</a>
                                         <a href="#" data-sort="deadlineDate">Deadline</a>
-                                        <a href="#" data-sort="startDate">Start Date</a>
+                                        <a href="#" data-sort="progressRate">Progress Rate</a>
+                                        <a href="#" data-sort="clientName">Client Name</a>
                                       </div>
                                     
                                 </div><br><br>

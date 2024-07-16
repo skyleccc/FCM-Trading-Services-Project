@@ -74,17 +74,17 @@ echo'
                                         <div class="form-group_three">
                                             <div class="input-group">
                                                 <label for="projectDeadline" class="siteinfo">Project Deadline:</label>
-                                                <input type="date" id="deadlineDate" name="deadlineDate" value="'.($project['deadlinedate'] ?? '').'">
+                                                <input type="date" id="deadlineDate" name="deadlineDate" value="'.($project['deadlinedate'] ?? '').' min="2020-12-31" max="9999-12-31"">
                                             </div>
                                             <div class="space"></div>
                                             <div class="input-group">
                                                 <label for="startdate" class="siteinfo">Start Date of Project:</label>
-                                                <input type="date" id="startdate" name="startdate" value="'.($project['startdate'] ?? '').'">
+                                                <input type="date" id="startdate" name="startdate" value="'.($project['startdate'] ?? '').' min="2020-12-31" max="9999-12-31"">
                                             </div>
                                             <div class="space"></div>
                                             <div class="input-group">
                                                 <label for="datecomplete" class="siteinfo">Completion Date of Project:</label>
-                                                <input type="date" id="completiondate" name="completiondate" value="'.($project['completiondate'] ?? '').'" >
+                                                <input type="date" id="completiondate" name="completiondate" value="'.($project['completiondate'] ?? '').' min="2020-12-31" max="9999-12-31">
                                             </div>
                                         </div>
                                     </div>

@@ -12,11 +12,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $formFilled) {
     $phaseId = $_GET['phaseid'];
     $phasetitle = $_POST['phasetitle'];
     $phasedescription = $_POST['phasedescription'];
-    $expectedfinishdate = $_POST['expectedfinishdate'];
-    $actualfinishdate = $_POST['actualfinishdate'];
+    $expectedfinishdate = nullChecker($_POST['expectedfinishdate']);
+    $actualfinishdate = nullChecker($_POST['actualfinishdate']);
+    $isFinished = ($actualfinishdate == NULL) ? 0 : 1;
 
-    $save = $conn->prepare("UPDATE phase SET phasetitle = ?, phasedescription = ?, expectedfinishdate = ?, actualfinishdate = ? WHERE phaseId = ?");
-    $save->bind_param("ssssi", $phasetitle, $phasedescription, $expectedfinishdate, $actualfinishdate, $phaseId);
+
+    $save = $conn->prepare("UPDATE phase SET phasetitle = ?, phasedescription = ?, expectedfinishdate = ?, isFinished = ?, actualfinishdate = ? WHERE phaseId = ?");
+    $save->bind_param("sssisi", $phasetitle, $phasedescription, $expectedfinishdate, $isFinished, $actualfinishdate, $phaseId);
 
     if ($save->execute()) {
         $save->close();
@@ -27,6 +29,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $formFilled) {
         echo "Error updating phase: " . $conn->error;
         exit();
     }
+}
+
+function nullChecker($var){
+    if(empty($var) || $var == ''){
+        return NULL;
+    }else{
+        return $var;
+    }
+
 }
 
 ?>

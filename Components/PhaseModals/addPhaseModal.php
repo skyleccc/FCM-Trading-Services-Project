@@ -4,6 +4,10 @@
 $projectID = $_GET['id'];
 $addPhase = "../../../Models/AdminPhases/phase_save.php?projectid=".$projectID;
 
+$deadlineSQL = "SELECT project.deadlineDate FROM phase, project WHERE project.projectid = $projectID AND phase.projectid = project.projectid";
+$getDeadline = $conn->query($deadlineSQL);
+$deadline = $getDeadline->fetch_assoc();
+
 echo'
 <div class="col modalblock">
     <div id="myModal" class="popup">
@@ -29,7 +33,7 @@ echo'
                                     <div class="form-group_three">
                                         <div class="input-group">
                                             <label for="projectDeadline" class="siteinfo">Expected Finish Date:</label>
-                                            <input type="date" id="expectedfinishdate" name="expectedfinishdate">
+                                            <input type="date" id="expectedfinishdate" name="expectedfinishdate" min="2020-12-31" max="'.htmlspecialchars($deadline['deadlineDate']).'">
                                         </div>
                                         <div class="space"></div>
                                         <div class="input-group">

@@ -7,7 +7,7 @@ $phaseId = isset($_GET['phaseid']) ? $_GET['phaseid'] : null;
 $projID = $_GET['id'];
 
 if ($phaseId) {
-    $stmt = $conn->prepare("SELECT phasetitle, phasedescription, expectedfinishdate, actualfinishdate FROM phase WHERE phaseId = ?");
+    $stmt = $conn->prepare("SELECT phasetitle, phasedescription, expectedfinishdate, actualfinishdate, project.deadlineDate FROM phase, project WHERE phase.phaseID = ? AND project.projectID = phase.projectID");
     $stmt->bind_param("i", $phaseId);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -18,6 +18,7 @@ if ($phaseId) {
         $phasedescription = $row['phasedescription'];
         $expectedfinishdate = $row['expectedfinishdate'];
         $actualfinishdate = $row['actualfinishdate'];
+        $projectDeadlineDate = $row['deadlineDate'];
     } else {
         echo "Phase not found.";
         exit();
@@ -50,12 +51,12 @@ echo '
                                                             <div class="form-group_three">
                                                                 <div class="input-group">
                                                                     <label for="projectDeadline" class="siteinfo">Expected Finish Date:</label>
-                                                                    <input type="date" id="expectedfinishdate" name="expectedfinishdate" value="' . htmlspecialchars($expectedfinishdate) . '">
+                                                                    <input type="date" id="expectedfinishdate" name="expectedfinishdate" value="' . htmlspecialchars($expectedfinishdate) . '"min="2020-12-31" max="'.htmlspecialchars($projectDeadlineDate).'">
                                                                 </div>
                                                                 <div class="space"></div>
                                                                 <div class="input-group">
                                                                     <label for="startdate" class="siteinfo">Actual Finish Date:</label>
-                                                                    <input type="date" id="actualfinishdate" name="actualfinishdate" value="' . htmlspecialchars($actualfinishdate) . '">
+                                                                    <input type="date" id="actualfinishdate" name="actualfinishdate" value="' . htmlspecialchars($actualfinishdate) . '" min="2020-12-31" max="9999-12-31">
                                                                 </div>
                                                             </div>
                                                         </div><br>

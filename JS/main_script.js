@@ -1,38 +1,36 @@
-$('.edit-btn').click(function() {
-    var id = $(this).data('id');
-    window.location.href = 'projectedit.php?id=' + id;
-});
+// Function to bind edit and delete button click events
+const bindEditDeleteEvents = () => {
+    $('.edit-btn').off('click').on('click', function() {
+        var id = $(this).data('id');
+        window.location.href = 'projectedit.php?id=' + id;
+    });
 
-$('.delete-btn').click(function() {
-    var id = $(this).data('id');
-    if (confirm('Are you sure you want to delete this project?')) {
-        fetch('../../../Models/AdminProjects/delete_project.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: 'projectid=' + id,
-        })
-        .then(response => response.text())
-        .then(data => {
-            if (data === 'success') {
-                alert('Project deleted successfully!');
-                location.reload();
-            } else {
+    $('.delete-btn').off('click').on('click', function() {
+        var id = $(this).data('id');
+        if (confirm('Are you sure you want to delete this project?')) {
+            fetch('../../../Models/AdminProjects/delete_project.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'projectid=' + id,
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data === 'success') {
+                    alert('Project deleted successfully!');
+                    location.reload();
+                } else {
+                    alert('Failed to delete the project.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
                 alert('Failed to delete the project.');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Failed to delete the project.');
-        });
-    }
-});
-
-
-function closeModal(){
-    window.location.href = `main.php`;
-}
+            });
+        }
+    });
+};
 
 document.addEventListener('DOMContentLoaded', () => {
     const sortLinks = document.querySelectorAll('.dropdown-content a');
@@ -55,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to update the table with fetched data
     const updateTable = (data) => {
         dataContainer.innerHTML = data;
+        bindEditDeleteEvents(); // Re-bind edit and delete button events after update
     };
 
     // Add click event listeners to sort links
@@ -66,4 +65,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Initial binding of edit and delete button events
+    bindEditDeleteEvents();
 });
+
+
+function closeModal(){
+    window.location.href = `main.php`;
+}

@@ -1,12 +1,33 @@
 <?php
 require '../../Controllers/accessDatabase.php';
 
-$sort = $_GET['sort'] ?? 'deadlineDate';
-$allowed_sorts = ['progressRate', 'deadlineDate', 'startDate'];
+$sort = $_GET['sort'];
+$allowed_sorts = ['progressRate', 'deadlineDate', 'clientName'];
 
 if (!in_array($sort, $allowed_sorts)) {
     $sort = 'deadlineDate';
 }
+
+$sort_in_project = ['deadlineDate'];
+$sort_in_client = ['clientName'];
+
+if(in_array($sort, $sort_in_project)){
+    $sortAppend = 'project.'.sortOrder($sort);
+}else if(in_array($sort, $sort_in_client)){
+    $sortAppend = 'client.'.sortOrder($sort);
+}else{
+    $sortAppend = sortOrder($sort);
+}
+
+function sortOrder($sort){
+    $sortDESC = ['clientName', 'progressRate'];
+    if(in_array($sort, $sortDESC)){
+        return $sort." DESC";
+    }else{
+        return $sort." ASC";
+    }
+}
+
 
 $sortProg = "SELECT 
         project.projectid, 
@@ -25,10 +46,10 @@ $sortProg = "SELECT
     JOIN 
         building ON project.buildingid = building.buildingid
     ORDER BY
-        $sort DESC";
+        $sortAppend";
 
 
-$query = $conn->prepare("$sortProg");
+$query = $conn->prepare($sortProg);
 $query->execute();
 $result = $query->get_result();
 

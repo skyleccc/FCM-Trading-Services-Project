@@ -8,7 +8,17 @@ $input = json_decode(file_get_contents('php://input'), true);
 $phaseID = $input['phaseID'];
 $isFinished = $input['isFinished'];
 
-$sql = "UPDATE phase SET isFinished = ? WHERE phaseID = ?";
+// $sqlCheckFinish = "SELECT actualFinishDate FROM phase WHERE phaseID = ?";
+// $checkFinishQuery = $conn->prepare($sqlCheckFinish);
+// $checkFinishQuery->bind_param('i', $isFinished);
+// $resultFinishQuery = $checkFinishQuery->execute();
+
+if($isFinished == 1){
+    $sql = "UPDATE phase SET isFinished = ?, actualFinishDate = CURRENT_TIMESTAMP() WHERE phaseID = ?";
+}else{
+    $sql = "UPDATE phase SET isFinished = ?, actualFinishDate = NULL WHERE phaseID = ?";
+}
+
 $stmt = $conn->prepare($sql);
 
 if ($stmt) {

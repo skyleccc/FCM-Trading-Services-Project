@@ -81,17 +81,17 @@ echo'
                                     <div class="form-group_three">
                                         <div class="input-group">
                                             <label for="projectDeadline" class="siteinfo">Project Deadline:</label>
-                                            <input type="date" id="deadlineDate" name="deadlineDate">
+                                            <input type="date" id="deadlineDate" name="deadlineDate" max="9999-12-31" required>
                                         </div>
                                         <div class="space"></div>
                                         <div class="input-group">
                                             <label for="startdate" class="siteinfo">Start Date of Project:</label>
-                                            <input type="date" id="startdate" name="startdate">
+                                            <input type="date" id="startdate" name="startdate" max="9999-12-31">
                                         </div>
                                         <div class="space"></div>
                                         <div class="input-group">
                                             <label for="datecomplete" class="siteinfo">Completion Date of Project:</label>
-                                            <input type="date" id="completiondate" name="completiondate" placeholder="Type Here...">
+                                            <input type="date" id="completiondate" name="completiondate" placeholder="Type Here..." max="9999-12-31">
                                         </div>
                                     </div>
                                 </div>

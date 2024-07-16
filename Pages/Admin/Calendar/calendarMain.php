@@ -34,9 +34,10 @@ body {
 
 #calendar {
   max-width: 1100px;
+  height: 1000px;
   margin: 0 auto;
   text-decoration: none;
-  color: green;
+  color: black;
 }
 
 .fc-header-toolbar {
@@ -52,14 +53,6 @@ body {
   .fc-event {
     background-color: green;
     border: none;
-  }
-
-  #calendar {
-    max-width: 1200px;  /* Adjust the width as needed */
-    height: 600px;     /* Adjust the height as needed */
-    margin: 0 auto;
-    text-decoration: none;
-    color: black    ;
   }
 
   .calendar{
@@ -122,7 +115,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     failureCallback();
                 }
             });
-        }
+        },
+        eventLimit: true,
+        eventLimitClick: 'popover'
     });
 
     calendar.render();
