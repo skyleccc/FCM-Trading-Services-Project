@@ -231,7 +231,7 @@ $status = $row2['status'];
                                         echo "No blueprints available.";
                                     }
                                 } else {
-                                    echo "No blueprints attached.";
+                                    echo '<div id="no-files-text">No blueprints attached.</div>';
                                 }
                             ?>
                         </ul>

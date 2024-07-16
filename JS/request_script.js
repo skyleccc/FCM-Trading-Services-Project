@@ -189,26 +189,33 @@ function fetchExistingFiles() {
         .then(response => response.json())
         .then(files => {
             const listElement = document.getElementById('list');
+            const noFilesText = document.getElementById('no-files-text');
             listElement.innerHTML = ''; // Clear existing list items
 
-            files.forEach(file => {
-                const listItem = document.createElement('li');
-                const previewDiv = document.createElement('div');
-                previewDiv.classList.add('preview');
+            if (files.length === 0) {
+                noFilesText.style.display = 'block';
+            } else {
+                noFilesText.style.display = 'none';
 
-                const fileUrl = `../../AttachedFiles/Blueprints/quotationRequestBlueprints/blueprint-${requesterID}/${file}`;
-                fileUrls.push(fileUrl);
+                files.forEach(file => {
+                    const listItem = document.createElement('li');
+                    const previewDiv = document.createElement('div');
+                    previewDiv.classList.add('preview');
 
-                const fileLink = document.createElement('a');
-                fileLink.textContent = file;
-                fileLink.classList.add('filename');
-                fileLink.href = fileUrl;
-                fileLink.target = '_blank';
+                    const fileUrl = `../../AttachedFiles/Blueprints/quotationRequestBlueprints/blueprint-${requesterID}/${file}`;
+                    fileUrls.push(fileUrl);
 
-                previewDiv.appendChild(fileLink);
-                listItem.appendChild(previewDiv);
-                listElement.appendChild(listItem);
-            });
+                    const fileLink = document.createElement('a');
+                    fileLink.textContent = file;
+                    fileLink.classList.add('filename');
+                    fileLink.href = fileUrl;
+                    fileLink.target = '_blank';
+
+                    previewDiv.appendChild(fileLink);
+                    listItem.appendChild(previewDiv);
+                    listElement.appendChild(listItem);
+                });
+            }
         })
         .catch(error => console.error('Error fetching existing files:', error));
 }
@@ -217,31 +224,38 @@ function displayFileList() {
     const fileInput = document.getElementById('blueprint');
     const fileList = fileInput.files;
     const listElement = document.getElementById('list');
+    const noFilesText = document.getElementById('no-files-text');
 
     // Clear any previously displayed new files
     const newFileItems = document.querySelectorAll('.new-file');
     newFileItems.forEach(item => listElement.removeChild(item));
 
-    for (let i = 0; i < fileList.length; i++) {
-        const file = fileList[i];
-        const listItem = document.createElement('li');
-        listItem.classList.add('new-file');
-        const previewDiv = document.createElement('div');
-        previewDiv.classList.add('preview');
+    if (fileList.length === 0) {
+        noFilesText.style.display = 'block';
+    } else {
+        noFilesText.style.display = 'none';
 
-        const fileUrl = URL.createObjectURL(file);
-        fileUrls.push(fileUrl);
+        for (let i = 0; i < fileList.length; i++) {
+            const file = fileList[i];
+            const listItem = document.createElement('li');
+            listItem.classList.add('new-file');
+            const previewDiv = document.createElement('div');
+            previewDiv.classList.add('preview');
 
-        const fileLink = document.createElement('a');
-        fileLink.textContent = file.name;
-        fileLink.classList.add('filename');
-        fileLink.href = fileUrl;
-        fileLink.target = '_blank';
+            const fileUrl = URL.createObjectURL(file);
+            fileUrls.push(fileUrl);
 
-        previewDiv.appendChild(fileLink);
-        previewDiv.appendChild(document.createTextNode(" (Apply Changes to Save)"));
-        listItem.appendChild(previewDiv);
-        listElement.appendChild(listItem);
+            const fileLink = document.createElement('a');
+            fileLink.textContent = file.name;
+            fileLink.classList.add('filename');
+            fileLink.href = fileUrl;
+            fileLink.target = '_blank';
+
+            previewDiv.appendChild(fileLink);
+            previewDiv.appendChild(document.createTextNode(" (Apply Changes to Save)"));
+            listItem.appendChild(previewDiv);
+            listElement.appendChild(listItem);
+        }
     }
 }
 
