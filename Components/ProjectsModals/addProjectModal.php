@@ -63,10 +63,20 @@ echo'
                                             
 
                                             <label for="blueprint">Blueprints</label>
-                                            <input type="file" id="blueprint" name="blueprint" multiple placeholder="Type Here...">
+                                            <input type="file" id="blueprint" name="blueprint[]" onchange="previewFileList();" multiple>
+                                            <div id="attachment" class="w100">
+
                                             <label for="blueprint" class="labelforupload">
                                                 <i class="fa-solid fa-upload"></i> Attach Files Here
                                             </label>
+                                            <div class="bold">
+                                            Attached Files:
+                                                </div>
+                                                <div id="attached-filelist">
+                                                    <ul id="list">
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     

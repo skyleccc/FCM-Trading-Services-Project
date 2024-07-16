@@ -1,5 +1,6 @@
 body {
     background-color: rgb(235, 242, 246);
+    overflow: hidden;
 }
 
 .row,
@@ -39,7 +40,7 @@ div.ex2 {
     width: 100%;
 }
 
-div.ex1 {
+.ex1 {
     overflow: auto;
     height: 750px;
     width: 100%;
