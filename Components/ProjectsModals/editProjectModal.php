@@ -19,34 +19,34 @@ echo'
                                 <input type="hidden" name="id" value="'.$projectId.'">        
                                     <div id="scrollform">
                                         <div class="form-group">
-                                            <label for="project">Project Name:</label>
-                                            <input type="text" id="projectname" name="projectname" value="'.htmlspecialchars($project['projectName'] ?? '').'" required>
+                                            <label for="editprojectname">Project Name:</label>
+                                            <input type="text" id="editprojectname" name="projectname" value="'.htmlspecialchars($project['projectName'] ?? '').'" required>
                                         </div>
                                         <div class="form-group">
-                                        <label for="client">Client: (Not Editable)</label>
-                                        <input type="text" id="clientname" name="clientname" value="'.htmlspecialchars($project['clientName'] ?? '').'" disabled>
+                                        <label for="editclientname">Client: (Not Editable)</label>
+                                        <input type="text" id="editclientname" name="clientname" value="'.htmlspecialchars($project['clientName'] ?? '').'" disabled>
                                     </div>
                                         <div class="form-group_two">
                                             <div class="input-group">
-                                                <label for="clientEmail">Client\'s Email Address: (Not Editable)</label>
-                                                <input type="text" id="clientEmail" name="clientEmail" value="'.htmlspecialchars($project['clientEmail'] ?? '').'" disabled>
+                                                <label for="editclientEmail">Client\'s Email Address: (Not Editable)</label>
+                                                <input type="text" id="editclientEmail" name="clientEmail" value="'.htmlspecialchars($project['clientEmail'] ?? 'No Email').'" disabled>
                                             </div>
                                             <div class="space"></div>
                                             <div class="input-group">
-                                                <label for="clientContact">Client\'s Contact Number: (Not Editable)</label>
-                                                <input type="text" id="clientContact" name="clientContact" value="'.($project['clientContact'] ?? '').'" disabled>
+                                                <label for="editclientContact">Client\'s Contact Number: (Not Editable)</label>
+                                                <input type="text" id="editclientContact" name="clientContact" value="'.($project['clientContact'] ?? 'No Contact').'" disabled>
                                             </div>
                                         </div>
                                         <div class="form-group_two">
                                             <div class="form-group">
-                                                <label for="projectScope">Project Scope:</label>
-                                                <input type="text" id="projectScope" name="projectScope" value="'.($project['projectScope'] ?? '').'" required>
+                                                <label for="editprojectScope">Project Scope:</label>
+                                                <input type="text" id="editprojectScope" name="projectScope" value="'.($project['projectScope'] ?? '').'" required>
                                             </div>
                                             <div class="space"></div>
                                             <div class="input-group">
-                                                <label for="servicetype">Service Type:</label>
+                                                <label for="editservicetype">Service Type:</label>
                                                 <div>
-                                                    <select id="servicetype" title="Service Type" name="servicetype" required>
+                                                    <select id="editservicetype" title="Service Type" name="servicetype" required>
                                                         <option value="" disabled>-</option>
                                                         <option value="Construction"'; echo ($project['projectType']=="Construction") ? 'selected':''; echo'>Construction</option>
                                                         <option value="Renovation" '; echo ($project['projectType']=="Renovation") ? 'selected':''; echo'>Renovation</option>
@@ -56,63 +56,63 @@ echo'
                                         </div>
                                         <div class="form-group_two">
                                             <div class="form-group">
-                                                <label for="building">Location: (Not Editable)</label>
-                                                <input type="text" id="buildingaddress" name="buildingaddress" value="'.($project['buildingaddress'] ?? '').'" disabled>
+                                                <label for="editbuilding">Location: (Not Editable)</label>
+                                                <input type="text" id="editbuilding" name="buildingaddress" value="'.($project['buildingaddress'] ?? '').'" disabled>
                                             </div>
                                             
                                             <div class="space"></div>
                                             <div class="input-group">
-                                                <label for="workarea">Work Area:</label>
-                                                <input type="text" id="workarea" name="workarea" value="'.($project['workArea'] ?? '').'" required>
+                                                <label for="editworkarea">Work Area:</label>
+                                                <input type="text" id="editworkarea" name="workarea" value="'.($project['workArea'] ?? '').'" required>
                                             </div>
                                         </div> 
                                         <div class="form-group">
-                                        <label for="budgetConstraint">Budget Constraint:</label>
-                                        <input type="number" placeholder="Enter Budget Limit Here" id="budgetConstraint" name="budgetConstraint" value="'.htmlspecialchars($project['budgetConstraint'] ?? '').'" required>
+                                        <label for="editbudgetConstraint">Budget Constraint:</label>
+                                        <input type="number" placeholder="Enter Budget Limit Here" id="editbudgetConstraint" name="budgetConstraint" value="'.htmlspecialchars($project['budgetConstraint'] ?? '').'" required>
                                     </div>          
                                         <div class="form-group">
-                                            <label for="description">Project Description:</label>
-                                            <textarea id="projectDetails" name="projectDetails" required>'.($project['projectDetails'] ?? '').'</textarea>
+                                            <label for="editprojectDetails">Project Description:</label>
+                                            <textarea id="editprojectDetails" name="projectDetails" required>'.($project['projectDetails'] ?? '').'</textarea>
                                         </div>
                                         <div class="form-group" style="height: 100px;">
-                                            <label for="description">Special Requests:</label>
-                                            <textarea id="specialRequests" name="specialRequests">'.($project['specialRequests'] ?? '').'</textarea>
+                                            <label for="editspecialRequests">Special Requests:</label>
+                                            <textarea id="editspecialRequests" name="specialRequests">'.($project['specialRequests'] ?? '').'</textarea>
                                         </div>
                                         <div class="form-group_three">
                                             <div class="input-group">
-                                                <label for="projectDeadline" class="siteinfo">Project Deadline:</label>
-                                                <input type="date" id="deadlineDate" name="deadlineDate" value="'.($project['deadlineDate'] ?? '').'" min="2020-12-31" max="9999-12-31">
+                                                <label for="editdeadlineDate" class="siteinfo">Project Deadline:</label>
+                                                <input type="date" id="editdeadlineDate" name="deadlineDate" value="'.($project['deadlineDate'] ?? '').'" min="2020-12-31" max="9999-12-31">
                                             </div>
                                             <div class="space"></div>
                                             <div class="input-group">
-                                                <label for="startdate" class="siteinfo">Start Date of Project:</label>
-                                                <input type="date" id="startdate" name="startdate" value="'.($project['startDate'] ?? '').'" min="2020-12-31" max="9999-12-31">
+                                                <label for="editstartdate" class="siteinfo">Start Date of Project:</label>
+                                                <input type="date" id="editstartdate" name="startdate" value="'.($project['startDate'] ?? '').'" min="2020-12-31" max="9999-12-31">
                                             </div>
                                             <div class="space"></div>
                                             <div class="input-group">
-                                                <label for="datecomplete" class="siteinfo">Completion Date of Project:</label>
+                                                <label for="editcompletiondate" class="siteinfo">Completion Date of Project:</label>
                                                 <input type="date" id="completiondate" name="completiondate" value="'.($project['completionDate'] ?? '').'" min="2020-12-31" max="9999-12-31">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group" id="attach-blueprint">
+                                    <div class="form-group" id="editattach-blueprint">
                                                 <label for="blueprint">Blueprints: </label>
-                                                <div class="input-group" id="bprint-upload">
-                                                    <input type="file" id="blueprint" name="blueprint"> 
-                                                    <label for="blueprint[]" class="labelforupload"><i class="fa-solid fa-upload"></i> Attach Files Here</label>
+                                                <div class="input-group bprint-upload">
+                                                    <label for="editblueprint" class="labelforupload"><i class="fa-solid fa-upload"> ADD BLUEPRINT</i></label>
+                                                    <input type="file" id="editblueprint" name="blueprint[]" onchange="displayFileList();" multiple>
                                                 </div>
-                                                <div id="attachment" class="w100">
+                                                <div id="editattachment" class="w100">
                                                     <div class="bold">
                                                         Attached Files:
                                                     </div>
-                                                    <div id="attached-filelist">
-                                                        <ul id="list">
+                                                    <div id="editattached-filelist">
+                                                        <ul id="editlist">
                                                         </ul>
                                                         </div>
                                                     </div>
                                             </div>
                         </div>
-                            <button id="addfinal">Apply Changes</button>
+                            <button id="editfinal">Apply Changes</button>
                             </form>
                     </div>
                 </div>

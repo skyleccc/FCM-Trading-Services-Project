@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
     $sqlUpdateProj = "UPDATE project SET projectName = ?, projectType = ?, projectDetails = ?, startDate = ?, deadlineDate = ?, budgetConstraint = ?, workArea = ?, isComplete = ?, completionDate = ?, projectScope = ? WHERE projectID = ?";
 
     $updateProjQuery = $conn->prepare($sqlUpdateProj);
-    $updateProjQuery->bind_param("sssssiiissi", $projectname, $projecttype, $projectDetails, $startdate, $deadlineDate, $budgetConstraint, $workArea, $isComplete, $completiondate, $projectScope, $projectId);
+    $updateProjQuery->bind_param("sssssisissi", $projectname, $projecttype, $projectDetails, $startdate, $deadlineDate, $budgetConstraint, $workarea, $isComplete, $completiondate, $projectScope, $projectId);
     if($updateProjQuery->execute()){
         echo '<script>console.log("Update Success.")</script>';
     }else{

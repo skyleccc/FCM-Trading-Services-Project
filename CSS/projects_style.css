@@ -223,7 +223,7 @@ align-self: flex-start;
 }
 
 
-#addfinal {
+#addfinal, #editfinal {
 background-color: rgb(17, 183, 106);
 color: white;
 padding: 14px 20px;
@@ -366,8 +366,8 @@ float: right;
     width: 100%;
 }
 
-#bprint-upload{
-    width: 50%;
+.bprint-upload{
+    width: 50% !important;
 }
 
 input[type=text]{

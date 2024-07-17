@@ -5,8 +5,8 @@ require '../../Controllers/loginCheck.php';
 $requesterID = $_GET['id'];
 
 $redirectAfter = "Location: ../../Pages/Admin/QuotationReqsList/quotationreqs.php";
-$sql = "UPDATE quotation_request SET clientName = ?, location = ?, siteInformation = ?, serviceType = ?, startDate = ?, completeDate = ?, projectDetails = ?, workArea = ?, budgetConstraint = ?, specialRequests = ?, contact = ? WHERE requestID = ?";
-$dataType = "ssssssssissi";
+$sql = "UPDATE quotation_request SET clientName = ?, location = ?, siteInformation = ?, serviceType = ?, startDate = ?, completeDate = ?, projectDetails = ?, workArea = ?, budgetConstraint = ?, specialRequests = ?, clientcontact = ?, clientemail = ?  WHERE requestID = ?";
+$dataType = "ssssssssisssi";
 
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
@@ -21,7 +21,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_GET['id'])) {
     $areaofwork = isset($_POST['areaofwork']) ? $_POST['areaofwork'] : '';
     $budget_constraints = isset($_POST['budget_constraints']) ? $_POST['budget_constraints'] : '';
     $specialrequests = isset($_POST['specialrequests']) ? $_POST['specialrequests'] : '';
-    $contact = isset($_POST['contact']) ? $_POST['contact'] : '';
+    $contact = isset($_POST['contact']) ? $_POST['contact'] : null;
+    $email = isset($_POST['email']) ? $_POST['email'] : null;
     $withBlueprint = isset($_POST['blueprint-add']) ? 1 : 0;
 
     $allowed_ext = array('jpg', 'jpeg', 'png', 'svg', 'webp', 'apng', 'avif', 'ico', 'cur', 'bmp', 'jfif', 'pdf');
@@ -48,8 +49,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_GET['id'])) {
             echo '<script>alert("The following files are invalid: ' . implode(", ", $invalidFiles) . '"); window.history.back();</script>';
             exit(); // Stop further execution
         } else {
-            $sql = "UPDATE quotation_request SET clientName = ?, location = ?, siteInformation = ?, serviceType = ?, startDate = ?, completeDate = ?, projectDetails = ?, workArea = ?, budgetConstraint = ?, specialRequests = ?, contact = ?, withBluePrint = ?, numberOfFiles = ? WHERE requestID = ?";
-            $dataType = "ssssssssissiii";
+            $sql = "UPDATE quotation_request SET clientName = ?, location = ?, siteInformation = ?, serviceType = ?, startDate = ?, completeDate = ?, projectDetails = ?, workArea = ?, budgetConstraint = ?, specialRequests = ?, clientcontact = ?, clientemail = ?, withBluePrint = ?, numberOfFiles = ? WHERE requestID = ?";
+            $dataType = "ssssssssisssiii";
 
             if ($validFiles > 0) {
                 $uploadFile_dir = $dir . $requesterID;
@@ -77,9 +78,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_GET['id'])) {
     $stmt = $conn->prepare($sql);
     // Bind parameters directly to the prepared statement
     if (strpos($sql, 'withBluePrint') !== false) {
-        $stmt->bind_param($dataType, $requestername, $location, $siteinfo, $servicetype, $startdate, $datecomplete, $projdetails, $areaofwork, $budget_constraints, $specialrequests, $contact, $withBlueprint, $validFiles, $requesterID);
+        $stmt->bind_param($dataType, $requestername, $location, $siteinfo, $servicetype, $startdate, $datecomplete, $projdetails, $areaofwork, $budget_constraints, $specialrequests, $contact, $email, $withBlueprint, $validFiles, $requesterID);
     } else {
-        $stmt->bind_param($dataType, $requestername, $location, $siteinfo, $servicetype, $startdate, $datecomplete, $projdetails, $areaofwork, $budget_constraints, $specialrequests, $contact, $requesterID);
+        $stmt->bind_param($dataType, $requestername, $location, $siteinfo, $servicetype, $startdate, $datecomplete, $projdetails, $areaofwork, $budget_constraints, $specialrequests, $contact, $email, $requesterID);
     }
 
     if ($stmt->execute()) {

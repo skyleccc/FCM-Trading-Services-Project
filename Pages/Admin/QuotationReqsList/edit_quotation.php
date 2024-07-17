@@ -4,7 +4,7 @@ require '../../../Controllers/loginCheck.php';
 
 $id = $conn->real_escape_string($_GET['id']);
 $sql = "SELECT requestid, serviceType, clientName, Location FROM quotation_request WHERE status='pending'";
-$sql2 = $conn->prepare("SELECT requestid, clientname, location, siteinformation, servicetype, startdate, completedate, projectdetails, workarea, budgetconstraint, specialrequests, contact, withblueprint, numberoffiles, status FROM quotation_request WHERE requestid = ?");
+$sql2 = $conn->prepare("SELECT requestid, clientname, location, siteinformation, servicetype, startdate, completedate, projectdetails, workarea, budgetconstraint, specialrequests, clientcontact, clientemail, withblueprint, numberoffiles, status FROM quotation_request WHERE requestid = ?");
 $sql2->bind_param("i", $id);
 $sql2->execute();
 $result2 = $sql2->get_result();
@@ -23,11 +23,11 @@ $projectdetails = $row2['projectdetails'];
 $workarea = $row2['workarea'];
 $budgetconstraint = $row2['budgetconstraint'];
 $specialrequests = $row2['specialrequests'];
-$contact = $row2['contact'];
+$contact = $row2['clientcontact'];
+$email = $row2['clientemail'];
 $withblueprint = $row2['withblueprint'];
 $numberoffiles = $row2['numberoffiles'];
 $status = $row2['status'];
-
 ?>
 <!doctype html>
 <html lang="en">
@@ -196,8 +196,8 @@ $status = $row2['status'];
                 </div>
                 <div class="form-group_two">
                     <div class="input-group">
-                    <label for="contact">Email Address:</label>
-                    <input type="text" id="contact" name="contact" value="<?php echo htmlspecialchars($contact); ?>" required>
+                    <label for="email">Email Address:</label>
+                    <input type="text" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required>
                     </div>
                     <div class="space"></div>
                     <div class="input-group">

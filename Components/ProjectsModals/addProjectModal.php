@@ -97,23 +97,22 @@ echo'
                                         </div>
                                     </div>
                                 </div>
-                                <div class= "form-group" id="attach-blueprint">
-                                        <label for="blueprint">Blueprints</label>
-                                    
-                                <div class="input-group" id="attach-blueprint">
-                                        <label for="blueprint" class="labelforupload"><i class="fa-solid fa-upload"> ADD BLUEPRINT</i></label>
-                                        <input type="file" id="blueprint" name="blueprint[]" onchange="displayFileList();" multiple>
-                                    </div>                                        
-                                        <div id="attachment" class="w100">
-                                            <div class="bold">
-                                                Attached Files:
+                                <div class="form-group" id="attach-blueprint">
+                                                <label for="blueprint">Blueprints: </label>
+                                                <div class="input-group bprint-upload">
+                                                    <label for="blueprint" class="labelforupload"><i class="fa-solid fa-upload"> ADD BLUEPRINT</i></label>
+                                                    <input type="file" id="blueprint" name="blueprint[]" onchange="displayFileList();" multiple>
+                                                </div>
+                                                <div id="attachment" class="w100">
+                                                    <div class="bold">
+                                                        Attached Files:
+                                                    </div>
+                                                    <div id="attached-filelist">
+                                                        <ul id="list">
+                                                        </ul>
+                                                        </div>
+                                                    </div>
                                             </div>
-                                            <div id="attached-filelist">
-                                                <ul id="list">
-                                                </ul>
-                                            </div>
-                                        </div>
-                                </div>
                         </div>
                             <button id="addfinal">Add Project</button>
                             </form>

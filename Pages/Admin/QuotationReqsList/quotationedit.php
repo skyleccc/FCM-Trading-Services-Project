@@ -8,8 +8,8 @@ if ($conn->connect_error) {
 }
     
 $id = $_GET['id'];
-$sql = "SELECT requestid, serviceType, clientName, Location FROM quotation_request WHERE status='pending'"; // Adjust table name as needed
-$sql2 = "SELECT requestid ,clientname, location, siteinformation, servicetype, startdate,completedate, projectdetails, workarea, budgetconstraint, specialrequests ,contact, withblueprint, numberoffiles, status FROM quotation_request WHERE requestid = $id";
+$sql = "SELECT requestid, serviceType, clientName, DATE_FORMAT(dateFiled, '%b. %d, %Y') AS dateFiled, DATE_FORMAT(completeDate, '%b. %d, %Y') AS completeDate, location FROM quotation_request WHERE status='pending' ORDER BY requestID ASC"; // Adjust table name as needed
+$sql2 = "SELECT requestid ,clientname, location, siteinformation, servicetype, startdate,completedate, projectdetails, workarea, budgetconstraint, specialrequests ,clientcontact, clientemail ,withblueprint, numberoffiles, status FROM quotation_request WHERE requestid = $id";
 $result = $conn->query($sql);
 $result2 = $conn->query($sql2);
 
@@ -26,7 +26,8 @@ $result2 = $conn->query($sql2);
     $workarea = $row2['workarea'];
     $budgetconstraint = $row2['budgetconstraint'];
     $specialrequests = $row2['specialrequests'];
-    $contact = $row2['contact'];
+    $contact = $row2['clientcontact'];
+    $email = $row2['clientemail'];
     $withblueprint = $row2['withblueprint'];
     $numberoffiles = $row2['numberoffiles'];
     $status = $row2['status'];
@@ -89,14 +90,14 @@ if (!$result) {
                                                             <a href="quotationedit.php?id=' . htmlspecialchars($row["requestid"]) . '" class="row p-2" style="margin: auto; text-decoration: none;">
                                                                 <div class="row" style="margin: auto; margin-top: 3%;">
                                                                     <div class="col p-1">
-                                                                        <div style="font-weight: bold;text-align: center;font-size: 1.6vw; color: black;">' . htmlspecialchars($row["Location"]) . '</div>
+                                                                        <div style="font-weight: bold;text-align: center;font-size: 1.6vw; color: black;">' . htmlspecialchars($row["location"]) . '</div>
                                                                         <div style="font-weight: lighter; text-align: center; font-size: 1vw; color: black;" >' . htmlspecialchars($row["clientName"]) . '</div>
                                                                         <div style="font-weight: lighter; text-align: center; font-size: 1.2vw; color:#40ce55" >' . htmlspecialchars($row["serviceType"]) . '</div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col" style="margin-top: 10px;">
-                                                                    <div class="col-sm-4 rounded" style="background-color:rgb(41, 157, 41); width: 100%;color: rgb(255, 255, 255);"> Progress</div>
-                                                                    <div class="col-sm-4 rounded" style="background-color:rgb(227, 38, 38); width: 100%; color: rgb(255, 251, 251); margin-top: 5px;"> Deadline</div>
+                                                                    <div class="col-sm-4 rounded" style="background-color:rgb(41, 157, 41); width: 100%;color: rgb(255, 255, 255);"> Date Filed: '.htmlspecialchars($row['dateFiled'] ?? 'No Date').'</div>
+                                                                    <div class="col-sm-4 rounded" style="background-color:rgb(227, 38, 38); width: 100%; color: rgb(255, 251, 251); margin-top: 5px;"> Complete By: '.htmlspecialchars($row['completeDate'] ?? 'No Date').'</div>
                                                                 </div>
                                                             </a>
                                                             </div>
@@ -184,32 +185,32 @@ if (!$result) {
                 </div>
                 <div class="form-group">
                     <label for="details">Project Details:</label>
-                    <textarea type="textarea" id="details" name="projdetails" disabled><?php echo htmlspecialchars($projectdetails); ?></textarea>
+                    <textarea type="textarea" id="details" name="projdetails" disabled><?php echo htmlspecialchars($projectdetails ?? 'No Project Details'); ?></textarea>
                 </div>
                 <div class="form-group_two">
                     <div class="input-group">
                         <label for="areaofwork">Area of Work:</label>
-                        <input type="number" id="areaofwork" name="areaofwork" value="<?php echo htmlspecialchars($workarea); ?>" disabled> 
+                        <input type="number" id="areaofwork" name="areaofwork" value="<?php echo htmlspecialchars($workarea ?? '0'); ?>" disabled> 
                     </div>
                     <div class="space"></div>
                     <div class="input-group">
                         <label for="constraints" class="siteinfo">Budget Constraints:</label>
-                        <input type="number" id="constraints" name="budget_constraints" value="<?php echo htmlspecialchars($budgetconstraint); ?>" disabled>
+                        <input type="number" id="constraints" name="budget_constraints" value="<?php echo htmlspecialchars($budgetconstraint ?? 'No Budget Constraint'); ?>" disabled>
                     </div>
                 </div>
                 <div class="form-group">
                         <label for="specialrequests">Special Requests:</label>
-                        <textarea type="textarea" id="specialrequests" name="specialrequests" disabled><?php echo htmlspecialchars($specialrequests); ?></textarea>
+                        <textarea type="textarea" id="specialrequests" name="specialrequests" disabled><?php echo htmlspecialchars($specialrequests ?? 'None.'); ?></textarea>
                 </div>
                 <div class="form-group_two">
                     <div class="input-group">
                     <label for="email">Email Address:</label>
-                    <input type="text" id="email" name="email" value="<?php echo htmlspecialchars($contact); ?>" disabled>
+                    <input type="text" id="email" name="email" value="<?php echo htmlspecialchars($email ?? 'No Email'); ?>" disabled>
                     </div>
                     <div class="space"></div>
                     <div class="input-group">
                     <label for="contact">Contact Number:</label>
-                    <input type="text" id="contact" name="contact" value="<?php echo htmlspecialchars($contact); ?>" disabled>
+                    <input type="text" id="contact" name="contact" value="<?php echo htmlspecialchars($contact ?? 'No Number'); ?>" disabled>
                     </div>
                 </div>
                 <div id="attachment" class="w100">

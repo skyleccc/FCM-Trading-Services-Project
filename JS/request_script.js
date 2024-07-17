@@ -12,12 +12,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (span) {
         span.onclick = function() {
-            modal.style.display = "none";
+            window.location.href = `quotationreqs.php`;
         }
-    }
-
-    function closeModal() {
-        window.location.href = `quotationreqs.php`;
     }
 
     if (span2) {
