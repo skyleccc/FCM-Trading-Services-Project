@@ -93,9 +93,16 @@ require '../Controllers/accessDatabase.php';
                         <textarea type="textarea" id="specialrequests" name="specialrequests" placeholder="Type Here..."></textarea>
                         <p>Input detailed Information regarding your special requests to give you a more accurate quote.</p>
                 </div>
-                <div class="form-group">
-                    <label for="contact">Email / Contact Number:</label>
+                <div class="form-group_two">
+                    <div class="input-group">
+                    <label for="contact">Email:</label>
+                    <input type="text" id="email" name="email" placeholder="Enter contact information here..." required>
+                    </div>
+                    <div class="space"></div>
+                    <div class="input-group">
+                    <label for="contact">Contact Number:</label>
                     <input type="text" id="contact" name="contact" placeholder="Enter contact information here..." required>
+                    </div>
                 </div>
                 <div class="form-group_two">
                     <div class="input-group">

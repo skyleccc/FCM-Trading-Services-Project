@@ -22,10 +22,14 @@ echo'
                                             <label for="project">Project Name:</label>
                                             <input type="text" id="projectname" name="projectname" value="'.htmlspecialchars($project['projectname'] ?? '').'" required>
                                         </div>
+                                        <div class="form-group">
+                                        <label for="client">Client:</label>
+                                        <input type="text" id="clientname" name="clientname" value="'.htmlspecialchars($project['clientname'] ?? '').'" required>
+                                    </div>
                                         <div class="form-group_two">
                                             <div class="input-group">
-                                                <label for="client">Client:</label>
-                                                <input type="text" id="clientname" name="clientname" value="'.htmlspecialchars($project['clientname'] ?? '').'" required>
+                                                <label for="assignedContractor">Client\'s Email Address:</label>
+                                                <input type="text" id="clientEmail" name="clientEmail"  required>
                                             </div>
                                             <div class="space"></div>
                                             <div class="input-group">
