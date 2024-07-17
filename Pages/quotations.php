@@ -34,7 +34,7 @@ require '../Controllers/accessDatabase.php';
             </div>
         </div>
         <div class="quotationscontainer">
-            <form id="quotationForm"action="../Models/QuotationReqs/fileUpload.php" method="post" enctype="multipart/form-data">
+            <form id="quotationForm"action="../Models/QuotationReqs/fileUpload.php" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
                 <div class="form-group">
                     <label for="requester">Requested By:</label>
                     <input type="text" id="requester" name="requestername" placeholder="Enter Name / Business Here" required>
@@ -96,12 +96,12 @@ require '../Controllers/accessDatabase.php';
                 <div class="form-group_two">
                     <div class="input-group">
                     <label for="email">Email:</label>
-                    <input type="text" id="email" name="email" placeholder="Enter contact information here..." required>
+                    <input type="text" id="email" name="email" placeholder="Enter contact information here..." >
                     </div>
                     <div class="space"></div>
                     <div class="input-group">
                     <label for="contact">Contact Number:</label>
-                    <input type="text" id="contact" name="contact" placeholder="Enter contact information here..." required>
+                    <input type="text" id="contact" name="contact" placeholder="Enter contact information here..." >
                     </div>
                 </div>
                 <div class="form-group_two">
