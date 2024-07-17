@@ -16,8 +16,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $deadlineDate = nullChecker($_POST['deadlineDate']);
     $startdate = nullChecker($_POST['startdate']);
     $completiondate = nullChecker($_POST['completiondate']);
-    $clientEmail = ;
-    $clientContact = ;
+    $budgetConstraint = isset($_POST['budgetConstraint']) ? $_POST['budgetConstraint'] : null;
+    $clientEmail = nullChecker($_POST['clientEmail']);
+    $clientContact = nullChecker($_POST['clientContact']);
 
 
     if(isset($_POST['clientid'])){
@@ -26,18 +27,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if($clientDetails){
             $buildingID = checkBuildingAddress($buildingaddress, $clientID, $conn);
             if(!empty($buildingID)){
-                if(insertAllData($clientID, $buildingID, $projectname, $projecttype, $projectDetails, $startdate, $deadlineDate, $budgetconstraint, $specialRequests, $projectScope, $conn)){
+                if(insertAllData($clientID, $buildingID, $projectname, $projecttype, $projectDetails, $startdate, $deadlineDate, $budgetConstraint, $workarea, $specialRequests, $projectScope, $conn)){
                     echo '<script>console.log("Inserted Project. Same Client Same buildingID")</script>';
                 }else{
                     echo '<script>console.log("Failed to insert (Same Client, Same Building).")</script>';
                 }
             }else{
-                $sqlCreateBuilding = "INSERT INTO building (buildingaddress, workArea) VALUES (?,?)";
+                $sqlCreateBuilding = "INSERT INTO building (buildingaddress) VALUES (?)";
                 $createBuildingQuery = $conn->prepare($sqlCreateBuilding);
-                $createBuildingQuery->bind_param("si", $buildingaddress, $workarea);
+                $createBuildingQuery->bind_param("s", $buildingaddress);
                 if($createBuildingQuery->execute()){
                     $newBuildingID = $createBuildingQuery->insert_id;
-                    if(insertAllData($clientID, $newBuildingID, $projectname, $projecttype, $projectDetails, $startdate, $deadlineDate, $budgetconstraint, $specialRequests, $projectScope, $conn)){
+                    if(insertAllData($clientID, $newBuildingID, $projectname, $projecttype, $projectDetails, $startdate, $deadlineDate, $budgetConstraint, $workarea, $specialRequests, $projectScope, $conn)){
                         echo '<script>console.log("Inserted Project. Same Client Diff buildingID")</script>';
                     }else{
                         echo '<script>console.log("Failed to insert (Same Client, Diff Building).")</script>';
@@ -56,12 +57,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if($createClientQuery->execute()){
             $newClientID = $createClientQuery->insert_id;
 
-            $sqlCreateBuilding = "INSERT INTO building (buildingaddress, workArea) VALUES (?,?)";
+            $sqlCreateBuilding = "INSERT INTO building (buildingaddress) VALUES (?)";
             $createBuildingQuery = $conn->prepare($sqlCreateBuilding);
-            $createBuildingQuery->bind_param("si", $buildingaddress, $workarea);
+            $createBuildingQuery->bind_param("s", $buildingaddress);
             if($createBuildingQuery->execute()){
                 $newBuildingID = $createBuildingQuery->insert_id;
-                if(insertAllData($newClientID, $newBuildingID, $projectname, $projecttype, $projectDetails, $startdate, $deadlineDate, $budgetconstraint, $specialRequests, $projectScope, $conn)){
+                if(insertAllData($newClientID, $newBuildingID, $projectname, $projecttype, $projectDetails, $startdate, $deadlineDate, $budgetConstraint, $workarea, $specialRequests, $projectScope, $conn)){
                     echo '<script>console.log("Inserted Project. New Client New Building")</script>';
                 }else{
                     echo '<script>console.log("Failed to insert. (New Client, New Building").")</script>';
@@ -73,7 +74,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }else{
             echo '<script>console.log("Failed to Create Client ID")</script>';
         }
-
     }
 }else{
     echo '<script>console.log("Unauthorized access!")</script>';
@@ -118,13 +118,13 @@ function checkBuildingAddress($buildingaddress, $clientID, $conn){
     }
 }
 
-function insertAllData($clientID, $buildingID, $projectname, $projecttype, $projectDetails, $startdate, $deadlineDate, $budgetconstraint, $specialRequests, $projectScope, $conn){
-    $INSERT_SQL = "INSERT INTO projects (clientID, buildingID, projectName, projectType, projectDetails, startDate, deadlineDate, budgetConstraint, specialRequests, projectScope) VALUES (?,?,?,?,?,?,?,?,?,?)";
+function insertAllData($clientID, $buildingID, $projectname, $projecttype, $projectDetails, $startdate, $deadlineDate, $budgetconstraint, $workarea, $specialRequests, $projectScope, $conn){
+    $INSERT_SQL = "INSERT INTO project (clientID, buildingID, projectName, projectType, projectDetails, startDate, deadlineDate, budgetConstraint, workArea, specialRequests, projectScope) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
     $INSERT_QUERY  = $conn->prepare($INSERT_SQL);
-    $INSERT_QUERY->bind_param("iissssssss", $clientID, $buildingID, $projectname ,$projecttype, $projectDetails, $startdate, $deadlineDate, $budgetconstraint, $specialRequests, $projectScope);
+    $INSERT_QUERY->bind_param("iisssssssss", $clientID, $buildingID, $projectname ,$projecttype, $projectDetails, $startdate, $deadlineDate, $budgetconstraint, $workarea, $specialRequests, $projectScope);
     if($INSERT_QUERY->execute()){
         $newProjectID = $INSERT_QUERY->insert_id;
-        if(handleFiles($newProjectID, $conn)){
+        if(handleFiles($newProjectID)){
             return 1;
         }else{
             echo '<script>console.log("Failed to Handle Files.")</script>';
@@ -135,7 +135,7 @@ function insertAllData($clientID, $buildingID, $projectname, $projecttype, $proj
     }
 }
 
-function handleFiles($projectID, $conn){
+function handleFiles($projectID){
     // Handle multiple blueprint file uploads
     if (isset($_FILES['blueprint']) && !empty(array_filter($_FILES['blueprint']['name']))) {
         $uploadFile_dir = '../../AttachedFiles/Blueprints/projectBlueprints/blueprint-' . $projectID;

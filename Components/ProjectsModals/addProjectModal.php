@@ -3,7 +3,7 @@
 // Model Requirement: "Models/AdminProjects/project_save.php"
 
 // File Redirects
-$addProject = "../../../Models/AdminProjects/projects_save.php";
+$addProject = "../../../Models/AdminProjects/add_project.php";
 
 
 echo'
@@ -27,12 +27,12 @@ echo'
                                     </div>
                                     <div class="form-group_two">
                                         <div class="input-group">
-                                            <label for="assignedContractor">Client\'s Email Address:</label>
+                                            <label for="clientEmail">Client\'s Email Address:</label>
                                             <input type="text" id="clientEmail" name="clientEmail" placeholder="Enter Name of Client Here" required>
                                         </div>
                                         <div class="space"></div>
                                         <div class="input-group">
-                                            <label for="assignedContractor">Client\'s Contact Number:</label>
+                                            <label for="clientContact">Client\'s Contact Number:</label>
                                             <input type="text" id="clientContact" name="clientContact" placeholder="Enter Name of Contractor Here" required>
                                         </div>
                                     </div>
