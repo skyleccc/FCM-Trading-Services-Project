@@ -20,7 +20,7 @@ if(in_array($sort, $sort_in_project)){
 }
 
 function sortOrder($sort){
-    $sortDESC = ['clientName', 'progressRate'];
+    $sortDESC = ['progressRate'];
     if(in_array($sort, $sortDESC)){
         return $sort." DESC";
     }else{

@@ -14,13 +14,13 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
 function getProjectById($id) {
     global $conn;
-    $save = $conn->prepare("SELECT project.projectname,project.projectscope ,project.projecttype ,project.projectdetails, project.specialrequests, client.clientname,client.clientcontact, building.buildingaddress, project.workarea, building.blueprint, project.startdate, project.deadlinedate, project.completiondate FROM project, client, building WHERE client.clientid = project.clientid AND building.buildingid = project.buildingid AND project.projectid = ?");
-    $save->bind_param("i", $id);
-    $save->execute();
-    $result = $save->get_result();
+    $editProjectSQL = $conn->prepare("SELECT project.*, clientName, clientContact, clientEmail, buildingaddress  FROM project, client, building WHERE client.clientid = project.clientid AND building.buildingid = project.buildingid AND project.projectid = ?");
+    $editProjectSQL->bind_param("i", $id);
+    $editProjectSQL->execute();
+    $editResult = $editProjectSQL->get_result();
 
-    if ($result->num_rows > 0) {
-        return $result->fetch_assoc();
+    if ($editResult->num_rows > 0) {
+        return $editResult->fetch_assoc();
     } else {
         return null;
     }

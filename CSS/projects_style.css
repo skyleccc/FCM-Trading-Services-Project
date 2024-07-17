@@ -362,11 +362,16 @@ cursor: pointer;
 float: right;
 }
 
-.bprintfile{
-width: 100%;
+#attach-blueprint {
+    width: 100%;
+}
+
+#bprint-upload{
+    width: 50%;
 }
 
 input[type=text]{
     width:100%;
     border-radius: 10px;;
 }
+

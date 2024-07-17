@@ -118,7 +118,7 @@ if ($result3->num_rows > 0) {
                         </div>
                         <div class="row f">
                             <div class="col workarea">Area of Work:</div>
-                            <div class="col data6"><?php echo htmlspecialchars($workArea); ?> sqm.</div>
+                            <div class="col data6"><?php echo htmlspecialchars($workArea ?? '0'); ?> sqm.</div>
                         </div>
                         <div class="row g">
                                 <div class="col blueprints">Blueprints:</div>

@@ -28,18 +28,18 @@ echo'
                                     <div class="form-group_two">
                                         <div class="input-group">
                                             <label for="clientEmail">Client\'s Email Address:</label>
-                                            <input type="text" id="clientEmail" name="clientEmail" placeholder="Enter Name of Client Here" required>
+                                            <input type="text" id="clientEmail" name="clientEmail" placeholder="Enter Email of Client Here" required>
                                         </div>
                                         <div class="space"></div>
                                         <div class="input-group">
                                             <label for="clientContact">Client\'s Contact Number:</label>
-                                            <input type="text" id="clientContact" name="clientContact" placeholder="Enter Name of Contractor Here" required>
+                                            <input type="text" id="clientContact" name="clientContact" placeholder="Enter Client Number Here" required>
                                         </div>
                                     </div>
                                     <div class="form-group_two">
                                     <div class="form-group">
                                         <label for="projectScope">Project Scope:</label>
-                                        <input type="text" id="projectScope" name="projectScope" placeholder="Enter the Scope of the Project" required>
+                                        <input type="text" id="projectScope" name="projectScope" placeholder="Enter the Scope of the Project (ex. Roof, Wall)" required>
                                     </div>
                                         <div class="space"></div>
                                         <div class="input-group">
@@ -57,7 +57,7 @@ echo'
                                     <div class="form-group_two">
                                         <div class="input-group">
                                         <label for="building">Location:</label>
-                                        <input type="text" id="buildingaddress" name="buildingaddress" placeholder="Enter Name of Building" required>
+                                        <input type="text" id="buildingaddress" name="buildingaddress" placeholder="Enter Location of the Building" required>
                                         </div>
                                         
                                         <div class="space"></div>
@@ -68,7 +68,7 @@ echo'
                                     </div>
                                     <div class="form-group">
                                         <label for="budgetConstraint">Budget Constraint:</label>
-                                        <input type="number" id="budgetConstraint" name="budgetConstraint" required>
+                                        <input type="number" placeholder="Enter Budget Limit Here" id="budgetConstraint" name="budgetConstraint" required>
                                     </div>  
                                     
                                     

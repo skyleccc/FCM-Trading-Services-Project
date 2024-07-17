@@ -1,7 +1,7 @@
 <?php
 require '../../../Controllers/accessDatabase.php';
 
-$clientListQuery = "WITH LatestProjects AS ( SELECT p.clientID, p.projectID, p.projectName, p.isComplete, CASE WHEN p.isComplete = 1 THEN p.completionDate ELSE NULL END AS projectStatus, ROW_NUMBER() OVER (PARTITION BY p.clientID ORDER BY CASE WHEN p.isComplete = 1 THEN p.completionDate ELSE p.deadlineDate END DESC ) AS rn FROM project p ) SELECT c.*, lp.projectID, lp.projectName, lp.projectStatus FROM client c LEFT JOIN LatestProjects lp ON c.clientID = lp.clientID AND lp.rn = 1 ORDER BY c.clientName";
+$clientListQuery = "WITH LatestProjects AS ( SELECT p.clientID, p.projectID, p.projectName, p.isComplete, CASE WHEN p.isComplete = 1 THEN p.completionDate ELSE NULL END AS projectStatus, ROW_NUMBER() OVER ( PARTITION BY p.clientID ORDER BY CASE WHEN p.isComplete = 1 THEN p.completionDate ELSE p.deadlineDate END DESC, p.projectID DESC ) AS rn FROM project p ) SELECT c.*, lp.projectID, lp.projectName, lp.projectStatus FROM client c LEFT JOIN LatestProjects lp ON c.clientID = lp.clientID AND lp.rn = 1 ORDER BY c.clientID;";
 
 $clientListResult = $conn->query($clientListQuery);
 
