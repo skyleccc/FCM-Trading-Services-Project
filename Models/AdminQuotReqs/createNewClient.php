@@ -16,6 +16,7 @@ if ($result && $result->num_rows > 0) {
     // Insert new client into the client table
     $sqlInsert = "INSERT INTO client (clientName, clientContact) VALUES ('$clientName', '$clientDetails')";
     if ($conn->query($sqlInsert) === TRUE) {
+        
         // Update the quotation_request status to 'approved'
         $sqlUpdate = "UPDATE quotation_request SET status='approved' WHERE requestid='$requestid'";
         if ($conn->query($sqlUpdate) === TRUE) {

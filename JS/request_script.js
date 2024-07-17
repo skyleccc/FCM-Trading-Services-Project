@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         alert('Using existing details.');
                         updateUsingExistingClientDetails(id);
                     }else{
-                        if(confirm('Do you want to create a new cient?')){
+                        if(confirm('Do you want to create a new client?')){
                             alert('Creating new client information');
                             createNewClient(id);
                         }

@@ -156,7 +156,7 @@ if ($result3->num_rows > 0) {
 
                         <div class="row h">
                             <div class="col deadline">Deadline:</div>
-                            <div class="col data2"><?php echo htmlspecialchars($deadlineDate); ?></div>
+                            <div class="col data2"><?php echo htmlspecialchars($deadlineDate ?? 'No Deadline'); ?></div>
                         </div>
                     </div>
                 </div>
