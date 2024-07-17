@@ -7,6 +7,16 @@ $redirectAfter = "Location: ../../Pages/Admin/MainDashboard/main.php";
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['projectname'])) {
+
+    function nullChecker($var){
+        if(empty($var) || $var == ''){
+            return NULL;
+        }else{
+            return $var;
+        }
+    
+    }
+
     $projectId = $_POST['id'];
     $projectname = $_POST['projectname'];
     $clientname = $_POST['clientname'];
@@ -18,9 +28,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['projectname'])) {
     $blueprint = $_POST['blueprint'];
     $projectDetails = $_POST['projectDetails'];
     $specialRequests = $_POST['specialRequests'];
-    $deadlineDate = $_POST['deadlineDate'];
-    $startdate = $_POST['startdate'];
-    $completiondate = $_POST['completiondate'];
+    $deadlineDate = nullChecker($_POST['deadlineDate']);
+    $startdate = nullChecker($_POST['startdate']);
+    $completiondate = nullChecker($_POST['completiondate']);
 
     $save = $conn->prepare("SELECT clientID FROM client WHERE clientname = ?");
     $save->bind_param("s", $clientname);

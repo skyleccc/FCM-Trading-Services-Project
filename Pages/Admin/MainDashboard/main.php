@@ -93,7 +93,7 @@ $result = $conn->query($sql);
                     <div class="col-sm-4">
                         <div class="row">
                             <div id="calendar" class="container p-3 border bg-light rounded">
-                                <div style="font-size: 20px; font-weight: bold; text-align: center; color: black">Today's Reminders</div><br>
+                                <div style="font-size: 20px; font-weight: bold; text-align: center; color: black">Today's Task Reminders</div><br>
                                 <div class="row g-2 calendar" id="calendarcolor"></div><br>
                                 <div class="ex2">
                                     <div class="div" style="width: 90%; margin: auto;">    

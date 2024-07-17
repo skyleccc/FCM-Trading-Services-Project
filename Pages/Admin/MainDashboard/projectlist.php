@@ -11,7 +11,7 @@
                             <div id="buildingaddress" style="font-weight: lighter; text-align: center; font-size: 13px; color: black;">' . htmlspecialchars($row["buildingaddress"]  ?? '') . '</div>
                             <div id="projectname" style="font-weight: lighter; text-align: center; font-size: 16px; color:#40ce55">' . htmlspecialchars($row["projectname"] ?? '') . '</div>
                         </div>
-                        <div class="col-3 rounded" style="background-color:rgb(227, 38, 38); height: 80px; padding: 5px ; color: rgb(255, 251, 251); display: flex; justify-content: center; align-items: center;">'.$row["deadlineDate"].'</div>
+                        <div class="col-3 rounded" style="background-color:rgb(227, 38, 38); height: 80px; padding: 5px ; color: rgb(255, 251, 251); display: flex; justify-content: center; align-items: center;">'.htmlspecialchars($row["deadlineDate"] ?? 'No Deadline').'</div>
                     </a>
                 </div>
                 <div class="col-sm-1">

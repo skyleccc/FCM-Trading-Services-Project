@@ -17,10 +17,10 @@ if (isset($result) && $result->num_rows > 0) {
 
                             if($row["isComplete"] == 0){
                                 echo '<div class="col-sm-4 rounded" style="background-color:rgb(227, 38, 38); width: 100%;color: rgb(255, 251, 251); font-weight: 600;"> Ongoing</div>
-                                <div class="col-sm-4 rounded" style="background-color:rgb(227, 38, 38); width: 100%; color: rgb(255, 251, 251); margin-top: 5px; font-weight: 600;">' . htmlspecialchars($row["deadlineDate"] ?? '') . '</div>';
+                                <div class="col-sm-4 rounded" style="background-color:rgb(227, 38, 38); width: 100%; color: rgb(255, 251, 251); margin-top: 5px; font-weight: 600;">' . htmlspecialchars($row["deadlineDate"] ?? 'No Deadline') . '</div>';
                             }else{
                                 echo '<div class="col-sm-4 rounded" style="background-color:rgb(41, 157, 41); width: 100%;color: rgb(255, 255, 255); font-weight: 600;"> Completed</div>
-                                <div class="col-sm-4 rounded" style="background-color:rgb(41, 157, 41); width: 100%; color: rgb(255, 255, 255); margin-top: 5px; font-weight: 600;">' . htmlspecialchars($row["deadlineDate"] ?? '') . '</div>';
+                                <div class="col-sm-4 rounded" style="background-color:rgb(41, 157, 41); width: 100%; color: rgb(255, 255, 255); margin-top: 5px; font-weight: 600;">' . htmlspecialchars($row["deadlineDate"] ?? 'No Deadline') . '</div>';
                             }
 
         echo '

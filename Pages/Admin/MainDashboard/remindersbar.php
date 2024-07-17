@@ -18,6 +18,6 @@
             </a>';
         }
     } else {
-        echo '<p>No projects found</p>';
+        echo '<div class="col" style="color: black; font-size: 20px;">No Tasks Today.</div>';
     }
 ?>    
