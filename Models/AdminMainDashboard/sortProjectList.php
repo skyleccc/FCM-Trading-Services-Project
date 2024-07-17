@@ -45,6 +45,8 @@ $sortProg = "SELECT
         client ON client.clientid = project.clientid
     JOIN 
         building ON project.buildingid = building.buildingid
+    WHERE
+        project.isComplete = 0
     ORDER BY
         $sortAppend";
 
