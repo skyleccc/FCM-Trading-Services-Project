@@ -3,7 +3,7 @@
 // Model Requirement: "Models/AdminProjects/project_save.php"
 
 // File Redirects
-$addProject = "../../../Models/AdminProjects/projects_save.php";
+$addProject = "../../../Models/AdminProjects/add_project.php";
 
 
 echo'

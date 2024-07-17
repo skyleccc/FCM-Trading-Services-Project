@@ -19,7 +19,7 @@ $stmt2->execute();
 $result2 = $stmt2->get_result();
 
 // Header Text
-$sql3 = "SELECT project.projectname, building.buildingaddress, client.clientname, client.clientcontact, project.projecttype, building.workarea, DATE_FORMAT(project.deadlineDate, '%M %d, %Y') AS deadlineDate FROM project, client, building WHERE client.clientid= project.clientid AND project.buildingID = building.buildingID AND project.projectid = ?";
+$sql3 = "SELECT project.projectname, building.buildingaddress, client.clientname, client.clientcontact, project.projecttype, project.workarea, DATE_FORMAT(project.deadlineDate, '%M %d, %Y') AS deadlineDate FROM project, client, building WHERE client.clientid= project.clientid AND project.buildingID = building.buildingID AND project.projectid = ?";
 $stmt3 = $conn->prepare($sql3);
 $stmt3->bind_param("i", $id);
 $stmt3->execute();
@@ -118,7 +118,7 @@ if ($result3->num_rows > 0) {
                         </div>
                         <div class="row f">
                             <div class="col workarea">Area of Work:</div>
-                            <div class="col data6"><?php echo htmlspecialchars($workArea); ?></div>
+                            <div class="col data6"><?php echo htmlspecialchars($workArea); ?> sqm.</div>
                         </div>
                         <div class="row g">
                                 <div class="col blueprints">Blueprints:</div>
