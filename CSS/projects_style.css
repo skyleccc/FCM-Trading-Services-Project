@@ -171,7 +171,7 @@ text-align: center;
 }
 
 
-input[type="text"],input[type="password"],input[type="date"]{
+input[type="text"],input[type="password"],input[type="date"], input[type=number]{
 width: 50%;
 padding: 10px;
 border: 1px solid #ccc;
@@ -179,7 +179,7 @@ border-radius: 4px;
 box-sizing: border-box;
 }
 
-.quotationscontainer input[type="text"],input[type="date"]{
+.quotationscontainer input[type="text"],input[type="date"], input[type=number]{
 width: 100%;
 padding: 10px;
 height: 100%;

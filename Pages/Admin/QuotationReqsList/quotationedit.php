@@ -201,11 +201,17 @@ if (!$result) {
                         <label for="specialrequests">Special Requests:</label>
                         <textarea type="textarea" id="specialrequests" name="specialrequests" disabled><?php echo htmlspecialchars($specialrequests); ?></textarea>
                 </div>
-                <div class="form-group">
-                    <label for="contact">Email / Contact Number:</label>
+                <div class="form-group_two">
+                    <div class="input-group">
+                    <label for="email">Email Address:</label>
+                    <input type="text" id="email" name="email" value="<?php echo htmlspecialchars($contact); ?>" disabled>
+                    </div>
+                    <div class="space"></div>
+                    <div class="input-group">
+                    <label for="contact">Contact Number:</label>
                     <input type="text" id="contact" name="contact" value="<?php echo htmlspecialchars($contact); ?>" disabled>
+                    </div>
                 </div>
-                
                 <div id="attachment" class="w100">
                     <div class="bold">
                         Attached Files:

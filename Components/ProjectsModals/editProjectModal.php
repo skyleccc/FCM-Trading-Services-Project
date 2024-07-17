@@ -28,12 +28,12 @@ echo'
                                     </div>
                                         <div class="form-group_two">
                                             <div class="input-group">
-                                                <label for="assignedContractor">Client\'s Email Address:</label>
+                                                <label for="clientEmail">Client\'s Email Address:</label>
                                                 <input type="text" id="clientEmail" name="clientEmail"  required>
                                             </div>
                                             <div class="space"></div>
                                             <div class="input-group">
-                                                <label for="assignedContractor">Client\'s Contact Number:</label>
+                                                <label for="clientContact">Client\'s Contact Number:</label>
                                                 <input type="text" id="clientContact" name="clientContact" value="'.($project['clientcontact'] ?? '').'" required>
                                             </div>
                                         </div>
@@ -56,17 +56,14 @@ echo'
                                             
                                             <div class="space"></div>
                                             <div class="input-group">
-                                                <label for="building">Work Area:</label>
+                                                <label for="workarea">Work Area:</label>
                                                 <input type="text" id="workarea" name="workarea" value="'.($project['workarea'] ?? '').'" required>
-                                                
-
-                                                <label for="blueprint">Blueprints</label>
-                                                <input type="file" id="blueprint" name="blueprint" value="'.($project['blueprint'] ?? '').'"> 
-                                                <label for="blueprint" class="labelforupload">
-                                                    <i class="fa-solid fa-upload"></i> Attach Files Here
-                                                </label>
                                             </div>
-                                        </div>           
+                                        </div> 
+                                        <div class="form-group">
+                                        <label for="budgetConstraint">Budget Constraint:</label>
+                                        <input type="number" id="budgetConstraint" name="budgetConstraint" value="'.htmlspecialchars($project['clientname'] ?? '').'" required>
+                                    </div>          
                                         <div class="form-group">
                                             <label for="description">Project Description:</label>
                                             <textarea id="projectDetails" name="projectDetails" required>'.($project['projectdetails'] ?? '').'</textarea>
@@ -92,6 +89,23 @@ echo'
                                             </div>
                                         </div>
                                     </div>
+                                    <div class= "form-group" id="attach-blueprint">
+                                                <label for="blueprint">Blueprints</label>
+
+                                                <div class="input-group" id="attach-blueprint">
+                                                    <input type="file" id="blueprint" name="blueprint" value="'.($project['blueprint'] ?? '').'"> 
+                                                    <label for="blueprint" class="labelforupload"><i class="fa-solid fa-upload"></i> Attach Files Here</label>
+                                                </div>
+                                                <div id="attachment" class="w100">
+                                                    <div class="bold">
+                                                        Attached Files:
+                                                    </div>
+                                                    <div id="attached-filelist">
+                                                        <ul id="list">
+                                                        </ul>
+                                                        </div>
+                                                    </div>
+                                            </div>
                         </div>
                             <button id="addfinal">Apply Changes</button>
                             </form>

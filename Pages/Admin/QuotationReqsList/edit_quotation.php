@@ -194,9 +194,16 @@ $status = $row2['status'];
                         <label for="specialrequests">Special Requests:</label>
                         <textarea type="textarea" id="specialrequests" name="specialrequests" required><?php echo htmlspecialchars($specialrequests); ?></textarea>
                 </div>
-                <div class="form-group">
-                    <label for="contact">Email / Contact Number:</label>
+                <div class="form-group_two">
+                    <div class="input-group">
+                    <label for="contact">Email Address:</label>
                     <input type="text" id="contact" name="contact" value="<?php echo htmlspecialchars($contact); ?>" required>
+                    </div>
+                    <div class="space"></div>
+                    <div class="input-group">
+                    <label for="contact">Contact Number:</label>
+                    <input type="text" id="contact" name="contact" value="<?php echo htmlspecialchars($contact); ?>" required>
+                    </div>
                 </div>
                 <div class="form-group_two">
                     <div class="space"></div>

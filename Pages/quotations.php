@@ -95,7 +95,7 @@ require '../Controllers/accessDatabase.php';
                 </div>
                 <div class="form-group_two">
                     <div class="input-group">
-                    <label for="contact">Email:</label>
+                    <label for="email">Email:</label>
                     <input type="text" id="email" name="email" placeholder="Enter contact information here..." required>
                     </div>
                     <div class="space"></div>

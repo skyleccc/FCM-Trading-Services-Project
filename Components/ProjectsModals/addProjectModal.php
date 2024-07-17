@@ -27,12 +27,12 @@ echo'
                                     </div>
                                     <div class="form-group_two">
                                         <div class="input-group">
-                                            <label for="assignedContractor">Client\'s Email Address:</label>
+                                            <label for="clientEmail">Client\'s Email Address:</label>
                                             <input type="text" id="clientEmail" name="clientEmail" placeholder="Enter Name of Client Here" required>
                                         </div>
                                         <div class="space"></div>
                                         <div class="input-group">
-                                            <label for="assignedContractor">Client\'s Contact Number:</label>
+                                            <label for="clientContact">Client\'s Contact Number:</label>
                                             <input type="text" id="clientContact" name="clientContact" placeholder="Enter Name of Contractor Here" required>
                                         </div>
                                     </div>
@@ -55,34 +55,22 @@ echo'
                                     </div>
 
                                     <div class="form-group_two">
-                                    <div class="form-group">
+                                        <div class="input-group">
                                         <label for="building">Location:</label>
                                         <input type="text" id="buildingaddress" name="buildingaddress" placeholder="Enter Name of Building" required>
                                         </div>
                                         
                                         <div class="space"></div>
                                         <div class="input-group">
-                                            <label for="building">Work Area (sqm.):</label>
+                                            <label for="areaofwork">Work Area (sqm.):</label>
                                             <input type="number" id="workarea" name="workarea" placeholder="Enter Name of Building" required>
-                                            
-
-                                            <label for="blueprint">Blueprints</label>
-                                            <input type="file" id="blueprint" name="blueprint[]" onchange="previewFileList();" multiple>
-                                            <div id="attachment" class="w100">
-
-                                            <label for="blueprint" class="labelforupload">
-                                                <i class="fa-solid fa-upload"></i> Attach Files Here
-                                            </label>
-                                            <div class="bold">
-                                            Attached Files:
-                                                </div>
-                                                <div id="attached-filelist">
-                                                    <ul id="list">
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </div> 
                                     </div>
+                                    <div class="form-group">
+                                        <label for="budgetConstraint">Budget Constraint:</label>
+                                        <input type="number" id="budgetConstraint" name="budgetConstraint" required>
+                                    </div>  
+                                    
                                     
                                     <div class="form-group">
                                         <label for="description">Project Description:</label>
@@ -108,6 +96,23 @@ echo'
                                             <input type="date" id="completiondate" name="completiondate" placeholder="Type Here..." max="9999-12-31">
                                         </div>
                                     </div>
+                                </div>
+                                <div class= "form-group" id="attach-blueprint">
+                                        <label for="blueprint">Blueprints</label>
+                                    
+                                <div class="input-group" id="attach-blueprint">
+                                        <label for="blueprint" class="labelforupload"><i class="fa-solid fa-upload"> ADD BLUEPRINT</i></label>
+                                        <input type="file" id="blueprint" name="blueprint[]" onchange="displayFileList();" multiple>
+                                    </div>                                        
+                                        <div id="attachment" class="w100">
+                                            <div class="bold">
+                                                Attached Files:
+                                            </div>
+                                            <div id="attached-filelist">
+                                                <ul id="list">
+                                                </ul>
+                                            </div>
+                                        </div>
                                 </div>
                         </div>
                             <button id="addfinal">Add Project</button>
