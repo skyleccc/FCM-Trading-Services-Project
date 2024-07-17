@@ -135,7 +135,7 @@ $status = $row2['status'];
                     <form id="quotationForm" class="p-3" action="../../../Models/AdminQuotReqs/quotationedit.php?id=<?php echo $requestID; ?>" method="post" enctype="multipart/form-data">
                         <div style="font-size: 20px; font-weight: bold; text-align: center; color: black">
                         <span class="material-symbols-outlined editdone">edit</span>
-                        Enter a new Project
+                        View Quotation
                         <span class="close">&times;</span>
                         </div><br>
                         <div class="form-group">

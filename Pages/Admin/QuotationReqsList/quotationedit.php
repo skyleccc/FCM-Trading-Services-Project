@@ -142,7 +142,7 @@ if (!$result) {
                         <form id="quotationForm" class="p-3" action="../../../Models/QuotationReqs/fileUpload.php" method="post" enctype="multipart/form-data">
                         <div style="font-size: 20px; font-weight: bold; text-align: center; color: black">
                         <span class="material-symbols-outlined edit" data-id=<?php echo htmlspecialchars($requestID); ?>>edit</span>
-                        Enter a new Project
+                        View Quotation
                         <span class="close">&times;</span>
                         </div><br>
                         <div class="form-group">
