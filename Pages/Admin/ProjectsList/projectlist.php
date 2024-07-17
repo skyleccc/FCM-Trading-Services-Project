@@ -1,6 +1,6 @@
 <?php
 
-if ($result->num_rows > 0) {
+if (isset($result) && $result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         echo '<div class="col-sm-4 border bg-light proj_cont" style="margin-top: 1%;"> 
                 <div class="row">
@@ -13,9 +13,17 @@ if ($result->num_rows > 0) {
                                     <div id="projectname" style="font-weight: lighter; text-align: center; font-size: 1.2vw; color:#40ce55;">' . htmlspecialchars($row["projectname"] ?? '') . '</div>
                                 </div>
                             </div>
-                            <div class="col" style="margin-top: 10px;">
-                                <div class="col-sm-4 rounded" style="background-color:rgb(41, 157, 41); width: 100%;color: rgb(255, 255, 255);"> Progress</div>
-                                <div class="col-sm-4 rounded" style="background-color:rgb(227, 38, 38); width: 100%; color: rgb(255, 251, 251); margin-top: 5px;">' . htmlspecialchars($row["deadlineDate"] ?? '') . '</div>
+                            <div class="col" style="margin-top: 10px;">';
+
+                            if($row["isComplete"] == 0){
+                                echo '<div class="col-sm-4 rounded" style="background-color:rgb(227, 38, 38); width: 100%;color: rgb(255, 251, 251); font-weight: 600;"> Ongoing</div>
+                                <div class="col-sm-4 rounded" style="background-color:rgb(227, 38, 38); width: 100%; color: rgb(255, 251, 251); margin-top: 5px; font-weight: 600;">' . htmlspecialchars($row["deadlineDate"] ?? '') . '</div>';
+                            }else{
+                                echo '<div class="col-sm-4 rounded" style="background-color:rgb(41, 157, 41); width: 100%;color: rgb(255, 255, 255); font-weight: 600;"> Completed</div>
+                                <div class="col-sm-4 rounded" style="background-color:rgb(41, 157, 41); width: 100%; color: rgb(255, 255, 255); margin-top: 5px; font-weight: 600;">' . htmlspecialchars($row["deadlineDate"] ?? '') . '</div>';
+                            }
+
+        echo '
                             </div>
                         </a>
                     </div>

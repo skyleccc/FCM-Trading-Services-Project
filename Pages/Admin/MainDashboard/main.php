@@ -19,7 +19,10 @@ $sql = "SELECT
     JOIN 
         building ON project.buildingid = building.buildingid
     WHERE
-        isComplete = 0;    
+        isComplete = 0
+    ORDER BY
+        project.deadlineDate ASC    
+    ;    
     ";
 $result = $conn->query($sql);
 

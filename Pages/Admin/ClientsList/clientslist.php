@@ -1,18 +1,7 @@
 <?php
 require '../../../Controllers/accessDatabase.php';
 
-$clientListQuery = "SELECT c.*, p.projectID, p.completionDate AS latestProjectDate
-FROM client c
-LEFT JOIN (
-    SELECT clientID, projectID, completionDate
-    FROM project
-    WHERE (clientID, COALESCE(completionDate, NOW())) IN (
-        SELECT clientID, MAX(COALESCE(completionDate, NOW())) AS latestProjectDate
-        FROM project
-        GROUP BY clientID
-    )
-) p ON c.clientID = p.clientID
-ORDER BY c.clientID ASC";
+$clientListQuery = "WITH LatestProjects AS ( SELECT p.clientID, p.projectID, p.projectName, p.isComplete, CASE WHEN p.isComplete = 1 THEN p.completionDate ELSE NULL END AS projectStatus, ROW_NUMBER() OVER (PARTITION BY p.clientID ORDER BY CASE WHEN p.isComplete = 1 THEN p.completionDate ELSE p.deadlineDate END DESC ) AS rn FROM project p ) SELECT c.*, lp.projectID, lp.projectName, lp.projectStatus FROM client c LEFT JOIN LatestProjects lp ON c.clientID = lp.clientID AND lp.rn = 1 ORDER BY c.clientName";
 
 $clientListResult = $conn->query($clientListQuery);
 
@@ -32,7 +21,7 @@ if($clientListResult->num_rows > 0){
                 </div>
                 <div class="last-project h100-w25" data-id="'.$clientListRow["clientID"].'">
                     <div><b>Last Project:</b></div>
-                    <div>'.htmlspecialchars($clientListRow["latestProjectDate"] ?? $clientListProj).'</div>
+                    <div>'.htmlspecialchars($clientListRow["projectStatus"] ?? $clientListProj).'</div>
                 </div>
                 <div class="action-buttons h100-w25">
                     <button type="button edit-btn" data-id="'.$clientListRow["clientID"].'" class="btn btn-primary edit-btn" data-toggle="modal" data-target="#editClientModal">

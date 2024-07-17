@@ -6,7 +6,7 @@ $clientID = $_POST['clientid'];
 
 $clientDetailQuery = "SELECT c.clientID, c.clientName, c.clientContact, c.clientEmail, COUNT(p.projectID) AS numProjects, latest_project.projectID AS currentProjectID, latest_project.projectName AS currentProjectName FROM client c LEFT JOIN project p ON c.clientID = p.clientID LEFT JOIN ( SELECT clientID, projectID, projectName FROM project WHERE clientID = $clientID AND completionDate IS NULL ORDER BY startDate DESC LIMIT 1 ) latest_project ON c.clientID = latest_project.clientID WHERE c.clientID = $clientID GROUP BY c.clientID, c.clientName, c.clientContact, c.clientEmail, currentProjectID, currentProjectName;";
 
-$clientProjQuery = "SELECT projectID, projectName, projectType, DATE_FORMAT(completionDate, '%M %d, %Y') AS completionDate, isComplete FROM project, client WHERE client.clientID = project.clientID AND client.clientID = $clientID ORDER BY completionDate ASC;";
+$clientProjQuery = "SELECT projectID, projectName, projectType, DATE_FORMAT(completionDate, '%M %d, %Y') AS completionDate, isComplete FROM project, client WHERE client.clientID = project.clientID AND client.clientID = $clientID ORDER BY completionDate DESC;";
 
 $clientDetailResult = ($conn->query($clientDetailQuery))->fetch_assoc();
 $clientCurrProj = ($clientDetailResult["currentProjectID"] != NULL) ? $clientDetailResult['currentProjectName'] : "No current projects";

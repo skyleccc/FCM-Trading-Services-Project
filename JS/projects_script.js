@@ -16,17 +16,21 @@ function closeModal(){
 
 document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('search');
+    const sortLinks = document.querySelectorAll('.show-by');
     const dataContainer = document.getElementById('results');
+    const showDescrip = document.getElementById('show-descrip');
+
+    let currentSort = 'all'; // Default sort value
 
     // Function to fetch data from the server
-    const fetchData = async (query = '') => {
+    const fetchData = async (query = '', sort = 'all') => {
         try {
             const response = await fetch('../../../Models/AdminProjects/search_project.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: new URLSearchParams({ query: query })
+                body: new URLSearchParams({ query: query, sort: sort })
             });
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -41,7 +45,27 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to update the results with fetched data
     const updateResults = (data) => {
         dataContainer.innerHTML = data;
+        updateShowDescrip(currentSort); // Update show description after fetching data
         attachEventListeners();
+    };
+
+    // Function to update show description based on current sort
+    const updateShowDescrip = (sort) => {
+        let description = 'Show: <b>';
+        switch (sort) {
+            case 'ongoing':
+                description += 'Ongoing';
+                break;
+            case 'completed':
+                description += 'Completed';
+                break;
+            case 'all':
+            default:
+                description += 'All';
+                break;
+        }
+        description += '</b>';
+        showDescrip.innerHTML = description;
     };
 
     // Function to attach event listeners to buttons
@@ -85,10 +109,26 @@ document.addEventListener('DOMContentLoaded', () => {
     // Add keyup event listener to search input
     searchInput.addEventListener('keyup', (event) => {
         const query = event.target.value.trim();
-        fetchData(query);
+        fetchData(query, currentSort);
     });
+
+    // Add click event listeners to sort links
+    sortLinks.forEach(link => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            const sortValue = event.target.getAttribute('data-sort');
+            currentSort = sortValue;
+            fetchData(searchInput.value.trim(), currentSort);
+            updateShowDescrip(currentSort); // Update show description
+        });
+    });
+
     attachEventListeners();
 });
+
+
+
+
 
 let fileUrls = [];
 let uploadedFiles = new Set(); // Use a Set to keep track of uploaded file names

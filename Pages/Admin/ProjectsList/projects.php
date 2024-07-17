@@ -5,7 +5,7 @@ require '../../../Controllers/loginCheck.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$sql = "SELECT project.projectid, project.projectname, project.projecttype, building.buildingaddress, project.clientid, client.clientname, DATE_FORMAT(project.deadlineDate, '%M %d, %Y') AS deadlineDate FROM project JOIN client ON client.clientid = project.clientid JOIN building ON building.buildingid = project.buildingid";
+$sql = "SELECT project.projectid, project.projectname, project.projecttype, building.buildingaddress, project.clientid, client.clientname, DATE_FORMAT(project.deadlineDate, '%M %d, %Y') AS deadlineDate, project.isComplete ,DATE_FORMAT(project.completionDate, '%M %d, %Y') AS completionDate FROM project JOIN client ON client.clientid = project.clientid JOIN building ON building.buildingid = project.buildingid ORDER BY project.isComplete ASC, CASE WHEN project.isComplete = 0 THEN project.deadlineDate ELSE project.completionDate END ASC;";
 $result = $conn->query($sql);
 ?>
 
@@ -44,10 +44,26 @@ $result = $conn->query($sql);
                                     <div class="">
                                         Projects List
                                     </div>
-                                    <div class="col">
+                                    <div class="col-sm-5">
                                         <button class="button-style col" id="myBtn" style="width: 55px !important; height: 50px; font-weight: lighter; padding:0 !important;"><span class="material-symbols-outlined" style="font-size: 30px; color: rgb(19, 171, 19); display:flex; justify-content:center;">note_add</span></button></div>
                                     </div>
-                                   <input type="text" name="search" id="search" placeholder="Search" class="col"> 
+                                    <div class="col-sm-7" style="display: flex">
+                                        <div class="col-sm-4 dropdown" >
+                                            <button class="dropbtn" style="margin-left: auto !important;">
+                                                <div class="row" style="background-color: rgb(19, 171, 19); color: white; width: 13vw; font-weight: lighter;">
+                                                    <div class="col-sm-2 p0"><span class="material-symbols-outlined">arrow_drop_down</span></div>
+                                                    <div id="show-descrip" class="col-sm-10" style="font-size: 1.2vw; "> Show: <b>All</b></div>
+                                                </div>
+                                            </button>
+                                            <div id="sort-list" class="dropdown-content">
+                                                <a href="#" class="show-by" data-sort="all">All</a>
+                                                <a href="#" class="show-by" data-sort="ongoing">Ongoing</a>
+                                                <a href="#" class="show-by" data-sort="completed">Completed</a>
+                                            </div>
+                                        </div>
+                                        <input type="text" name="search" id="search" placeholder="Search" class="col"> 
+                                    </div>
+
                                 </div>
                                 <div class="ex1"><div class="row projrow">
                                     <div class="container">
