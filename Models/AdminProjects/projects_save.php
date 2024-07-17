@@ -12,9 +12,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $workarea = $_POST['workarea'];
     $projectDetails = $_POST['projectDetails'];
     $specialRequests = $_POST['specialRequests'];
-    $deadlineDate = $_POST['deadlineDate'];
-    $startdate = $_POST['startdate'];
-    $completiondate = $_POST['completiondate'];
+    $deadlineDate = nullChecker($_POST['deadlineDate']);
+    $startdate = nullChecker($_POST['startdate']);
+    $completiondate = nullChecker($_POST['completiondate']);
+
+
+    function nullChecker($var){
+        if(empty($var) || $var == ''){
+            return NULL;
+        }else{
+            return $var;
+        }
+    
+    }
+
 
     // Client ID retrieval or insertion
     $clientid = null;
