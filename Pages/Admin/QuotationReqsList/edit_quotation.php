@@ -2,32 +2,40 @@
 require '../../../Controllers/accessDatabase.php';
 require '../../../Controllers/loginCheck.php';
 
-$id = $conn->real_escape_string($_GET['id']);
-$sql = "SELECT requestid, serviceType, clientName, Location FROM quotation_request WHERE status='pending'";
-$sql2 = $conn->prepare("SELECT requestid, clientname, location, siteinformation, servicetype, startdate, completedate, projectdetails, workarea, budgetconstraint, specialrequests, clientcontact, clientemail, withblueprint, numberoffiles, status FROM quotation_request WHERE requestid = ?");
-$sql2->bind_param("i", $id);
-$sql2->execute();
-$result2 = $sql2->get_result();
 
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+    
+$id = $_GET['id'];
+$sql = "SELECT requestid, serviceType, clientName, DATE_FORMAT(dateFiled, '%b. %d, %Y') AS dateFiled, DATE_FORMAT(completeDate, '%b. %d, %Y') AS completeDate, location FROM quotation_request WHERE status='pending' ORDER BY requestID ASC"; // Adjust table name as needed
+$sql2 = "SELECT requestid ,clientname, location, siteinformation, servicetype, startdate,completedate, projectdetails, workarea, budgetconstraint, specialrequests ,clientcontact, clientemail ,withblueprint, numberoffiles, status FROM quotation_request WHERE requestid = $id";
 $result = $conn->query($sql);
-$row2 = $result2->fetch_assoc();
+$result2 = $conn->query($sql2);
 
-$requestID = $row2['requestid'];
-$clientname = $row2['clientname'];
-$location = $row2['location'];
-$siteinformation = $row2['siteinformation'];
-$servicetype = $row2['servicetype'];
-$startdate = $row2['startdate'];
-$completedate = $row2['completedate'];
-$projectdetails = $row2['projectdetails'];
-$workarea = $row2['workarea'];
-$budgetconstraint = $row2['budgetconstraint'];
-$specialrequests = $row2['specialrequests'];
-$contact = $row2['clientcontact'];
-$email = $row2['clientemail'];
-$withblueprint = $row2['withblueprint'];
-$numberoffiles = $row2['numberoffiles'];
-$status = $row2['status'];
+
+    $row2 = $result2->fetch_assoc();
+    $requestID = $row2['requestid'];
+    $clientname = $row2['clientname'];
+    $location = $row2['location'];
+    $siteinformation = $row2['siteinformation'];
+    $servicetype = $row2['servicetype'];
+    $startdate = $row2['startdate'];
+    $completedate = $row2['completedate'];
+    $projectdetails = $row2['projectdetails'];
+    $workarea = $row2['workarea'];
+    $budgetconstraint = $row2['budgetconstraint'];
+    $specialrequests = $row2['specialrequests'];
+    $contact = $row2['clientcontact'];
+    $email = $row2['clientemail'];
+    $withblueprint = $row2['withblueprint'];
+    $numberoffiles = $row2['numberoffiles'];
+    $status = $row2['status'];
+
+
+if (!$result) {
+    die("Query failed: " . $conn->error);
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -82,14 +90,14 @@ $status = $row2['status'];
                                                             <a href="quotationedit.php?id=' . htmlspecialchars($row["requestid"]) . '" class="row p-2" style="margin: auto; text-decoration: none;">
                                                                 <div class="row" style="margin: auto; margin-top: 3%;">
                                                                     <div class="col p-1">
-                                                                        <div style="font-weight: bold;text-align: center;font-size: 1.6vw; color: black;">' . htmlspecialchars($row["Location"]) . '</div>
+                                                                        <div style="font-weight: bold;text-align: center;font-size: 1.6vw; color: black;">' . htmlspecialchars($row["location"]) . '</div>
                                                                         <div style="font-weight: lighter; text-align: center; font-size: 1vw; color: black;" >' . htmlspecialchars($row["clientName"]) . '</div>
                                                                         <div style="font-weight: lighter; text-align: center; font-size: 1.2vw; color:#40ce55" >' . htmlspecialchars($row["serviceType"]) . '</div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col" style="margin-top: 10px;">
-                                                                    <div class="col-sm-4 rounded" style="background-color:rgb(41, 157, 41); width: 100%;color: rgb(255, 255, 255);"> Progress</div>
-                                                                    <div class="col-sm-4 rounded" style="background-color:rgb(227, 38, 38); width: 100%; color: rgb(255, 251, 251); margin-top: 5px;"> Deadline</div>
+                                                                    <div class="col-sm-4 rounded" style="background-color:rgb(41, 157, 41); width: 100%;color: rgb(255, 255, 255);"> Date Filed: '.htmlspecialchars($row['dateFiled'] ?? 'No Date').'</div>
+                                                                    <div class="col-sm-4 rounded" style="background-color:rgb(227, 38, 38); width: 100%; color: rgb(255, 251, 251); margin-top: 5px;"> Complete By: '.htmlspecialchars($row['completeDate'] ?? 'No Date').'</div>
                                                                 </div>
                                                             </a>
                                                             </div>
