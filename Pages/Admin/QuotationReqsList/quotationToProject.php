@@ -9,6 +9,10 @@ if ($conn->connect_error) {
 $sql = "SELECT requestid, serviceType, clientName, DATE_FORMAT(dateFiled, '%b. %d, %Y') AS dateFiled, DATE_FORMAT(completeDate, '%b. %d, %Y') AS completeDate, location FROM quotation_request WHERE status='pending' ORDER BY requestID ASC"; // Adjust table name as needed
 $result = $conn->query($sql);
 
+
+if(isset($_GET['requestid']))
+
+
 if (!$result) {
     die("Query failed: " . $conn->error);
 }

@@ -24,7 +24,7 @@ echo '
     <a href="'.$calendarView.'" style="text-decoration: none; color: black;"><div class="sched"><span class="material-symbols-outlined" >calendar_month</span><span>Task Calendar</span></div><br></a>
     <a href="'.$projectsView.'" style="text-decoration: none; color: black;"><div class="inbox"><span class="material-symbols-outlined" >inbox</span><span>Projects</span></div><br></a>
     <a href="'.$clientsView.'" style="text-decoration: none; color: black;"><div class="sched"><span class="material-symbols-outlined" >group</span><span>Clients</span></div><br></a>
-    <a href="'.$quotreqsView.'" style="text-decoration: none; color: black;"><div class="requestQuote"><span class="material-symbols-outlined" >request_quote</span><span>Quotation Requests</span></div><br></a>
+    <a href="'.$quotreqsView.'" style="text-decoration: none; color: black;"><div class="requestQuote"><span class="material-symbols-outlined" >request_quote</span><span>Project Requests</span></div><br></a>
     <a href="'.$signOut.'" style="text-decoration: none; color: black;"><div class="sched"><span class="material-symbols-outlined" >logout</span><span>Sign Out</span></div><br></a>
 </div>
 '

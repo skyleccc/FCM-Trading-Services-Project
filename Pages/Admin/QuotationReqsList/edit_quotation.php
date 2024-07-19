@@ -65,7 +65,7 @@ if (!$result) {
                         </div>
                         <div class="col p-2 addbtn">
                             <div class="row p-3 border bg light rounded" style="font-size: 20px; font-weight: bold;">
-                                <div class="col" style="margin: 10px; font-size: 2vw;">Quotation Requests List</div>
+                                <div class="col" style="margin: 10px; font-size: 2vw;">Project Requests List</div>
                                 <div class="col-sm-4" style="margin: 10px;">
                                    <!-- <button class="button-style" id="myBtn" style="background-color: rgb(19, 171, 19);width: 280px; height: 50px;    font-weight: lighter; margin-left:32%;"><div class="col" style="background-color: rgb(19, 171, 19); font-size: 1.2vw; color: white;">
                                     <span class="material-symbols-outlined" style="font-size: 30px; color: white;">note_add</span> Add A Quotation Request
@@ -143,7 +143,7 @@ if (!$result) {
                     <form id="quotationForm" class="p-3" action="../../../Models/AdminQuotReqs/quotationedit.php?id=<?php echo $requestID; ?>" method="post" enctype="multipart/form-data" onsubmit="return validateForm()" >
                         <div style="font-size: 20px; font-weight: bold; text-align: center; color: black">
                         <span class="material-symbols-outlined editdone">edit</span>
-                        Edit a Quotation Request
+                        Edit a Project Request
                         <span class="close">&times;</span>
                         </div><br>
                         <div class="form-group">
@@ -183,7 +183,7 @@ if (!$result) {
                         <input type="date" id="datecomplete" name="datecomplete" value="<?php echo htmlspecialchars($completedate); ?>" required>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="input-group">
                     <label for="details">Project Details:</label>
                     <textarea type="textarea" id="details" name="projdetails" required><?php echo htmlspecialchars($projectdetails); ?></textarea>
                 </div>
@@ -198,7 +198,7 @@ if (!$result) {
                         <input type="number" id="constraints" name="budget_constraints" value="<?php echo htmlspecialchars($budgetconstraint); ?>" >
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="input-group">
                         <label for="specialrequests">Special Requests:</label>
                         <textarea type="textarea" id="specialrequests" name="specialrequests" ><?php echo htmlspecialchars($specialrequests); ?></textarea>
                 </div>
@@ -226,30 +226,32 @@ if (!$result) {
                     </div>
                     <div id="attached-filelist">
                         <ul id="list">
+                            
                             <?php
-                                $arrFiles = array();
-                                $dirPath = "../../../AttachedFiles/Blueprints/quotationRequestBlueprints/blueprint-" . $id;
+                                // $arrFiles = array();
+                                // $dirPath = "../../../AttachedFiles/Blueprints/quotationRequestBlueprints/blueprint-" . $id;
                                 
-                                if (is_dir($dirPath)) {
-                                    $files = scandir($dirPath);
-                                    $hasFiles = false;
+                                // if (is_dir($dirPath)) {
+                                //     $files = scandir($dirPath);
+                                //     $hasFiles = false;
                                     
-                                    foreach ($files as $file) {
-                                        $filePath = $dirPath . '/' . $file;
-                                        if (is_file($filePath)) {
-                                            $hasFiles = true; // Set to true when a file is found
-                                            echo "<li><a href='" . $filePath . "' target='_blank'>" . $file . "</a></li>";
-                                        }
-                                    }
+                                //     foreach ($files as $file) {
+                                //         $filePath = $dirPath . '/' . $file;
+                                //         if (is_file($filePath)) {
+                                //             $hasFiles = true; // Set to true when a file is found
+                                //             echo "<li><a href='" . $filePath . "' target='_blank'>" . $file . "</a></li>";
+                                //         }
+                                //     }
                                     
-                                    if (!$hasFiles) { // Correct condition to check if no files were found
-                                        echo "No blueprints available.";
-                                    }
-                                } else {
-                                    echo '<div id="no-files-text">No blueprints attached.</div>';
-                                }
+                                //     if (!$hasFiles) { // Correct condition to check if no files were found
+                                //         echo "No blueprints available.";
+                                //     }
+                                // } else {
+                                //     
+                                // }
                             ?>
                         </ul>
+                        <div id="no-files-text">No blueprints attached.</div>
                     </div>
                 </div>
 

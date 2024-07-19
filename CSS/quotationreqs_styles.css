@@ -118,6 +118,7 @@ div.ex2 {
     display: flex;
     flex-direction: column;
     align-items: center;
+    z-index: 1001;
 }
 
 .form-group_two,
@@ -127,7 +128,7 @@ div.ex2 {
     text-align: center;
     justify-content: center;
     align-items: center;
-    z-index: 100;
+    z-index: 1001;
 }
 
 .space {
@@ -154,24 +155,28 @@ input[type="date"]{
 }
 
 .quotationscontainer input[type="text"],
-input[type="date"], input[type="number"] {
+input[type="date"], input[type="number"], textarea, select {
     width: 100%;
     padding: 10px;
     height: 100%;
-    border: 1px solid #ccc;
+    border: 1px solid #ccc !important;
     border-radius: 4px;
     box-sizing: border-box;
 }
 
 textarea {
+    z-index: 1001 !important;
     width: 100%;
-    height: 150px;
+    height: 225px !important;
     padding: 10px;
-    resize: none;
+    resize: vertical !important;
+    overflow: auto !important; /* Ensure overflow is handled */
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
+    background-color: #fff;
+    outline: none; /* Remove any default outline */
 }
 
 select {

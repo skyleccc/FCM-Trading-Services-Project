@@ -28,29 +28,46 @@ document.addEventListener("DOMContentLoaded", function () {
     $('.approve-btn').click(function() {
         var id = $(this).data('id');
         console.log('Approve button clicked for ID:', id); // Debugging line
+    
         if (confirm('Are you sure you want to approve this quotation?')) {
-            fetch('../../../Models/AdminQuotReqs/quotationapprove.php', {
+            fetch('../../../Models/AdminQuotReqs/findClient.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 body: 'requestid=' + id,
             })
-            .then(response => response.text())
+            .then(response => response.json())
             .then(data => {
                 console.log('Response from approve:', data); // Debugging line
-                if (data === 'success') {
-                    alert('Project approved!');
-                    window.location.href = 'quotationreqs.php';
+    
+                if (data.success === false) {
+                    alert(data.message);
+                    return;
+                }
+    
+                if (data.client_id === null) {
+                    if (confirm('Client does not exist. Do you want to create a new client?')) {
+                        fetch('../../../Models/AdminQuotReqs/createNewClient.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                            },
+                            body: 'requestid=' + id,
+                        })
+                        alert('Project approved and added to the project list!');
+                        window.location.href = 'quotationreqs.php';
+                    } else {
+                        alert('No action taken.');
+                    }
                 } else {
-                    if (confirm('Client already exists. Do you want to use existing details?')) {
-                        alert('Using existing details.');
-                        updateUsingExistingClientDetails(id);
-                    }else{
-                        if(confirm('Do you want to create a new client?')){
-                            alert('Creating new client information');
-                            createNewClient(id);
-                        }
+                    var msg = 'Client already exists. Do you want to use existing details?\n\n' +
+                    'Client ID: ' + (data.client_id || 'No Client ID') + '\n' +
+                    'Client Name: ' + (data.client_name || 'No Client Name') + '\n' +
+                    'Client Number: ' + (data.client_contact || 'No Contact Number') + '\n' +
+                    'Client Email: ' + (data.client_email || 'No Client Email');
+                    if (confirm(msg)) {
+                        // write code where it shows a modal with the details from client_id the accesses add_project.php with $_GET value of client_id
                     }
                 }
             })
@@ -90,88 +107,88 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     
 });
-function updateUsingExistingClientDetails(requestId) {
-    fetch('../../../Models/AdminQuotReqs/updateUsingExistingClientDetails.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: 'requestid=' + requestId,
-    })
-    .then(response => response.text())
-    .then(data => {
-        console.log('Response from updating using existing client details:', data); // Debugging line
-        if (data === 'success') {
-            alert('Updated using existing client details.');
-            window.location.href = 'quotationreqs.php';
-        } else {
-            alert('Failed to update using existing client details.');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Failed to update using existing client details.');
-    });
-}
+// function updateUsingExistingClientDetails(requestId) {
+//     fetch('../../../Models/AdminQuotReqs/updateUsingExistingClientDetails.php', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/x-www-form-urlencoded',
+//         },
+//         body: 'requestid=' + requestId,
+//     })
+//     .then(response => response.text())
+//     .then(data => {
+//         console.log('Response from updating using existing client details:', data); // Debugging line
+//         if (data === 'success') {
+//             alert('Updated using existing client details.');
+//             window.location.href = 'quotationreqs.php';
+//         } else {
+//             alert('Failed to update using existing client details.');
+//         }
+//     })
+//     .catch(error => {
+//         console.error('Error:', error);
+//         alert('Failed to update using existing client details.');
+//     });
+// }
 
-function createNewClient(requestId) {
-    fetch('../../../Models/AdminQuotReqs/createNewClient.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: 'requestid=' + requestId,
-    })
-    .then(response => response.text())
-    .then(data => {
-        console.log('Response from creating new client:', data); // Debugging line
-        if (data === 'success') {
-            alert('New client created and request approved.');
-            window.location.href = 'quotationreqs.php';
-        } else {
-            alert('Failed to create new client.');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Failed to create new client.');
-    });
-}
+// function createNewClient(requestId) {
+//     fetch('../../../Models/AdminQuotReqs/createNewClient.php', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/x-www-form-urlencoded',
+//         },
+//         body: 'requestid=' + requestId,
+//     })
+//     .then(response => response.text())
+//     .then(data => {
+//         console.log('Response from creating new client:', data); // Debugging line
+//         if (data === 'success') {
+//             alert('New client created and request approved.');
+//             window.location.href = 'quotationreqs.php';
+//         } else {
+//             alert('Failed to create new client.');
+//         }
+//     })
+//     .catch(error => {
+//         console.error('Error:', error);
+//         alert('Failed to create new client.');
+//     });
+// }
 
 
 
-$(document).ready(function() {
-    // Approve button click handler
-    $('.approve-btn').click(function(e) {
-        e.preventDefault();
-        var requestId = $(this).data('id');
-        processRequest(requestId, 'approve');
-    });
+// $(document).ready(function() {
+//     // Approve button click handler
+//     $('.approve-btn').click(function(e) {
+//         e.preventDefault();
+//         var requestId = $(this).data('id');
+//         processRequest(requestId, 'approve');
+//     });
 
-    // Decline button click handler
-    $('.decline-btn').click(function(e) {
-        e.preventDefault();
-        var requestId = $(this).data('id');
-        processRequest(requestId, 'decline');
-    });
+//     // Decline button click handler
+//     $('.decline-btn').click(function(e) {
+//         e.preventDefault();
+//         var requestId = $(this).data('id');
+//         processRequest(requestId, 'decline');
+//     });
 
-    function processRequest(requestId, action) {
-        $.ajax({
-            url: 'C:\Users\desktop\School Shit\FCM-Trading-Services-Project\Pages\Admin\QuotationReqsList\processreq.php',
-            type: 'POST',
-            data: { requestId: requestId, action: action },
-            dataType: 'json',
-            success: function(response) {
-                if (response.status === 'success') {
-                    alert(response.message);
-                    window.location.href = 'quotationreqs.php';
-                } else {
-                    alert(response.message);
-                }   
-            }
-        });
-    }
-});
+//     function processRequest(requestId, action) {
+//         $.ajax({
+//             url: 'C:\Users\desktop\School Shit\FCM-Trading-Services-Project\Pages\Admin\QuotationReqsList\processreq.php',
+//             type: 'POST',
+//             data: { requestId: requestId, action: action },
+//             dataType: 'json',
+//             success: function(response) {
+//                 if (response.status === 'success') {
+//                     alert(response.message);
+//                     window.location.href = 'quotationreqs.php';
+//                 } else {
+//                     alert(response.message);
+//                 }   
+//             }
+//         });
+//     }
+// });
 
 let fileUrls = [];
 
@@ -181,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function fetchExistingFiles() {
     const requesterID = new URLSearchParams(window.location.search).get('id');
-    fetch(`listFiles.php?id=${requesterID}`)
+    fetch(`../../../Models/AdminQuotReqs/listFiles.php?id=${requesterID}`)
         .then(response => response.json())
         .then(files => {
             const listElement = document.getElementById('list');
@@ -198,7 +215,7 @@ function fetchExistingFiles() {
                     const previewDiv = document.createElement('div');
                     previewDiv.classList.add('preview');
 
-                    const fileUrl = `../../AttachedFiles/Blueprints/quotationRequestBlueprints/blueprint-${requesterID}/${file}`;
+                    const fileUrl = `../../../AttachedFiles/Blueprints/quotationRequestBlueprints/blueprint-${requesterID}/${file}`;
                     fileUrls.push(fileUrl);
 
                     const fileLink = document.createElement('a');
@@ -259,3 +276,8 @@ function displayFileList() {
 window.addEventListener('unload', () => {
     fileUrls.forEach(url => URL.revokeObjectURL(url));
 });
+
+
+window.onload = function() {
+    document.getElementById('specialrequests').focus();
+};

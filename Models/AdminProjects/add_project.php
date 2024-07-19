@@ -3,7 +3,8 @@ require '../../Controllers/accessDatabase.php';
 require '../../Controllers/loginCheck.php';
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    // POST VARIABLES
+
+    // FORM POST VARIABLES
     $projectname = $_POST['projectname'];
     $clientname = $_POST['clientname'];
     $clientContact = $_POST['clientContact'];
@@ -21,8 +22,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $clientContact = nullChecker($_POST['clientContact']);
 
 
-    if(isset($_POST['clientid'])){
-        $clientID = $_POST['clientid'];
+    if(isset($_POST['id'])){
+        
+        $clientID = $_POST['id'];
         $clientDetails = getClientDetails($clientID, $conn);
         if($clientDetails){
             $buildingID = checkBuildingAddress($buildingaddress, $clientID, $conn);
@@ -76,7 +78,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
     }
 }else{
-    echo '<script>console.log("Unauthorized access!")</script>';
+    echo '<script>alert("Unauthorized access!")</script>';
 }
 
 
