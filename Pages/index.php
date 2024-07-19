@@ -148,7 +148,7 @@
                 <div class="h50-w100 flex-centermiddle click-quotation">
                     <div class="h100-w50 image-box2 flex-rightmiddle">
                         <div class="h25-w35">
-                            <button class="square-button" onclick="location.href='quotations.php'">Apply for a Quotation</button>
+                            <button class="square-button" onclick="location.href='quotations.php'">Apply for a Project</button>
                         </div>
                     </div>
                 </div>

@@ -27,7 +27,7 @@ require '../Controllers/accessDatabase.php';
     <div id="homePage">
         <div class="header-box">
             <div class="header-text h75-w100">
-                <h1 class="quotations">Quotation<br>Request Form</h1>
+                <h1 class="quotations">Project<br>Request Form</h1>
             </div>
             <div class="content-text h25-w100 flex-centermiddle">
                 We designed 100+ commercial & residential projects in Cebu & across the Philippines. Providing Construction & Renovation services to everyone.
