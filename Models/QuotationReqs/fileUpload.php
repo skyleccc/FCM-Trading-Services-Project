@@ -19,7 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $areaofwork = isset($_POST['areaofwork']) ? $_POST['areaofwork'] : '';
     $budget_constraints = isset($_POST['budget_constraints']) ? $_POST['budget_constraints'] : '';
     $specialrequests = isset($_POST['specialrequests']) ? $_POST['specialrequests'] : '';
-    $contact = isset($_POST['contact']) ? $_POST['contact'] : '';
+    $contact = isset($_POST['clientContact']) ? $_POST['clientContact'] : '';
+    $email = isset($_POST['email']) ? $_POST['email'] : '';
     $withBlueprint = isset($_POST['blueprint-add']) ? 1 : 0;
 
     // Validate files
@@ -46,8 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit(); // Stop further execution
     } else {
         // Proceed with database insertion and file upload if all files are valid
-        $stmt = $conn->prepare("INSERT INTO quotation_request (clientName, location, siteInformation, servicetype, startDate, completeDate, projectDetails, workArea, budgetConstraint, specialRequests, contact, withBlueprint, numberOfFiles) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssssssssssss", $requestername, $location, $siteinfo, $servicetype, $startdate, $datecomplete, $projdetails, $areaofwork, $budget_constraints, $specialrequests, $contact, $withBlueprint, $validFiles);
+        $stmt = $conn->prepare("INSERT INTO quotation_request (clientName, location, siteInformation, servicetype, startDate, completeDate, projectDetails, workArea, budgetConstraint, specialRequests, clientContact, clientEmail, withBlueprint, numberOfFiles) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssssssssssss", $requestername, $location, $siteinfo, $servicetype, $startdate, $datecomplete, $projdetails, $areaofwork, $budget_constraints, $specialrequests, $contact, $email, $withBlueprint, $validFiles);
 
         if ($stmt->execute()) {
             // Retrieve the last inserted ID

@@ -96,12 +96,12 @@ require '../Controllers/accessDatabase.php';
                 <div class="form-group_two">
                     <div class="input-group">
                     <label for="email">Email:</label>
-                    <input type="text" id="email" name="email" placeholder="Enter contact information here..." >
+                    <input type="text" id="email" name="email" placeholder="Enter email here..." >
                     </div>
                     <div class="space"></div>
                     <div class="input-group">
-                    <label for="contact">Contact Number:</label>
-                    <input type="text" id="contact" name="contact" placeholder="Enter contact information here..." >
+                    <label for="clientContact">Contact Number:</label>
+                    <input type="number" id="clientContact" name="clientContact" placeholder="Enter contact number here..." >
                     </div>
                 </div>
                 <div class="form-group_two">
