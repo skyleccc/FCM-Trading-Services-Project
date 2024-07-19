@@ -90,5 +90,6 @@ $result = $conn->query($sql);
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-HG1PqQtkbfhTXCpFjtnx3vpkTrkFQe+KvhG5MTpH2wPRpEacC4zJxyEilKF8kGmS" crossorigin="anonymous"></script>
     <script src="../../../JS/projects_script.js"></script>
+    <script src="../../../JS/contactValidate_script.js"></script>
 </body>
 </html>

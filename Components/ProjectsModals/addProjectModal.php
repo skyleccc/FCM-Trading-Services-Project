@@ -15,7 +15,7 @@ echo'
                     <div style="font-size: 20px; font-weight: bold; text-align: center; color: black">Enter a new Project<span class="close">&times;</span></div><br>
                     <div class="row g-2 calendar" id="calendarcolor" style="text-align: center;">
                         <div class="col-sm ex2" style="border: solid; border-color: green; border-radius: 8px; height: 670px; color: green;">
-                            <form class="form" action="'.$addProject.'" method="POST" enctype="multipart/form-data" id="addProjectForm">
+                            <form class="form" action="'.$addProject.'" method="POST" enctype="multipart/form-data" id="addProjectForm" onsubmit="return validateFormAddProject()">
                                 <div id="scrollform">
                                     <div class="form-group">
                                         <label for="project">Project Name:</label>
@@ -28,12 +28,12 @@ echo'
                                     <div class="form-group_two">
                                         <div class="input-group">
                                             <label for="clientEmail">Client\'s Email Address:</label>
-                                            <input type="text" id="clientEmail" name="clientEmail" placeholder="Enter Email of Client Here" required>
+                                            <input type="text" id="clientEmail" name="clientEmail" placeholder="Enter Email of Client Here" >
                                         </div>
                                         <div class="space"></div>
                                         <div class="input-group">
                                             <label for="clientContact">Client\'s Contact Number:</label>
-                                            <input type="text" id="clientContact" name="clientContact" placeholder="Enter Client Number Here" required>
+                                            <input type="text" id="clientContact" name="clientContact" placeholder="Enter Client Number Here" >
                                         </div>
                                     </div>
                                     <div class="form-group_two">
@@ -63,12 +63,12 @@ echo'
                                         <div class="space"></div>
                                         <div class="input-group">
                                             <label for="areaofwork">Work Area (sqm.):</label>
-                                            <input type="number" id="workarea" name="workarea" placeholder="Enter Name of Building" required>
+                                            <input type="number" id="workarea" name="workarea" placeholder="Enter Name of Building" >
                                         </div> 
                                     </div>
                                     <div class="form-group">
                                         <label for="budgetConstraint">Budget Constraint:</label>
-                                        <input type="number" placeholder="Enter Budget Limit Here" id="budgetConstraint" name="budgetConstraint" required>
+                                        <input type="number" placeholder="Enter Budget Limit Here" id="budgetConstraint" name="budgetConstraint" >
                                     </div>  
                                     
                                     

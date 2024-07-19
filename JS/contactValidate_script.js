@@ -17,3 +17,18 @@ function validateForm() {
     }
     return true;
 }
+
+function validateFormAddProject() {
+    var email = document.getElementById("clientEmail").value;
+    var contact = document.getElementById("clientContact").value;
+
+    if (email === "" && contact === "") {
+        alert("Please enter either an email address or a contact number.");
+        return false;
+    }
+    if (email !== "" && !validateEmail(email)) {
+        alert("Please enter a valid email address.");
+        return false;
+    }
+    return true;
+}
