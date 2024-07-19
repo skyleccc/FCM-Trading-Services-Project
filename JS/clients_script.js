@@ -63,6 +63,9 @@ $(document).ready(function () {
         event.preventDefault(); // Prevent the default form submission
 
         // Serialize form data
+        if (!validateFormEdit()) {
+            return; // Stop form submission if validation fails
+        }
         var formData = new FormData();
         formData.append('clientName', $('#editClientName').val());
         formData.append('clientContact', $('#editClientContact').val());
@@ -101,6 +104,10 @@ $(document).ready(function () {
     // Event listener for add client form submission
     $('#addClientForm').on('submit', function (e) {
         e.preventDefault();
+
+        if (!validateForm()) {
+        return; // Stop form submission if validation fails
+    }
 
         const formData = $(this).serialize();
         const formValues = $(this).serializeArray();
@@ -251,6 +258,40 @@ $(document).ready(function () {
                 console.error('Error fetching data:', error);
             });
     });
+    function validateEmail(email) {
+        var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        return emailPattern.test(email);
+    }
+    
+    
+    function validateForm() {
+        var email = document.getElementById("clientEmail").value;
+        var contact = document.getElementById("clientContact").value;
+    
+        if (email === "" && contact === "") {
+            alert("Please enter either an email address or a contact number.");
+            return false;
+        }
+        if (email !== "" && !validateEmail(email)) {
+            alert("Please enter a valid email address.");
+            return false;
+        }
+        return true;
+    }
+    function validateFormEdit() {
+        var email = document.getElementById("editClientEmail").value;
+        var contact = document.getElementById("editClientContact").value;
+    
+        if (email === "" && contact === "") {
+            alert("Please enter either an email address or a contact number.");
+            return false;
+        }
+        if (email !== "" && !validateEmail(email)) {
+            alert("Please enter a valid email address.");
+            return false;
+        }
+        return true;
+    }
 
     // Initial attachment of event listeners
     reattachEventListeners();
@@ -259,3 +300,4 @@ $(document).ready(function () {
 function goToLink(projectID){
     window.location.href = "../ProjectDetails/projectPage.php?id="+projectID;
 }
+

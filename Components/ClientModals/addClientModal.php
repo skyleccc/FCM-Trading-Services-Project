@@ -13,7 +13,7 @@
                     <!-- Modal Body -->
                     <div class="modal-body">
                         <div class="modal-container">
-                            <form id="addClientForm">
+                            <form id="addClientForm" onsubmit="return validateForm()" >
                                 <div class="form-group">
                                     <label for="clientName">Client Name:</label>
                                     <input type="text" class="form-control" name="clientName" id="clientName" placeholder="Enter Name of Client Here" required>

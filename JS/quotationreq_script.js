@@ -133,7 +133,7 @@ function validateEmail(email) {
 
 function validateForm() {
     var email = document.getElementById("email").value;
-    var contact = document.getElementById("contact").value;
+    var contact = document.getElementById("clientContact").value;
 
     if (email === "" && contact === "") {
         alert("Please enter either an email address or a contact number.");
@@ -145,3 +145,10 @@ function validateForm() {
     }
     return true;
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    var form = document.getElementById("quotationForm");
+    form.onsubmit = function() {
+        return validateForm();
+    };
+});

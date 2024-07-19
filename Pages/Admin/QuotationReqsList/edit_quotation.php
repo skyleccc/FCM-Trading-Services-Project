@@ -140,7 +140,7 @@ if (!$result) {
                 <div id="myModal" class="popup"style="display: block;">
                     <div class="quotationscontainer">
                     <div class="ex1 border bg light rounded">
-                    <form id="quotationForm" class="p-3" action="../../../Models/AdminQuotReqs/quotationedit.php?id=<?php echo $requestID; ?>" method="post" enctype="multipart/form-data">
+                    <form id="quotationForm" class="p-3" action="../../../Models/AdminQuotReqs/quotationedit.php?id=<?php echo $requestID; ?>" method="post" enctype="multipart/form-data" onsubmit="return validateForm()" >
                         <div style="font-size: 20px; font-weight: bold; text-align: center; color: black">
                         <span class="material-symbols-outlined editdone">edit</span>
                         Edit a Quotation Request
@@ -190,27 +190,27 @@ if (!$result) {
                 <div class="form-group_two">
                     <div class="input-group">
                         <label for="areaofwork">Area of Work:</label>
-                        <input type="number" id="areaofwork" name="areaofwork" value="<?php echo htmlspecialchars($workarea); ?>" required> 
+                        <input type="number" id="areaofwork" name="areaofwork" value="<?php echo htmlspecialchars($workarea); ?>" > 
                     </div>
                     <div class="space"></div>
                     <div class="input-group">
                         <label for="constraints" class="siteinfo">Budget Constraints:</label>
-                        <input type="number" id="constraints" name="budget_constraints" value="<?php echo htmlspecialchars($budgetconstraint); ?>" required>
+                        <input type="number" id="constraints" name="budget_constraints" value="<?php echo htmlspecialchars($budgetconstraint); ?>" >
                     </div>
                 </div>
                 <div class="form-group">
                         <label for="specialrequests">Special Requests:</label>
-                        <textarea type="textarea" id="specialrequests" name="specialrequests" required><?php echo htmlspecialchars($specialrequests); ?></textarea>
+                        <textarea type="textarea" id="specialrequests" name="specialrequests" ><?php echo htmlspecialchars($specialrequests); ?></textarea>
                 </div>
                 <div class="form-group_two">
                     <div class="input-group">
                     <label for="email">Email Address:</label>
-                    <input type="text" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required>
+                    <input type="text" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" >
                     </div>
                     <div class="space"></div>
                     <div class="input-group">
                     <label for="contact">Contact Number:</label>
-                    <input type="text" id="contact" name="contact" value="<?php echo htmlspecialchars($contact); ?>" required>
+                    <input type="text" id="contact" name="contact" value="<?php echo htmlspecialchars($contact); ?>" >
                     </div>
                 </div>
                 <div class="form-group_two">
@@ -264,5 +264,6 @@ if (!$result) {
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-HG1PqQtkbfhTXCpFjtnx3vpkTrkFQe+KvhG5MTpH2wPRpEacC4zJxyEilKF8kGmS" crossorigin="anonymous"></script>
     <script src="../../../JS/request_script.js"></script>
+    <script src="../../../JS/contactValidate_script.js"></script>
 </body>
 </html>

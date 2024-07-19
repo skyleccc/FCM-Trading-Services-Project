@@ -63,12 +63,12 @@ echo'
                                             <div class="space"></div>
                                             <div class="input-group">
                                                 <label for="editworkarea">Work Area:</label>
-                                                <input type="text" id="editworkarea" name="workarea" value="'.($project['workArea'] ?? '').'" required>
+                                                <input type="text" id="editworkarea" name="workarea" value="'.($project['workArea'] ?? '').'" >
                                             </div>
                                         </div> 
                                         <div class="form-group">
                                         <label for="editbudgetConstraint">Budget Constraint:</label>
-                                        <input type="number" placeholder="Enter Budget Limit Here" id="editbudgetConstraint" name="budgetConstraint" value="'.htmlspecialchars($project['budgetConstraint'] ?? '').'" required>
+                                        <input type="number" placeholder="Enter Budget Limit Here" id="editbudgetConstraint" name="budgetConstraint" value="'.htmlspecialchars($project['budgetConstraint'] ?? '').'" >
                                     </div>          
                                         <div class="form-group">
                                             <label for="editprojectDetails">Project Description:</label>
