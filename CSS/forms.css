@@ -73,7 +73,7 @@ body {
 }
 
 
-input[type="text"],input[type="password"],input[type="date"],input[type="number"]{
+input[type="text"],input[type="password"],input[type="date"],input[type="number"],[type="email"]{
     width: 50%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -81,7 +81,7 @@ input[type="text"],input[type="password"],input[type="date"],input[type="number"
     box-sizing: border-box;
 }
 
-.quotationscontainer input[type="text"],input[type="date"],input[type="number"]{
+.quotationscontainer input[type="text"],input[type="date"],input[type="number"],[type="email"]{
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
