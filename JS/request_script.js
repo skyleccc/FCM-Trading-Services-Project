@@ -28,14 +28,43 @@ document.addEventListener("DOMContentLoaded", function () {
     $('.approve-btn').click(function() {
         var id = $(this).data('id');
         console.log('Approve button clicked for ID:', id); // Debugging line
-    
         if (confirm('Are you sure you want to approve this quotation?')) {
-            fetch('../../../Models/AdminQuotReqs/findClient.php', {
+            let projectName, clientName, buildingID, clientContact, clientEmail, location, siteInformation, projectType, startDate, completeDate, projectDetails, workArea, budgetConstraint, specialRequests, newClientID, projectID;
+
+            fetch('../../../Models/AdminQuotReqs/getRequestData.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 body: 'requestid=' + id,
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.success === false){
+                    alert(data.message);
+                    return;
+                }
+                console.log('Response from request: ', data);
+                clientName = data.clientName;
+                clientContact = data.clientContact;
+                clientEmail = data.clientEmail;
+                location = data.location;
+                siteInformation = data.siteInformation;
+                projectType = data.projectType;
+                startDate = data.startDate;
+                completeDate = data.completeDate;
+                projectDetails = data.projectDetails;
+                workArea = data.workArea;
+                budgetConstraint = data.budgetConstraint;
+                specialRequests = data.specialRequests;
+
+                return fetch('../../../Models/AdminQuotReqs/findClient.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'clientname=' + encodeURIComponent(clientName),
+                });
             })
             .then(response => response.json())
             .then(data => {
@@ -45,7 +74,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     alert(data.message);
                     return;
                 }
-    
+                
+                // Create New Client
                 if (data.client_id === null) {
                     if (confirm('Client does not exist. Do you want to create a new client?')) {
                         fetch('../../../Models/AdminQuotReqs/createNewClient.php', {
@@ -55,8 +85,93 @@ document.addEventListener("DOMContentLoaded", function () {
                             },
                             body: 'requestid=' + id,
                         })
-                        alert('Project approved and added to the project list!');
-                        window.location.href = 'quotationreqs.php';
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('Response from create:', data);
+
+                            if(data.success === false){
+                                alert(data.message);
+                                return;
+                            }
+
+                            // Enter Create New Building
+                            if(data.client_id != null){
+                                newClientID = data.client_id;
+                                return fetch('../../../Models/AdminQuotReqs/createNewBuilding.php',{
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/x-www-form-urlencoded',
+                                    },
+                                    body: 'buildingaddress=' + location,
+                                });
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success === false) {
+                                alert(data.message);
+                                cancelClientCreation(newClientID);
+                                return;
+                            }
+                            buildingID = data.buildingID;
+
+                            // Create Project Name
+                            projectName = prompt("Please enter the project name:");
+                            if (projectName == null || projectName == "") {
+                                alert("Process is cancelled. No action taken.");
+                                cancelBuildingCreation(buildingID);
+                                cancelClientCreation(newClientID);
+                                return;
+                            } else {
+                                // Set Project Scope
+                                projectScope = prompt("Please enter the scope of the project:");
+                                if (projectScope == null || projectScope == "") {
+                                    alert("Process is cancelled. No action taken.");
+                                    cancelBuildingCreation(buildingID);
+                                    cancelClientCreation(newClientID);
+                                    return;
+                                }else{
+                                    // Create Project
+                                    let POST_VAL = appendPostValues(projectName, newClientID, buildingID, siteInformation, projectType, startDate, completeDate, projectDetails, workArea, budgetConstraint, specialRequests, projectScope);
+
+                                    fetch('../../../Models/AdminQuotReqs/add_to_project.php', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/x-www-form-urlencoded',
+                                        },
+                                        body: POST_VAL.toString(),
+                                    })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        if (data.success === false) {
+                                            alert(data.message);
+                                            throw new Error(data.message); // Stop further execution
+                                        }
+                                        projectID = data.projectid;
+
+                                        // Only after projectID is assigned, call copyFilesToProjects
+                                        return copyFilesToProjects(id, projectID);
+                                    })
+                                    .then(() => {
+                                        return fetch('../../../Models/AdminQuotReqs/quotationapprove.php', {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/x-www-form-urlencoded',
+                                            },
+                                            body: 'requestid=' + id,
+                                        });
+                                    })
+                                    .then(() => {
+                                        alert('Project approved and added to the project list!');
+                                        window.location.href = 'quotationreqs.php';
+                                    })
+                                    .catch(error => {
+                                        console.error('Error:', error);
+                                        alert('Failed to approve the request.');
+                                    });
+                                }
+                            }
+                        })
                     } else {
                         alert('No action taken.');
                     }
@@ -67,7 +182,291 @@ document.addEventListener("DOMContentLoaded", function () {
                     'Client Number: ' + (data.client_contact || 'No Contact Number') + '\n' +
                     'Client Email: ' + (data.client_email || 'No Client Email');
                     if (confirm(msg)) {
-                        // write code where it shows a modal with the details from client_id the accesses add_project.php with $_GET value of client_id
+                        clientID = data.client_id;
+                        if(data.client_contact != clientContact || data.client_email != clientEmail){
+                            var updateContact = 'Client has updated his/her contacts. Switch to new?\n\n';
+                            if(data.client_contact != clientContact){
+                                updateContact += 'Old Contact Number: ' + (data.client_contact || 'No Contact Number') + '\n' +
+                                'New Contact Number: ' + (clientContact || 'No Contact Number') + '\n';
+                            }
+                            if(data.client_email != clientEmail){
+                                updateContact += 'Old Email: ' + (data.client_email || 'No Client Email') + '\n' +
+                                'New Email: ' + (clientEmail || 'No Client Email') + '\n';
+                            }
+                            if(confirm(updateContact)){
+                                // Update Client Contact
+                               updateClientContact(clientID, clientContact, clientEmail);
+                               fetch('../../../Models/AdminQuotReqs/findBuilding.php',{
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/x-www-form-urlencoded',
+                                },
+                                body: "buildingaddress="+location,
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if(data.success === true){
+                                    if(data.building_id == null){
+                                        // BuildingID not found, therefore create
+                                        fetch('../../../Models/AdminQuotReqs/createNewBuilding.php',{
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/x-www-form-urlencoded',
+                                            },
+                                            body: 'buildingaddress=' + location,
+                                        })
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            buildingID = data.buildingID;
+                                        })
+                                    }else{
+                                        // BuildingID found
+                                        buildingID = data.building_id;
+                                        
+                                        // Create Project Name
+                                        projectName = prompt("Please enter the project name:");
+                                        if (projectName == null || projectName == "") {
+                                            alert("Process is cancelled. No action taken.");
+                                            cancelBuildingCreation(buildingID);
+                                            cancelClientCreation(newClientID);
+                                            return;
+                                        }else {
+                                            // Set Project Scope
+                                            projectScope = prompt("Please enter the scope of the project:");
+                                            if (projectScope == null || projectScope == "") {
+                                                alert("Process is cancelled. No action taken.");
+                                                cancelBuildingCreation(buildingID);
+                                                cancelClientCreation(newClientID);
+                                                return;
+                                            }else{
+                                                // Create Project
+                                                let POST_VAL = appendPostValues(projectName, clientID, buildingID, siteInformation, projectType, startDate, completeDate, projectDetails, workArea, budgetConstraint, specialRequests, projectScope);
+            
+                                                fetch('../../../Models/AdminQuotReqs/add_to_project.php', {
+                                                    method: 'POST',
+                                                    headers: {
+                                                        'Content-Type': 'application/x-www-form-urlencoded',
+                                                    },
+                                                    body: POST_VAL.toString(),
+                                                })
+                                                .then(response => response.json())
+                                                .then(data => {
+                                                    if (data.success === false) {
+                                                        alert(data.message);
+                                                        throw new Error(data.message); // Stop further execution
+                                                    }
+                                                    projectID = data.projectid;
+            
+                                                    // Only after projectID is assigned, call copyFilesToProjects
+                                                    return copyFilesToProjects(id, projectID);
+                                                })
+                                                .then(() => {
+                                                    return fetch('../../../Models/AdminQuotReqs/quotationapprove.php', {
+                                                        method: 'POST',
+                                                        headers: {
+                                                            'Content-Type': 'application/x-www-form-urlencoded',
+                                                        },
+                                                        body: 'requestid=' + id,
+                                                    });
+                                                })
+                                                .then(() => {
+                                                    alert('Project approved and added to the project list!');
+                                                    window.location.href = 'quotationreqs.php';
+                                                })
+                                                .catch(error => {
+                                                    console.error('Error:', error);
+                                                    alert('Failed to approve the request.');
+                                                });
+                                            }
+                                        }
+                                    }
+                                }else{
+                                    alert("Error was noticed. Process is canceled.");
+                                }
+                            })
+                                
+                            }else{
+                                fetch('../../../Models/AdminQuotReqs/findBuilding.php',{
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/x-www-form-urlencoded',
+                                    },
+                                    body: "buildingaddress="+location,
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if(data.success === true){
+                                        if(data.building_id == null){
+                                            // BuildingID not found, therefore create
+                                            fetch('../../../Models/AdminQuotReqs/createNewBuilding.php',{
+                                                method: 'POST',
+                                                headers: {
+                                                    'Content-Type': 'application/x-www-form-urlencoded',
+                                                },
+                                                body: 'buildingaddress=' + location,
+                                            })
+                                            .then(response => response.json())
+                                            .then(data => {
+                                                buildingID = data.buildingID;
+                                            })
+                                        }else{
+                                            // BuildingID found
+                                            buildingID = data.building_id;
+                                            
+                                            // Create Project Name
+                                            projectName = prompt("Please enter the project name:");
+                                            if (projectName == null || projectName == "") {
+                                                alert("Process is cancelled. No action taken.");
+                                                cancelBuildingCreation(buildingID);
+                                                cancelClientCreation(newClientID);
+                                                return;
+                                            }else {
+                                                // Set Project Scope
+                                                projectScope = prompt("Please enter the scope of the project:");
+                                                if (projectScope == null || projectScope == "") {
+                                                    alert("Process is cancelled. No action taken.");
+                                                    cancelBuildingCreation(buildingID);
+                                                    cancelClientCreation(newClientID);
+                                                    return;
+                                                }else{
+                                                    // Create Project
+                                                    let POST_VAL = appendPostValues(projectName, clientID, buildingID, siteInformation, projectType, startDate, completeDate, projectDetails, workArea, budgetConstraint, specialRequests, projectScope);
+                
+                                                    fetch('../../../Models/AdminQuotReqs/add_to_project.php', {
+                                                        method: 'POST',
+                                                        headers: {
+                                                            'Content-Type': 'application/x-www-form-urlencoded',
+                                                        },
+                                                        body: POST_VAL.toString(),
+                                                    })
+                                                    .then(response => response.json())
+                                                    .then(data => {
+                                                        if (data.success === false) {
+                                                            alert(data.message);
+                                                            throw new Error(data.message); // Stop further execution
+                                                        }
+                                                        projectID = data.projectid;
+                
+                                                        // Only after projectID is assigned, call copyFilesToProjects
+                                                        return copyFilesToProjects(id, projectID);
+                                                    })
+                                                    .then(() => {
+                                                        return fetch('../../../Models/AdminQuotReqs/quotationapprove.php', {
+                                                            method: 'POST',
+                                                            headers: {
+                                                                'Content-Type': 'application/x-www-form-urlencoded',
+                                                            },
+                                                            body: 'requestid=' + id,
+                                                        });
+                                                    })
+                                                    .then(() => {
+                                                        alert('Project approved and added to the project list!');
+                                                        window.location.href = 'quotationreqs.php';
+                                                    })
+                                                    .catch(error => {
+                                                        console.error('Error:', error);
+                                                        alert('Failed to approve the request.');
+                                                    });
+                                                }
+                                            }
+                                        }
+                                    }else{
+                                        alert("Error was noticed. Process is canceled.");
+                                    }
+                                })
+                            }
+                        }else{
+                            fetch('../../../Models/AdminQuotReqs/findBuilding.php',{
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/x-www-form-urlencoded',
+                                },
+                                body: "buildingaddress="+location,
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if(data.success === true){
+                                    if(data.building_id == null){
+                                        // BuildingID not found, therefore create
+                                        fetch('../../../Models/AdminQuotReqs/createNewBuilding.php',{
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/x-www-form-urlencoded',
+                                            },
+                                            body: 'buildingaddress=' + location,
+                                        })
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            buildingID = data.buildingID;
+                                        })
+                                    }else{
+                                        // BuildingID found
+                                        buildingID = data.building_id;
+                                        
+                                        // Create Project Name
+                                        projectName = prompt("Please enter the project name:");
+                                        if (projectName == null || projectName == "") {
+                                            alert("Process is cancelled. No action taken.");
+                                            cancelBuildingCreation(buildingID);
+                                            cancelClientCreation(newClientID);
+                                            return;
+                                        }else {
+                                            // Set Project Scope
+                                            projectScope = prompt("Please enter the scope of the project:");
+                                            if (projectScope == null || projectScope == "") {
+                                                alert("Process is cancelled. No action taken.");
+                                                cancelBuildingCreation(buildingID);
+                                                cancelClientCreation(newClientID);
+                                                return;
+                                            }else{
+                                                // Create Project
+                                                let POST_VAL = appendPostValues(projectName, newClientID, buildingID, siteInformation, projectType, startDate, completeDate, projectDetails, workArea, budgetConstraint, specialRequests, projectScope);
+            
+                                                fetch('../../../Models/AdminQuotReqs/add_to_project.php', {
+                                                    method: 'POST',
+                                                    headers: {
+                                                        'Content-Type': 'application/x-www-form-urlencoded',
+                                                    },
+                                                    body: POST_VAL.toString(),
+                                                })
+                                                .then(response => response.json())
+                                                .then(data => {
+                                                    if (data.success === false) {
+                                                        alert(data.message);
+                                                        throw new Error(data.message); // Stop further execution
+                                                    }
+                                                    projectID = data.projectid;
+            
+                                                    // Only after projectID is assigned, call copyFilesToProjects
+                                                    return copyFilesToProjects(id, projectID);
+                                                })
+                                                .then(() => {
+                                                    return fetch('../../../Models/AdminQuotReqs/quotationapprove.php', {
+                                                        method: 'POST',
+                                                        headers: {
+                                                            'Content-Type': 'application/x-www-form-urlencoded',
+                                                        },
+                                                        body: 'requestid=' + id,
+                                                    });
+                                                })
+                                                .then(() => {
+                                                    alert('Project approved and added to the project list!');
+                                                    window.location.href = 'quotationreqs.php';
+                                                })
+                                                .catch(error => {
+                                                    console.error('Error:', error);
+                                                    alert('Failed to approve the request.');
+                                                });
+                                            }
+                                        }
+                                    }
+                                }else{
+                                    alert("Error was noticed. Process is canceled.");
+                                }
+                            })
+                        }
+                    }else{
+                        // change name of client
                     }
                 }
             })
@@ -107,6 +506,96 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     
 });
+
+function clientNameValidator(){
+    
+}
+
+function copyFilesToProjects(requestID, projectID) {
+    fetch('../../../Models/AdminQuotReqs/copy_bp_files.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+            'requestid': requestID,
+            'projectid': projectID,
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Response:', data);
+        if (Array.isArray(data)) {
+            data.forEach(item => {
+                if (item.success) {
+                    console.log(item.message);
+                } else {
+                    console.error(item.message);
+                }
+            });
+        } else {
+            console.error('Unexpected response format:', data);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+
+function updateClientContact(clientID, clientContact, clientEmail){
+    var contUpdate = new URLSearchParams;
+    contUpdate.append('clientid', clientID);
+    contUpdate.append('clientcontact', clientContact);
+    contUpdate.append('clientemail', clientEmail);
+    fetch('../../../Models/AdminQuotReqs/update_client_details.php',{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: contUpdate.toString(),
+    })
+}
+
+function appendPostValues(projectName, clientID, buildingID, siteInformation, projectType, startDate, completeDate, projectDetails, workArea, budgetConstraint, specialRequests, projectScope){
+    const params = new URLSearchParams();
+    params.append('projectname', projectName);
+    params.append('clientid', clientID);
+    params.append('buildingid', buildingID);
+    params.append('siteinformation', siteInformation);
+    params.append('projecttype', projectType);
+    params.append('startdate', startDate);
+    params.append('deadlinedate', completeDate);
+    params.append('projectdetails', projectDetails);
+    params.append('workarea', workArea);
+    params.append('budgetconstraint', budgetConstraint);
+    params.append('specialrequests', specialRequests);
+    params.append('projectscope', projectScope);
+
+    return params;
+}
+
+function cancelBuildingCreation(buildingID){
+    fetch('../../../Models/AdminQuotReqs/deleteBuilding.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'buildingid=' + buildingID,
+    })
+}
+
+function cancelClientCreation(clientID){
+    fetch('../../../Models/AdminClients/delete_client.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'clientID=' + clientID,
+    })
+}
+
+
 // function updateUsingExistingClientDetails(requestId) {
 //     fetch('../../../Models/AdminQuotReqs/updateUsingExistingClientDetails.php', {
 //         method: 'POST',
@@ -276,8 +765,3 @@ function displayFileList() {
 window.addEventListener('unload', () => {
     fileUrls.forEach(url => URL.revokeObjectURL(url));
 });
-
-
-window.onload = function() {
-    document.getElementById('specialrequests').focus();
-};
