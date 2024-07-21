@@ -107,7 +107,7 @@ $result = $conn->query($sql);
                         </div><br>
                         <div class="row">
                             <div class="col p-3 border bg light" style="font-weight: bold;">
-                                <div style="text-align: center; font-size: 30px;">Quotation Requests</div>
+                                <div style="text-align: center; font-size: 30px;">Project Requests</div>
                                 <div style="text-align: center; color: grey; font-weight: lighter;">Check and validate within 7 Days</div>
                                 <div class="col"></div>
                                 <div class="ex3">
