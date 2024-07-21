@@ -166,6 +166,8 @@ function handleFiles($projectID){
                 return null;
             }
         }
+
+        return 1;
     }else{
         return 1;
     }
