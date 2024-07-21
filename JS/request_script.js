@@ -466,7 +466,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             })
                         }
                     }else{
-                        // change name of client
+                        alert("Change the client name of the project request to approve the quotation.");
                     }
                 }
             })

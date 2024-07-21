@@ -66,7 +66,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $newBuildingID = $createBuildingQuery->insert_id;
                 if(insertAllData($newClientID, $newBuildingID, $projectname, $projecttype, $projectDetails, $startdate, $deadlineDate, $budgetConstraint, $workarea, $specialRequests, $projectScope, $conn)){
                     echo '<script>console.log("Inserted Project. New Client New Building")</script>';
-                    header("Location: /Pages/Admin/ProjectDetails/projectpage.php");
+                    // header("Location: /Pages/Admin/ProjectDetails/projectpage.php");
                 }else{
                     echo '<script>console.log("Failed to insert. (New Client, New Building").")</script>';
                 }
