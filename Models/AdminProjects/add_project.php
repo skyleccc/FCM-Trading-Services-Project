@@ -66,6 +66,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $newBuildingID = $createBuildingQuery->insert_id;
                 if(insertAllData($newClientID, $newBuildingID, $projectname, $projecttype, $projectDetails, $startdate, $deadlineDate, $budgetConstraint, $workarea, $specialRequests, $projectScope, $conn)){
                     echo '<script>console.log("Inserted Project. New Client New Building")</script>';
+                    header("Location: /Pages/Admin/ProjectDetails/projectpage.php");
                 }else{
                     echo '<script>console.log("Failed to insert. (New Client, New Building").")</script>';
                 }
@@ -127,13 +128,13 @@ function insertAllData($clientID, $buildingID, $projectname, $projecttype, $proj
     if($INSERT_QUERY->execute()){
         $newProjectID = $INSERT_QUERY->insert_id;
         if(handleFiles($newProjectID)){
-            return 1;
+            header("Location: /Pages/Admin/ProjectDetails/projectpage.php?id=".$newProjectID);
         }else{
             echo '<script>console.log("Failed to Handle Files.")</script>';
             return null;
         }
     }else{
-        return null;
+        return 1;
     }
 }
 
@@ -162,11 +163,11 @@ function handleFiles($projectID){
                 }
             } else {
                 echo "Error uploading file: " . $_FILES['blueprint']['name'][$key] . " - Error code: $error<br>";
+                return null;
             }
         }
-        return 1;
     }else{
-        return null;
+        return 1;
     }
 }
 ?>

@@ -47,7 +47,7 @@ $result = $conn->query($sql);
                                     <div class="col-sm-5">
                                         <button class="button-style col" id="myBtn" style="width: 55px !important; height: 50px; font-weight: lighter; padding:0 !important;"><span class="material-symbols-outlined" style="font-size: 30px; color: rgb(19, 171, 19); display:flex; justify-content:center;">note_add</span></button></div>
                                     </div>
-                                    <div class="col-sm-7" style="display: flex">
+                                    <div class="col-sm-7" style="display: flex; ">
                                         <div class="col-sm-4 dropdown" >
                                             <button class="dropbtn" style="margin-left: auto !important;">
                                                 <div class="row" style="background-color: rgb(19, 171, 19); color: white; width: 13vw; font-weight: lighter;">

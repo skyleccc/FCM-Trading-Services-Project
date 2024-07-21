@@ -43,6 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
     $updateProjQuery->bind_param("sssssisissi", $projectname, $projecttype, $projectDetails, $startdate, $deadlineDate, $budgetConstraint, $workarea, $isComplete, $completiondate, $projectScope, $projectId);
     if($updateProjQuery->execute()){
         echo '<script>console.log("Update Success.")</script>';
+        header("Location: /Pages/Admin/ProjectDetails/projectpage.php?id=".$projectId);
     }else{
         echo '<script>console.log("Failed to update.")</script>';
     }

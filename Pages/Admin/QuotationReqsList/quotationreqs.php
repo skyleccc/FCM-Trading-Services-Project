@@ -23,6 +23,7 @@ if (!$result) {
     <link rel="icon" href="../../../WebsitePictures/fcmicon.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" /> 
+
 </head>
 <body>
     <div class="container-fluid">
@@ -42,7 +43,25 @@ if (!$result) {
                         <div class="col p-2 addbtn">
                             <div class="row p-3 border bg light rounded" style="font-size: 20px; font-weight: bold;">
                                 <div class="col" style="margin: 10px; font-size: 2vw;">Project Requests List</div>
-                                <div class="col-4" style="margin: 10px;">
+                                <div class="col-7" style="margin: 10px;">
+                                    <!-- <div class="col" style="display: flex">
+                                            <div class="col-sm-4 dropdown" >
+                                                <button class="dropbtn" style="margin-left: auto !important;">
+                                                    <div class="row" style="background-color: rgb(19, 171, 19); color: white; width: 13vw; font-weight: lighter;">
+                                                        <div class="col-sm-2 p0"><span class="material-symbols-outlined">arrow_drop_down</span></div>
+                                                        <div id="show-descrip" class="col-sm-10" style="font-size: 1.2vw; "> Show: <b>All</b></div>
+                                                    </div>
+                                                </button>
+                                                <div id="sort-list" class="dropdown-content">
+                                                    <a href="#" class="show-by" data-sort="all">All</a>
+                                                    <a href="#" class="show-by" data-sort="pending">Pending</a>
+                                                    <a href="#" class="show-by" data-sort="accepted">Accepted</a>
+                                                    <a href="#" class="show-by" data-sort="declined">Declined</a>
+                                                </div>
+                                            </div>
+                                            <input type="text" name="search" id="search" placeholder="Search" class="col"> 
+                                        </div> -->
+
                                    <!-- <button class="button-style" id="myBtn" style="background-color: rgb(19, 171, 19);width: 280px; height: 50px;    font-weight: lighter; margin-left:32%;"><div class="col" style="background-color: rgb(19, 171, 19); font-size: 1.2vw; color: white;">
                                     <span class="material-symbols-outlined" style="font-size: 30px; color: white;">note_add</span> Add A Quotation Request
                                     </div></button>  -->
