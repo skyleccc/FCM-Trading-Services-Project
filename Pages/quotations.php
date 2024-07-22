@@ -130,7 +130,7 @@ require '../Controllers/accessDatabase.php';
                         </ul>
                     </div>
                 </div>
-                <button type="submit" name="submit" class="disabled-button" disabled>Request for Quotation</button>
+                <button type="submit" name="submit" class="disabled-button" disabled>Request for Project</button>
                 
             </form>
         </div>
